@@ -66,7 +66,9 @@ module Slices
       # @return [Page]
       #
       def find_by_path(path)
-        first(conditions: { path: path }) || (raise Page::NotFound.new(path))
+        find_by(path: path)
+      rescue Mongoid::Errors::DocumentNotFound
+        raise Page::NotFound.new(path)
       end
       alias :f :find_by_path
 
