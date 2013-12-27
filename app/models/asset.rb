@@ -37,14 +37,9 @@ class Asset
 
   has_and_belongs_to_many :pages
 
-  index(
-    [
-      [ :destroyed_at, Mongo::ASCENDING ],
-      [ :created_at, Mongo::DESCENDING ]
-    ]
-  )
-  index :file_fingerprint
-  index :_keywords
+  index({ destroyed_at: 1, created_at: -1 })
+  index({ file_fingerprint: 1 })
+  index({ _keywords: 1 }, { background: true })
 
   def self.make(*args)
     Slices::Asset::Maker.run(*args)

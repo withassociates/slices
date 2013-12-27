@@ -11,11 +11,8 @@ class Article < Page
   field :categories, type: Array
   field :published_at, type: Time
 
-  index [
-    [:published_at, Mongo::DESCENDING],
-    [:active, Mongo::ASCENDING]
-  ]
-  index :categories
+  index({ published_at: 1, active: 1 })
+  index({ categories: 1 })
 
   scope :published, -> {
     where(:published_at.lte => Time.now, active: true).

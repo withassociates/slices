@@ -19,9 +19,6 @@ class Page
   field :has_content, type: Boolean, default: false
 
   belongs_to :author, class_name: 'Admin'
-
-  index :_keywords, background: true
-
   has_slices :slices
   has_and_belongs_to_many :assets
 

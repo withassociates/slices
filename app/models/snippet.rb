@@ -3,7 +3,7 @@ class Snippet
 
   field :key
   field :value
-  index :key
+  index({ key: 1 })
 
   scope :by_key, ascending(:key)
 
