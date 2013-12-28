@@ -28,8 +28,8 @@ describe 'Slices::Asset::Maker' do
       new_asset = double(:new_asset).as_null_object
       maker.stub(new_asset: new_asset)
       matching_asset = double(:matching_asset).as_null_object
-      expect(Asset).to receive(:first).and_return(matching_asset)
 
+      expect(Asset).to receive(:where).and_return(stub(first:matching_asset))
       expect(maker.find_matching_asset(new_asset)).to eq matching_asset
     end
   end
@@ -59,7 +59,7 @@ describe 'Slices::Asset::Maker' do
 
     context "when a matching asset does not exist" do
       it "creates a new asset" do
-        expect(Asset).to receive(:first).and_return(nil)
+        expect(maker).to receive(:find_matching_asset).and_return(nil)
         expect(maker.run).to eq new_asset
       end
     end
@@ -72,7 +72,7 @@ describe 'Slices::Asset::Maker' do
       end
 
       before do
-        expect(Asset).to receive(:first).and_return(matching_asset)
+        expect(maker).to receive(:find_matching_asset).and_return(matching_asset)
       end
 
       it "creates a new asset" do

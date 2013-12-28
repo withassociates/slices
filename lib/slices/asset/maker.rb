@@ -17,9 +17,9 @@ module Slices
       end
 
       def find_matching_asset(new_asset)
-        ::Asset.first(conditions: {
+        ::Asset.where({
           file_fingerprint: new_asset.file_fingerprint, :_id.ne => new_asset.id
-        })
+        }).first
       end
 
       def tempfile_stored_on_s3?
