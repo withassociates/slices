@@ -85,7 +85,7 @@ class Page
   end
 
   def self.find_virtual(role)
-    first(conditions: { role: role })
+    find_by(role: role)
   end
 
   def cacheable_virtual_page?
