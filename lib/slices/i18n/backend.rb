@@ -19,6 +19,7 @@ module Slices
 
         def lookup(locale, key, scope = [], options = {})
           key = normalize_flat_keys(locale, key, scope, options[:separator])
+
           Snippet.find_value_by_key("#{locale}.#{key}")
         end
 

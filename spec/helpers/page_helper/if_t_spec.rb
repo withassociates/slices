@@ -13,6 +13,5 @@ describe PagesHelper, type: :helper do
       expect(if_t('foo')).to eq 'bar'
     end
   end
-
 end
 
