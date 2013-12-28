@@ -8,7 +8,7 @@ class Snippet
   scope :by_key, ascending(:key)
 
   def self.find_value_by_key(key)
-    find(:first, conditions: { key: key }).try(:value)
+    where(key: key).first.try(:value)
   end
 
   def as_json(*args)
