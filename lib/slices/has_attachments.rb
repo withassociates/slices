@@ -48,7 +48,7 @@ module Slices
       def attachment_assets
         attachment_asset_ids.inject([]) do |memo, asset_id|
           begin
-            memo << ::Asset.find(asset_id)
+            memo << ::Asset.find(asset_id.to_s)
           rescue Mongoid::Errors::DocumentNotFound
           end
           memo
