@@ -29,7 +29,7 @@ module Slices
 
         klass.fields.each do |name, field|
           next if Slice.fields[name]
-          fields[name] = field.default
+          fields[name] = field.default_val
         end
 
         slices << [basename, fields]
