@@ -90,14 +90,14 @@ describe "PUT to pages#update" do
 
   def page_data(slices_data)
     {
-      'name'        => 'Updated parent',
-      'permalink'   => 'parent',
-      'active'      => 1,
-      'show_in_nav' => 0,
-      'layout'      => 'layout_three',
-      'meta_description' => 'This is an important page',
-      'title'       => 'Title',
-      'slices'      => slices_data
+      'name'              => 'Updated parent',
+      'permalink'         => 'parent',
+      'active'            => 1,
+      'show_in_nav'       => 0,
+      'layout'            => 'layout_three',
+      'meta_description'  => 'This is an important page',
+      'title'             => 'Title',
+      'slices'            => slices_data
     }
   end
 
