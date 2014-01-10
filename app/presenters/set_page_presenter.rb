@@ -1,0 +1,2 @@
+class SetPagePresenter < PagePresenter
+end

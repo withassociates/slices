@@ -1,0 +1,19 @@
+<li>
+  <label for="slices-{{id}}-lunch">
+    Where are we going for lunch today?
+    <select id="slices-{{id}}-lunch" data-value="{{lunch}}" data-plugin="lunchPicker">
+      <option value="arthurs">Arthur’s</option>
+      <option value="de-beauviour-deli">De Beauvoir Deli</option>
+      <option value="polish-deli">Polish Deli</option>
+      <option value="peppers-and-spice">Peppers and Spice</option>
+      <option value="powerlunches">Powerlunches</option>
+      <option value="uludag">Uludag</option>
+    </select>
+    <span class="lunch-comment" />
+  </label>
+</li>
+
+{{#slicePreview}}
+  return 'We’re going to ' + this.find('option:selected').text() + ' for lunch';
+{{/slicePreview}}
+

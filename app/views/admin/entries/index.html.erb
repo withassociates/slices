@@ -1,0 +1,32 @@
+<div id="container-actions" class="toolbar">
+  <input type="search" id="entries-search" placeholder="Search all entries…">
+
+  <div class="actions">
+    <ul>
+      <li><%= link_to_add_entry @page %></li>
+    </ul>
+  </div>
+  <ul id="pagination">
+  </ul>
+</div>
+<div id="main">
+  <section>
+    <table class="elements-table" id='entries-list'>
+      <thead>
+        <tr>
+          <% @columns.each do |heading, heading_name| %>
+            <th class='<%= heading %>'><%= heading_name %></th>
+          <% end %>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </section>
+</div>
+<% content_for :js_head do %>
+$(function() {
+  EntriesBackbone.boot('<%= @page.id %>', <%= raw @options.to_json %>);
+});
+<% end %>

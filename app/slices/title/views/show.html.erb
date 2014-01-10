@@ -1,0 +1,6 @@
+<h1><%= slice.title %></h1>
+<% if @page.respond_to?(:published_at) -%>
+  <div class="published_at">
+    <%= @page.published_at.to_s(:day_month_year) %>
+  </div>
+<% end -%>

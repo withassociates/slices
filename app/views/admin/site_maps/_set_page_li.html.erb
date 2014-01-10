@@ -1,0 +1,23 @@
+<li class="set-page" rel="<%= page.id %>">
+  <div>
+    <h2><%= link_to page.name, admin_page_entries_path(page) %></h2>
+
+    <span class="item-actions primary">
+      <%= link_to_add_entry page %>
+      <%= link_to_all_entries page %>
+      <%= link_to_view_page page %>
+    </span>
+
+    <span class="item-actions secondary">
+      <%= link_to_edit_index_template page %>
+      <%= link_to_edit_entry_template page %>
+    </span>
+
+  </div>
+
+  <% if page.page_children.any? %>
+    <ol>
+      <%= list_pages page.page_children %>
+    </ol>
+  <% end %>
+</li>

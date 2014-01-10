@@ -1,0 +1,8 @@
+Description:
+    This generator creates a boilerplate humans.txt file
+
+Example:
+    rails generate humans
+
+    This will create:
+        public/humans.txt

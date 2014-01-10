@@ -1,0 +1,32 @@
+<div class="navigation">
+  <ul id="breadcrumbs">
+    <li>
+      <%= link_to 'Sitemap', admin_site_maps_path %>
+    </li>
+
+    <% @page.breadcrumbs.reverse_each do |page| %>
+      <li class="<%= 'current' if page == @page.source %>">
+        <% if page.set_page? %>
+          <%= link_to page.name, admin_page_entries_path(page) %>
+        <% else %>
+          <%= link_to page.name, admin_page_path(page) %>
+        <% end %>
+      </li>
+    <% end %>
+
+    <li>
+      <select id="children">
+        <option selected disabled>Children of this page…</option>
+        <% @page.children.each do |page| %>
+          <% if page.set_page? %>
+            <option value="<%= admin_page_entries_path page %>"><%= page.name %></option>
+          <% else %>
+            <option value="<%= admin_page_path page %>"><%= page.name %></option>
+          <% end %>
+        <% end %>
+        <option disabled role="separator">---</option>
+        <option value="<%= new_admin_page_path parent_id: @page.bson_id %>">Add Child…</option>
+      </select>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,5 @@
+slices_paths = {
+  <% %w(thinking happy sad).each do |name| %>
+      '<%= name %>': '<%= asset_path("slices/icon_upload_#{name}.png") %>',
+  <% end %>
+}

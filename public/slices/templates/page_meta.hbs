@@ -1,0 +1,43 @@
+<li>
+  <label for="meta-permalink">Permalink</label>
+  <input type="text" value="{{permalink}}" id="meta-permalink">
+</li>
+
+<li>
+  <label for="meta-external_url">External URL</label>
+  <input type="text" value="{{external_url}}" id="meta-external_url">
+</li>
+
+<li>
+  <label for="meta-title">HTML Title</label>
+  <input type="text" id="meta-title" value="{{title}}">
+</li>
+
+<li>
+  <label for="meta-meta_description">Meta Description</label>
+  <textarea id="meta-meta_description" rows="5">{{meta_description}}</textarea>
+</li>
+
+<li>
+  <label for="meta-layout">Layout</label>
+  <select id="meta-layout" data-value="{{layout}}">
+    {{#each available_layouts}}
+      <option value="{{machine_name}}">{{human_name}}</option>
+    {{/each}}
+  </select>
+</li>
+
+<li>
+  <label>Page state</label>
+  <ul class="field-items">
+    <li>
+      <input type="checkbox" id="meta-active" data-value="{{active}}">
+      <label for="meta-active">Active</label>
+    </li>
+    <li>
+      <input type="checkbox" id="meta-show_in_nav" data-value="{{show_in_nav}}">
+      <label for="meta-show_in_nav">Shown in nav</label>
+    </li>
+  </ul>
+</li>
+

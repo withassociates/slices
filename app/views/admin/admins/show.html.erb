@@ -1,0 +1,27 @@
+<%= form_for [:admin, @admin],
+  html: {multipart: true},
+  builder: Slices::CmsFormBuilder do |form| %>
+  <div id="container-actions" class="toolbar">
+
+    <div class="actions">
+      <ul>
+        <li><input type="submit" value="Save" class="add"/></li>
+        <% if ! @admin.new_record? %>
+          <li><%= link_to 'Delete' , admin_admin_path(@admin), method: :delete, class: 'delete' %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <div id="main" class="with-padding">
+    <section class="admins-editor">
+      <ul>
+        <%= form.cms_text_field :name %>
+        <%= form.cms_text_field :email %>
+        <%= form.cms_password_field :password %>
+        <%= form.cms_password_field :password_confirmation %>
+      </ul>
+    </section>
+  </div>
+<% end %>
+

@@ -1,0 +1,4 @@
+module BrowserHelpers
+
+end
+

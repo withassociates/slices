@@ -1,0 +1,14 @@
+<%= form_for [:admin, @page],
+  builder: Slices::CmsFormBuilder do |form| %>
+  <ul class="fields">
+    <%= form.hidden_field :parent_id %>
+    <% if params.has_key?(:type) %>
+      <%= hidden_field_tag :type, params[:type] %>
+    <% end %>
+    <%= form.cms_text_field :name, required: false %>
+    <%= form.cms_select :layout, @layouts %>
+  </ul>
+  <div class="bottom-toolbar">
+    <%= form.submit value: "Create Page" %>
+  </div>
+<% end %>

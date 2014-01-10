@@ -1,0 +1,17 @@
+<script>
+  <% if Slices::Config.s3_storage? %>
+    slices.S3_UPLOADER_DEFAULTS = {
+      AWSAccessKeyId        : '<%= Slices::Config.s3_credentials[:access_key_id] %>',
+      acl                   : 'public-read',
+      policy                : '<%= policy %>',
+      signature             : '<%= signature %>',
+      success_action_status : '201',
+    };
+
+    slices.S3_URL = 'https://<%= Slices::Config.s3_credentials[:bucket] %>.s3.amazonaws.com/';
+    slices.S3_TEMPFILE_KEY_PREFIX = '<%= Slices::Config::S3_TEMPFILE_KEY_PREFIX %>';
+    slices.fileClass = slices.S3File;
+  <% else %>
+    slices.fileClass = slices.File;
+  <% end %>
+</script>

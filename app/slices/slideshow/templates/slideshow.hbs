@@ -1,0 +1,15 @@
+<li>
+  {{#attachmentComposer field="slides"}}
+    <textarea name="caption" placeholder="Caption…" rows="9">{{caption}}</textarea>
+    <input
+      type="text"
+      name="link"
+      value="{{link}}"
+      placeholder="Link to…"
+      data-plugin="livefield"
+      data-store="/admin/pages/search.json?query=:query"
+      data-template="#livefield-result-template"
+    />
+  {{/attachmentComposer}}
+</li>
+

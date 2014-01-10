@@ -1,0 +1,50 @@
+<form id="slices-form">
+  <div id="container-actions" class="toolbar">
+    <nav>
+      <ul>
+        <li class="back"><%= link_to "Cancel editing (lose unsaved changes)", admin_site_maps_path %></li>
+      </ul>
+    </nav>
+    <div class="actions">
+      <ul>
+        <li><a id="minimise" class="button">Minimise all slices</a></li>
+        <li>
+          <%= link_to "View page on site", @page.source.path, id: 'page-view-on-site', target: 'site', class: 'button standard' %>
+        </li>
+        <li><input type="submit" value="Save changes" id="save-changes" disabled></li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="main">
+    <%= render("breadcrumbs") unless @page.set_page? %>
+
+    <section>
+      <div id="page-meta-fields">
+        <ul id="page-main"></ul>
+        <ul id="page-meta"></ul>
+        <ul id="page-extra-main"></ul>
+      </div>
+
+      <h1>Content Slices</h1>
+
+      <div id="container-slices">
+        <ul id="container-tab-controls"></ul>
+
+        <div id="containers-holder"></div>
+
+        <!-- cloned via JS and then removed once it has been added! -->
+        <div id="add-slice-fields" class="boxy add-slice-fields">
+          <select id="add-slice-option">
+            <option selected disabled>Add a slice</option>
+          </select>
+        </div>
+      </div>
+    </section>
+  </div>
+</form>
+
+<% content_for :js_head do %>
+  <%= render "slices" %>
+<% end %>
+

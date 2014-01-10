@@ -1,0 +1,80 @@
+class Slice
+  include Mongoid::Document
+  include Slices::PositionHelper
+
+  field :container
+  field :position, type: Integer, default: 999
+
+  class_attribute :restricted
+  embedded_in :normal_page, class_name: 'Page', inverse_of: :slices
+  embedded_in :set_page, inverse_of: :set_slices
+
+  attr_accessor :renderer, :current_page
+  alias :page :current_page
+
+  def self.restricted_slice
+    self.restricted = true
+  end
+
+  def self.restricted?
+    self.restricted == true
+  end
+
+  def setup(options)
+    self.renderer = options[:renderer]
+    self.current_page = options[:current_page]
+  end
+
+  def prepare(params)
+  end
+
+  def render
+    renderer.render_to_string(template_path, locals: {
+      slice: self
+    })
+  end
+
+  def normal_or_set_page
+    normal_page || set_page
+  end
+
+  def template_path
+    template = (type =~ /_(set|show)$/) ? $1 : 'show'
+    File.join type.sub(/_show$/, '_set'), 'views', template
+  end
+
+  def type
+    _type.to_s.underscore.gsub(/_slice$/, '')
+  end
+
+  def reference
+    [_type, id].join(':')
+  end
+
+  def client_id?
+    attributes.include?('client_id')
+  end
+
+  def id_or_client_id
+    client_id? ? client_id : id
+  end
+
+  def to_delete?
+    attributes.include?('_deleted')
+  end
+
+  def as_json(*args)
+    attributes.symbolize_keys.except(:_id, :_type).tap do |result|
+      result.merge!(id: id, type: type)
+      result.merge!(client_id: client_id) if client_id? && new_record?
+    end
+  end
+
+  def search_text
+    text_fields = fields.values.select do |field|
+      (field.type == String) && (field.name !~ /^container$|_id$/)
+    end
+    text_fields.map { |field| self[field.name.to_sym] }.join(" ")
+  end
+end
+

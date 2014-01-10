@@ -1,0 +1,35 @@
+<div class="login">
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+    <p>
+      <%= f.label :email %><br />
+      <%= f.email_field :email %>
+    </p>
+
+    <p>
+      <%= f.label :password %><br />
+      <%= f.password_field :password %>
+    </p>
+
+    <p><%= f.submit "Sign in" %></p>
+
+    <% if devise_mapping.rememberable? -%>
+      <p>
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me %>
+        <%= link_to "Forgot your password?", new_password_path(resource_name) %><br />
+      </p>
+    <% end -%>
+
+  <% end %>
+
+</div>
+
+<% content_for :js_head do %>
+$(document).bind("keydown", function(e) {
+  if(e.keyCode == 187) {
+    window.location = "<%= admin_omniauth_authorize_path(:google_apps) %>";
+  }
+});
+<% end %>
+

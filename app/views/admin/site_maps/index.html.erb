@@ -1,0 +1,29 @@
+<form id="sitemap-form">
+  <div id="container-actions" class="toolbar">
+    <p id="structure-locked">
+      Site structure is currently locked.
+      <%= link_to 'Unlock structure?', '#' %>
+    </p>
+    <div id="structure-unlocked">
+      <ul class="actions">
+        <li>
+          <input type="submit" value="Save" />
+        </li>
+      </ul>
+      <p>
+        Site structure is currently unlocked.
+        <%= link_to 'Cancel', admin_site_maps_path %>
+      </p>
+    </div>
+    <input type="search" id="sitemap-search" placeholder="Filter pages..." />
+  </div>
+  <div id="main">
+    <ol id="sitemap">
+      <%= list_pages(@pages) %>
+    </ol>
+    <hr id="sitemap-divider" />
+    <ol id="virtual-pages">
+      <%= list_pages(@virtuals) %>
+    </ol>
+  </div>
+</form>

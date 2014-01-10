@@ -1,0 +1,74 @@
+<% attributes.each do |attribute| -%>
+<li>
+<% case attribute.type
+   when :attachments -%>
+  <%= label_if_needed_for attribute %>
+  {{#attachmentComposer field="<%= attribute.name %>"}}
+    <textarea name="caption" placeholder="Caption…" class="full-height">{{caption}}</textarea>
+  {{/attachmentComposer}}
+<% when :date %>
+  <%= label_if_needed_for attribute %>
+  {{dateField field="<%= attribute.name %>"}}
+<% when :date_time, :datetime -%>
+  <%= label_if_needed_for attribute %>
+  {{dateField field="<%= attribute.name %>"}}
+<% when :boolean -%>
+  <label>
+    <input type="checkbox" id="slices-{{id}}-<%= attribute.name %>" data-value="{{<%= attribute.name %>}}">
+    <%= attribute.name.humanize %>
+  </label>
+<% when :text %>
+  <%= label_if_needed_for attribute %>
+  <textarea id="slices-{{id}}-<%= attribute.name %>" placeholder="<%= attribute.name.humanize %>…" rows="24">{{<%= attribute.name %>}}</textarea>
+<% else -%>
+  <%= label_if_needed_for attribute %>
+  <input type="text" id="slices-{{id}}-<%= attribute.name %>" placeholder="<%= attribute.name.humanize %>…" value="{{<%= attribute.name %>}}">
+<% end -%>
+</li>
+<% end -%>
+
+<!--
+  To change the text that is displayed when this slice is minimised,
+  use the `slicePreview` helper below. The method is scoped to this slice
+  so you can easily access any contained elements.
+
+  Examples:
+
+    return this.find('textarea').val();
+    return this.find('option:selected').text();
+
+-->
+{{#slicePreview}}
+{{/slicePreview}}
+
+<!--
+  To use radio buttons, follow this formula...
+
+  Let's say we've a field on the slice called 'color', this is how we'd
+  structure the radio buttons:
+
+    <ul id="slices-{{id}}-color" data-value="{{color}}">
+      <li>
+        <input type="radio" value="red"
+               id="option-{{id}}-red" name="slices-{{id}}-color">
+        <label for="option-{{id}}-red">Red</label>
+      </li>
+      <li>
+        <input type="radio" value="green"
+               id="option-{{id}}-green" name="slices-{{id}}-color">
+        <label for="option-{{id}}-green">Green</label>
+      </li>
+      <li>
+        <input type="radio" value="blue"
+               id="option-{{id}}-blue" name="slices-{{id}}-color">
+        <label for="option-{{id}}-blue">Blue</label>
+      </li>
+    </ul>
+
+  The important points to note:
+
+  * The field id `slices-{{id}}-color` goes on the common parent.
+  * The value `data-value="{{color}}"` also goes on the common parent.
+  * The name attribute of the radio buttons is the field id (see above).
+  * To relate labels to inputs, use `option-{{id}}-value` in `for` and `id`.
+-->

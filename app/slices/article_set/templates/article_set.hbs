@@ -1,0 +1,11 @@
+<li>
+  <label for="slices-{{id}}-per_page">Per page</label>
+  <input id="slices-{{id}}-per_page" type="text" value="{{per_page}}">
+</li>
+
+{{#slicePreview}}
+  var count = this.find('[type="text"]').val(),
+      noun = count === 1 ? 'article' : 'articles';
+  return [count, noun, 'will be displayed here'].join(' ');
+{{/slicePreview}}
+

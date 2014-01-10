@@ -1,0 +1,5 @@
+<%= admin_nav_link("Sitemap", admin_site_maps_path) %>
+<%= admin_nav_link("Assets", admin_assets_path) %>
+<%= admin_nav_link("Snippets", admin_snippets_path) if Slices::Config.snippets? %>
+<%= admin_nav_link("Administrators", admin_admins_path) %>
+<%= render_custom_navigation %>

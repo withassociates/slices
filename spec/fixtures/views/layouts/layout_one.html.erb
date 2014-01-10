@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= @page.name %></title>
+  <%= stylesheet_link_tag :all %>
+  <%= javascript_include_tag :defaults %>
+  <%= csrf_meta_tag %>
+</head>
+<body class="layout_one">
+  <header>
+    <nav>
+      <%= primary_navigation %>
+      <%= secondary_navigation %>
+    </nav>
+  </header>
+  <article class="container_one">
+    <%= container "container_one", primary: true %>
+  </article>
+  <aside class="container_two">
+    <%= container "container_two" %>
+  </aside>
+</body>
+</html>

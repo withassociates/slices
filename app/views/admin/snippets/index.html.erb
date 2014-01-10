@@ -1,0 +1,20 @@
+<div id="container-actions" class="toolbar">
+  <ul id="pagination">
+  </ul>
+</div>
+<div id="main">
+  <section>
+    <table class="elements-table" id='snippets-list'>
+      <thead>
+        <tr><th>Key</th><th>Value</th><th></th></tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </section>
+</div>
+<% content_for :js_head do %>
+$(function() {
+  SnippetsBackbone.boot();
+});
+<% end %>

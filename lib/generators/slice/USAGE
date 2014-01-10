@@ -1,0 +1,28 @@
+Description:
+    Creates a new slice in app/slices.
+
+    If you want to make a set slice, make sure that the name ends with
+    "set" or "Set" (e.g. photo_set or PhotoSet).
+
+    If you want to make a form slice, the name should end with "form".
+
+Example:
+    rails generate slice you_tube
+    rails generate slice YouTube
+
+    Either of these commands will create:
+        app/slices/you_tube/you_tube_slice.rb
+        app/slices/you_tube/templates/you_tube.hbs
+        app/slices/you_tube/views/show.html.erb
+
+    You will need to restart your rails app after generating a slice
+    before it will appear in the admin interface.
+
+    You can define fields on a slice like this:
+
+    rails generate slice slideshow title:string slides:attachments
+    rails generate slice countdown text:string ends_at:date_time
+
+Tips:
+    Note the shorthand version `rails g slice my_slice`
+

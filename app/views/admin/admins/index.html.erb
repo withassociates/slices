@@ -1,0 +1,26 @@
+<div id="container-actions" class="toolbar">
+  <input type="search" id="entries-search" placeholder="Search admin users…">
+  <div class="actions">
+    <ul>
+      <li><input type="submit" value="Add Admin" id='add-admin' name='add-admin'/></li>
+    </ul>
+  </div>
+  <ul id="pagination">
+  </ul>
+</div>
+<div id="main">
+  <section>
+    <table class="elements-table" id='entries-list'>
+      <thead>
+        <tr><th>Name</th><th>Email</th><th>Last Login</th><th></th></tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </section>
+</div>
+<% content_for :js_head do %>
+$(function() {
+  AdminsBackbone.boot();
+});
+<% end %>

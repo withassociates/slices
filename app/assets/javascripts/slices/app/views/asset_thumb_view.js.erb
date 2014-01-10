@@ -1,0 +1,191 @@
+// Responsible for an invidiual thumbnail. This view is intended to remain
+// fairly dumb - let AssetLibraryView handle events.
+slices.AssetThumbView = Backbone.View.extend({
+
+  tagName: 'li',
+  className: 'asset-library-item',
+
+  happyTime: 1000,
+
+  template: Handlebars.compile(
+    '<img src="{{src}}" alt="{{name}}">' +
+    '<span class="name">{{displayName}}</span>' +
+    '<dl class="meta">' +
+      '<dd><strong class="filename">{{name}}</strong></dd>' +
+      '<dd>{{size}}</dd>' +
+      '<dd>Added {{createdAt}}</dd>' +
+      '<dd><a href="{{url}}" data-action="edit">Edit</a></dd>' +
+    '</dl>'
+  ),
+
+  events: {
+    'mousedown'                      : 'press',
+    'mouseup'                        : 'release',
+    'mousedown [data-action="edit"]' : 'pressEdit',
+    'click [data-action="edit"]'     : 'releaseEdit'
+  },
+
+  initialize: function() {
+    _.bindAll(this);
+    this.$el.append('<div class="asset-details">');
+    this.model.bind('change', this.whenModelChanges);
+    this.model.bind('destroying', this.whenModelIsDestroying);
+  },
+
+  render: function() {
+    this.$el.find('.asset-details').html(this.template(this));
+    return this;
+  },
+
+  src: function() {
+    return this.model.get('asset_url')
+        || '<%= asset_path 'slices/icon_generic_file.png' %>';
+  },
+
+  name: function() {
+    return this.model.get('name');
+  },
+
+  url: function() {
+    return this.model.url();
+  },
+
+  displayName: function() {
+    if (!this.model.isImage()) return this.name();
+  },
+
+  createdAt: function() {
+    return moment(this.model.get('created_at')).calendar();
+  },
+
+  size: function() {
+    return humanFileSize(this.model.get('file_file_size'));
+  },
+
+  select: function() {
+    $(this.el).addClass('selected');
+  },
+
+  deselect: function() {
+    $(this.el).removeClass('selected');
+  },
+
+  selected: function() {
+    return $(this.el).hasClass('selected');
+  },
+
+  remove: function() {
+    this.unbind();
+    $(this.el).remove();
+  },
+
+  press: function(event) {
+    if (!this.options.selectable) return;
+    if (event.which !== 1) return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    this.trigger('thumb:press', event, this);
+  },
+
+  release: function(event) {
+    if (!this.options.selectable) return;
+    if (event.which !== 1) return;
+    this.trigger('thumb:release', event, this);
+  },
+
+  pressEdit: function(e) {
+    e.stopImmediatePropagation();
+  },
+
+  releaseEdit: function(e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
+    this.trigger('thumb:blur');
+
+    var el = $(this.el);
+    el.addClass('editing');
+
+    var editor = slices.AssetEditorView.openModal({ model: this.model });
+    editor.bind('close', function() {
+      _.delay(function() { el.removeClass('editing') }, 350);
+    });
+  },
+
+  whenModelChanges: function() {
+    this.render();
+  },
+
+  whenModelIsDestroying: function() {
+    $(this.el).addClass('destroying');
+  },
+
+  // Update the upload progress information, wrapped around the file.
+  updateFile: function(attrs) {
+    if (!this.fileView) this.makeFileView();
+
+    $(this.el).
+    removeClass(this.fileView.possibleStatusList).
+    addClass('status-' + this.fileView.model.status());
+  },
+
+  // Update the upload progress information so we see happy face, then
+  // wait for the thumbnail to load or happyTime, whichever is longer.
+  updateFileAndComplete: function(file) {
+    this.updateFile(file);
+    this.gracefullyRemoveFileView();
+  },
+
+  // Make fileview, this gets done on the fly.
+  makeFileView: function() {
+    this.fileView = new slices.FileView({
+      model: this.model.get('file')
+    });
+    this.$el.append(this.fileView.el);
+    $(this.fileView.el).css({ position: 'absolute', top: 0 });
+  },
+
+  // Remove fileview
+  removeFileView: function() {
+    if (this.fileView) {
+      this.fileView.remove();
+      delete this.fileView;
+    }
+  },
+
+  // Wait for thumnail to load and happyTime to pass, then complete the
+  // transition to showing our lovely new thumbnail.
+  gracefullyRemoveFileView: function() {
+    $.when(
+      this.thumbnailHasLoaded(),
+      this.happyTimeHasPassed()
+    ).then(this.resolveGracefully);
+  },
+
+  // Complete transition by fading out fileView, rendering, then
+  // fading our thumbnail in.
+  resolveGracefully: function() {
+    this.$('.asset-details').css({ opacity: 0 });
+
+    $(this.fileView.el).animate({ opacity: 0 }, 'fast', _.bind(function() {
+      this.removeFileView();
+      this.$('.asset-details').animate({ opacity: 1 });
+    }, this));
+  },
+
+  // Returns a deferred promise wrapping thumbnail pre-load.
+  thumbnailHasLoaded: function() {
+    var dfd = new $.Deferred();
+    this.$('img').load(dfd.resolve);
+    return dfd.promise();
+  },
+
+  // Returns a deferred promise wrapping happyTime.
+  happyTimeHasPassed: function() {
+    var dfd = new $.Deferred();
+    _.delay(dfd.resolve, this.happyTime);
+    return dfd.promise();
+  }
+
+});
+

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= @page.name %></title>
+  <%= javascript_include_tag :defaults %>
+  <%= csrf_meta_tag %>
+  <script type="text/javascript">
+    <%= yield :js_head %>
+  </script>
+</head>
+<body class="default">
+  <%= edit_in_cms %>
+  <header>
+    <nav>
+      <%= primary_navigation %>
+      <%= secondary_navigation(depth: 10) %>
+    </nav>
+  </header>
+  <article class="container_one">
+    <%= container "container_one", primary: true %>
+  </article>
+  <aside class="container_two">
+    <%= container "container_two" %>
+  </aside>
+</body>
+</html>

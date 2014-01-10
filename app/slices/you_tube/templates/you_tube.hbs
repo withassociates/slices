@@ -1,0 +1,38 @@
+<li>
+  <label for="slices-{{id}}-url">URL</label>
+  <input type="text" id="slices-{{id}}-url" value="{{url}}" />
+</li>
+
+<li>
+  <label for="slices-{{id}}-language">Language</label>
+  <select id="slices-{{id}}-language" data-value="{{language}}">
+    <option value="english">English</option>
+    <option value="french">French</option>
+    <option value="german">German</option>
+  </select>
+</li>
+
+<li>
+  <label for="slices-{{id}}-active">Is active?</label>
+  <input id="slices-{{id}}-active" type="checkbox" data-value="{{active}}" />
+</li>
+
+<li>
+  <label>Quality</label>
+  <fieldset>
+    <ul id="slices-{{id}}-quality" data-value="{{quality}}">
+      <li>
+        <label for="option-{{id}}-hd">HD</label>
+        <input type="radio" id="option-{{id}}-hd" name="slices-{{id}}-quality" value="hd">
+      </li>
+      <li>
+        <label for="option-{{id}}-normal">Normal</label>
+        <input type="radio" id="option-{{id}}-normal" name="slices-{{id}}-quality" value="normal">
+      </li>
+      <li>
+        <label for="option-{{id}}-low">Low</label>
+        <input type="radio" id="option-{{id}}-low" name="slices-{{id}}-quality" value="low">
+      </li>
+    </ul>
+  </fieldset>
+</li>

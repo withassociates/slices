@@ -1,0 +1,48 @@
+<div class="slice <%= file_name %>">
+<% if form_slice? -%>
+  <%%= form_for slice, url: slice.page.path do |f| %>
+<% end -%>
+
+  <!--
+    Stick the HTML that should be rendered when your slice is displayed here.
+
+    You can refer to data stored on your slice by calling slice.foo inside
+    a normal ERB code block.
+
+    <%- if form_slice? -%>
+    For more information on available form helpers, see:
+    http://guides.rubyonrails.org/form_helpers.html
+    <%- end -%>
+  -->
+
+<% attributes.each do |attribute| -%>
+<% case attribute.type
+   when :attachments -%>
+  <ul class="<%= attribute.name %>">
+    <%%- slice.<%= attribute.name %>.each do |<%= attribute.name.singularize %>| -%>
+      <li>
+        <%%= image_if_present <%= attribute.name.singularize %>.asset, :original %>
+        <div class="caption"><%%= markdown <%= attribute.name.singularize %>.caption %></div>
+      </li>
+    <%%- end -%>
+  </ul>
+<% when :date_time, :datetime, :date -%>
+  <div class="<%= attribute.name %>"><%%=l slice.<%= attribute.name %> %></div>
+<% when :string, :text -%>
+  <div class="<%= attribute.name %>"><%%= markdown slice.<%= attribute.name %> %></div>
+<% when :boolean -%>
+  <%%- if slice.<%= attribute.name %>? -%>
+    <div class="<%= attribute.name %>"><%= attribute.name.humanize %>!</div>
+  <%%- end -%>
+<% else -%>
+  <div class="<%= attribute.name %>"><%%= slice.<%= attribute.name %> %></div>
+<% end -%>
+
+<% end -%>
+  <p>Change me by editing app/slices/<%= file_name %>/views/show.html.erb</p>
+
+<% if form_slice? -%>
+  <%% end %>
+<% end -%>
+</div>
+

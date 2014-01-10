@@ -1,0 +1,20 @@
+<li class="page <%= "home" if page.home? %>" rel="<%= page.id %>">
+  <div>
+    <h2><%= link_to(page.name, admin_page_path(page)) %></h2>
+
+    <% unless page.virtual? %>
+      <span class="item-actions primary">
+        <%= link_to_add_child page %>
+        <%= link_to_view_page page %>
+      </span>
+
+      <%= link_to_delete page unless page.home? %>
+    <% end %>
+  </div>
+
+  <% if page.children.any? %>
+    <ol>
+      <%= list_pages(page.children) %>
+    </ol>
+  <% end %>
+</li>

@@ -1,0 +1,23 @@
+# This script is designed to run in a separate process after a user
+# updates the content of one of the virtual pages (e.g. the error page
+# displayed when there's a bug so bad that the Rails app can't even
+# start up). These pages need to be cached to disk so that the webserver
+# can serve them even though the Rails app has been hospitalised.
+#
+# When calling this script pass it a single argument that contains the
+# path that will cause the relevant page to be rendered by the special
+# caching action in PagesController. When you've added the hoopla you
+# need to run it with `rails runner` you get something like this:
+#
+# ./script/rails runner -e production ./script/request-local-page /500.html
+
+def trim_environment_from_args
+  (ARGV.shift; ARGV.shift) if ARGV[0] == '-e'
+end
+
+trim_environment_from_args
+path = ARGV.shift
+
+Rails.logger.info("#{__FILE__}: Requesting #{path} from local server")
+app = ActionDispatch::Integration::Session.new(Rails.application)
+app.get path

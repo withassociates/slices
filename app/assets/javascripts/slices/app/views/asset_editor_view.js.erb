@@ -1,0 +1,209 @@
+// This view presents all useful details about an asset, and allows for
+// actions such as replacement and deletion.
+slices.AssetEditorView = Backbone.View.extend({
+
+  className: 'asset-editor',
+
+  // This template is a monster and needs to be extracted. We could aim to
+  // follow the Backbone/Jammit pattern, but aiming for asset pipeline
+  // integration seems a more worthwhile end goal.
+  template: Handlebars.compile(
+    '<div class="fields">' +
+      '<div class="overview">' +
+        '<div class="thumb asset-library-item">' +
+          '<img src="{{thumbUrl}}" alt="{{name}}">' +
+          '<span class="name">{{displayName}}</span>' +
+        '</div>' +
+        '<div class="meta">' +
+          '<dl class="details">' +
+            '<dd><input type="text" name="name" value="{{name}}"></dd>' +
+            '<dd>{{size}}</dd>' +
+            '<dd>Added {{createdAt}}</dd>' +
+            '<dd><a href="{{originalUrl}}">Download original</a></dd>' +
+          '</dl>' +
+          '<div class="options">' +
+            '<button data-action="replace">Upload a New Version</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="tabs">' +
+        '<div class="tab meta">' +
+          '<label>Tags</label>' +
+          '<textarea name="tags" rows="5">{{tags}}</textarea>' +
+        '</div>' +
+        '{{#if pages}}' +
+          '<div class="tab pages">' +
+            '<label>Appears on</label>' +
+            '<ul>' +
+              '{{{pages}}}' +
+            '</ul>' +
+          '</div>' +
+        '{{/if}}' +
+      '</div>' +
+    '</div>' +
+    '<div class="bottom-toolbar">' +
+      '<div class="button-group aligned-right">' +
+        '<button type="submit" data-action="save">Save Changes</button>' +
+        '<button data-action="cancel">Cancel</button>' +
+      '</div>' +
+      '<div class="button-group pinned left top">' +
+        '<button data-action="delete" class="delete">Delete</button>' +
+      '</div>' +
+    '</div>'
+  ),
+
+  pageItemTemplate: Handlebars.compile(
+    '<li><a href="/admin/pages/{{id}}" target="_blank">{{name}}</a></li>'
+  ),
+
+  events: {
+    'click [data-action="save"]'   : 'save',
+    'click [data-action="cancel"]' : 'cancel',
+    'click [data-action="delete"]' : 'destroy'
+  },
+
+  initialize: function() {
+    _.bindAll(this);
+    this.model.on('change', this.render);
+  },
+
+  render: function() {
+    $(this.el).html(this.template(this));
+    this.makeUploader();
+    return this;
+  },
+
+  thumbUrl: function() {
+    return this.model.get('asset_url')
+        || '<%= asset_path 'slices/icon_generic_file.png' %>';
+  },
+
+  originalUrl: function() {
+    return this.model.get('original_url');
+  },
+
+  name: function() {
+    return this.model.get('name');
+  },
+
+  tags: function() {
+    return this.model.get('tags');
+  },
+
+  // Handlebars does not call functions passed to `#each` and `#if`,
+  // so `pages` has to render a collections of sub-templates.
+  pages: function() {
+    return _.map(this.model.get('pages'), this.pageItemTemplate).join('');
+  },
+
+  url: function() {
+    return this.model.url();
+  },
+
+  displayName: function() {
+    if (!this.model.isImage()) return this.name();
+  },
+
+  createdAt: function() {
+    return moment(this.model.get('created_at')).calendar();
+  },
+
+  size: function() {
+    return humanFileSize(this.model.get('file_file_size'));
+  },
+
+  // At present, it’s beneficial to specify exactly which attributes we’re
+  // sending back to Slices. This may be automated in future, but for now,
+  // remember to add any other fields in here.
+  save: function(e) {
+    this.model.save({
+      name: this.$('[name="name"]').val(),
+      tags: this.$('[name="tags"]').val()
+    }, {
+      success: this.whenSaveSucceeds,
+      error: this.whenSaveFails
+    });
+  },
+
+  whenSaveSucceeds: function(model, response) {
+    this.close();
+  },
+
+  whenSaveFails: function(model, response) {},
+
+  cancel: function(e) {
+    this.close();
+  },
+
+  destroy: function(e) {
+    if (confirm('Are you sure you want to delete this asset?')) {
+      this.model.destroy();
+      this.close();
+    }
+  },
+
+  close: function() {
+    this.trigger('close');
+  },
+
+  makeUploader: function() {
+    this.uploader = new slices.Uploader({
+      button : this.$('[data-action="replace"]'),
+      drop   : this.$('.thumb'),
+      url    : this.model.url(),
+      params : { _method: 'put' }
+    });
+    this.uploader.bind('filesAdded', this.onFilesAdded);
+    this.uploader.bind('fileUploaded', this.onFileUploaded);
+  },
+
+  onFilesAdded: function(event) {
+    var files = event.files,
+        file = files[0];
+
+    this.fileView = new slices.FileView({ model: file });
+    this.$('.thumb').append(this.fileView.el);
+    this.fileView.model.upload(file);
+
+    this.uploader.start();
+  },
+
+  onFileUploaded: function(event) {
+    this.model.set(event.response);
+  },
+
+  updateFileStatus: function(file) {
+    this.fileView.model.upload(file);
+  },
+
+});
+
+// This somewhat ungainly method opens the editor in a modal.
+slices.AssetEditorView.openModal = function(options) {
+  var view = new slices.AssetEditorView(options);
+  var modal = $('<div class="jqmWindow modal" id="asset_editor_modal">');
+
+  modal.
+    appendTo('body').
+    append(view.el).
+    jqm({
+      modal: true,
+      onShow: function (h) {
+        h.w.fadeIn(150);
+        modal.fadeIn(300);
+      },
+      onHide: function (h) {
+        h.w.fadeOut(150, function() { view.remove() });
+        h.o.fadeOut(300, function() { modal.remove() });
+      },
+      overlay: 40
+    }).
+    jqmShow();
+
+  view.render();
+
+  view.bind('close', function() { modal.jqmHide() });
+
+  return view;
+}
+

@@ -1,0 +1,9 @@
+<ul class="slideshow-slice">
+  <% slice.slides.each do |slide| %>
+    <li>
+      <%= image_if_present slide.asset, :admin %>
+      <%= textilize slide.caption %>
+    </li>
+  <% end %>
+</ul>
+

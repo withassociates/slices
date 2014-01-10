@@ -1,0 +1,12 @@
+<%= form_for [:admin, @snippet],
+  html: {multipart: true},
+  remote: true do |form| %>
+  <div class="fields">
+    <label for="snippet_value" class="legend">Value for <em><%= @snippet.key %></em>:</label>
+    <%= form.text_area :value %>
+  </div>
+  <div class="bottom-toolbar">
+    <%= form.submit value: 'Save snippet' %>
+  </div>
+<% end %>
+

@@ -1,0 +1,27 @@
+$(function() {
+
+  slices.controller.init(
+    '<%= @page.bson_id %>',
+    {
+      availableSlices: <%= raw Slices::AvailableSlices.all.to_json %>,
+      availableContainers: <%= raw @layout.containers.to_json %>,
+
+      mainTemplate: '<%= @page.main_template %>',
+      metaTemplate: '<%= @page.meta_template %>',
+
+      mainExtraTemplate: '<%= @page.main_extra_template %>',
+      metaExtraTemplate: '<%= @page.meta_extra_template %>',
+
+      super_user: <%= current_admin.super? %>,
+
+      <% if @page.editing_entry_content_slices?(params[:entries]) %>
+        mainTemplate: 'set_page_entry_content_main',
+        metaTemplate: 'set_page_entry_content_meta',
+        loadPagePath: '/admin/pages/{{id}}?entries=1',
+        savePagePath: '/admin/pages/{{id}}?entries=1'
+      <% end %>
+    }
+  );
+
+});
+
