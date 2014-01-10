@@ -43,13 +43,5 @@ The next step is to create some [slices](https://github.com/withassociates/slice
 
 ## License
 
-MIT license. Copyright (c) 2014 With Associates.
-
-
-
-
-
-
-
-
+Slices is released under the [MIT license](http://www.opensource.org/licenses/MIT). Copyright (c) 2014 With Associates.
 
