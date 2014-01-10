@@ -33,7 +33,7 @@ At the end of this process we should have a new Slices project with a git reposi
 
 Visit http://localhost:5000/admin to begin using Slices.
 
-The next step is to create some [slices](https://github.com/withassociates/slices-legacy/wiki/Creating-Slices) - there are more guides in the [Wiki](https://github.com/withassociates/slices/wiki).
+The next step is to create some [slices](https://github.com/withassociates/slices/wiki/Creating-Slices) - there are more guides in the [Wiki](https://github.com/withassociates/slices/wiki).
 
 ## Code Status
 
