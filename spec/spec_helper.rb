@@ -23,7 +23,7 @@ SlicesController.prepend_view_path(Rails.root.join(*%w[spec fixtures slices]))
 Slices::Config.use_snippets!
 
 Capybara.default_selector = :css
-Capybara.default_wait_time = 5
+Capybara.default_wait_time = 10
 Capybara.default_driver = :rack_test
 Capybara.javascript_driver = :poltergeist
 
