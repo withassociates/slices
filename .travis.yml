@@ -10,4 +10,4 @@ services:
 notifications:
   webhooks:
     urls:
-      - https://withassociates.slack.com/services/hooks/travis?token=XA3wHRF5GnTwNXN5PqWHXX8T
+      secure: L/M0YeNFVZ2FTkFcaHXADBWCE1p/rPrmjYsetNycpvJhvn3bo2NLtUKxA4etmwRnKXBMgmAj7F5e1dlRafZSSaem56V5HmqaWXPtpExBp+oMYUTFZsjlMsvHyqJey+TORKvAKsrYo7uKMUVgjUtbqaHI0eCt7nV8wODLQ68s87Y=
