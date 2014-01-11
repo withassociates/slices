@@ -42,7 +42,7 @@ describe "The token field", js: true do
     entry.reload.categories.should == %w[Art Design Branding]
   end
 
-  it "lets me click an existing token" do
+  it "lets me click an existing token", ci: false do
     within('#meta-author') { click_on 'Will' }
     page.should have_css '.token', text: 'Will'
 
