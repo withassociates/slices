@@ -9,4 +9,4 @@ services:
 notifications:
   webhooks:
     urls:
-      secure: L/M0YeNFVZ2FTkFcaHXADBWCE1p/rPrmjYsetNycpvJhvn3bo2NLtUKxA4etmwRnKXBMgmAj7F5e1dlRafZSSaem56V5HmqaWXPtpExBp+oMYUTFZsjlMsvHyqJey+TORKvAKsrYo7uKMUVgjUtbqaHI0eCt7nV8wODLQ68s87Y=
+      secure: Ou+6h2SJnV6SFCSBM65YCOXLzvyLt4CdiTXHX6juCPjN0TAskarWq8SiUuY51coOOkJuB/hq9fICbfZafLCEranyzc8ANHc78xT84ZDZB7umgUoXcdvZhD75w9h/95eBpVIxdU8DbMuebQBkBLADv1WIZIz/auLVNC65GM7t3i4=
