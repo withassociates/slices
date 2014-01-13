@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    slices (1.0.0)
+    slices (1.0.1)
       RedCloth (~> 4.2.9)
       bson_ext (~> 1.7.1)
       cocaine (~> 0.3.2)
