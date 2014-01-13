@@ -31,11 +31,12 @@ Gem::Specification.new do |s|
   s.add_dependency 'will_paginate'     , '3.0.pre2'
 
   src_files           = Dir['{app,lib}/**/*']
+  template_files      = Dir['public/slices/templates/*.hbs']
   config_files        = %w[config/routes.rb] + Dir['config/initializers/*.rb']
   documentation_files = %w[CHANGELOG.md README.md]
   excluded_files      = Dir['app/slices/**/*'] + %w[app/views/layouts/default.html.erb]
 
-  s.files = src_files + config_files + documentation_files - excluded_files
+  s.files = src_files + template_files + config_files + documentation_files - excluded_files
 
   s.require_path = 'lib'
 end
