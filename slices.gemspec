@@ -10,6 +10,7 @@ Gem::Specification.new do |s|
   s.homepage    = 'http://www.withassociates.com'
   s.summary     = 'Slices CMS, from With Associates'
   s.description = 'A Rails 3 CMS that can be embedded within your own site.'
+  s.license     = 'MIT'
 
   s.required_rubygems_version = '>= 1.3.6'
   s.rubyforge_project         = 'slices'
@@ -29,7 +30,12 @@ Gem::Specification.new do |s|
   s.add_dependency 'stringex'          , '~> 1.4.0'
   s.add_dependency 'will_paginate'     , '3.0.pre2'
 
-  excluded_files = Dir.glob('app/slices/**/*') + %w(app/views/layouts/default.html.erb)
-  s.files        = Dir.glob('{app,lib}/**/*') + %w(CHANGELOG.md README.md Rakefile) - excluded_files
+  src_files           = Dir['{app,lib}/**/*']
+  config_files        = %w[config/routes.rb] + Dir['config/initializers/*.rb']
+  documentation_files = %w[CHANGELOG.md README.md]
+  excluded_files      = Dir['app/slices/**/*'] + %w[app/views/layouts/default.html.erb]
+
+  s.files = src_files + config_files + documentation_files - excluded_files
+
   s.require_path = 'lib'
 end
