@@ -19,7 +19,7 @@ describe "The set entries view", js: true do
     page.should have_css 'tbody tr', count: 3
   end
 
-  it "links to the page editor" do
+  it "links to the page editor", ci: false do
     article = Article.all.second
     click_on article.name
 
