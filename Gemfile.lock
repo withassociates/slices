@@ -241,7 +241,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler (~> 1.3)
+  bundler
   capybara (~> 1.1.2)
   database_cleaner (~> 0.9.1)
   escape_utils (~> 0.2.4)

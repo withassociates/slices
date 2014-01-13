@@ -74,7 +74,8 @@ run "rm Gemfile"
 file "Gemfile", <<-END
 source 'https://rubygems.org'
 
-gem 'slices'
+gem 'slices',
+  tag: '~> 1.0'
 
 group :assets do
   gem 'sass-rails'

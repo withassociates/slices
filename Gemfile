@@ -4,7 +4,7 @@ gemspec
 gem 'fog'
 
 group :development, :test do
-  gem 'bundler'            , '~> 1.3'
+  gem 'bundler'
   gem 'capybara'           , '~> 1.1.2'
   gem 'database_cleaner'   , '~> 0.9.1'
   gem 'escape_utils'       , '~> 0.2.4'
