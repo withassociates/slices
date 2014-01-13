@@ -25,6 +25,11 @@ Now we're ready to create the Slices project:
     $ cd ~/Projects
     $ gem install rails -v '~> 3.2.0'
     $ rails new mywebsite -JOT -m ~/Projects/slices/lib/generators/templates/slices.rb
+    
+Or, if you have later versions of Rails installed, specify 3.2.0 with this command:
+
+    $ cd ~/Projects
+    $ rails _3.2.0_ new mywebsite -JOT -m ~/Projects/slices/lib/generators/templates/slices.rb
 
 At the end of this process we should have a new Slices project with a git repository created, gems installed, database seeded and ready to run:
 
