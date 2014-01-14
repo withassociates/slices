@@ -28,10 +28,6 @@ module Slices
       copy_file "application.html.erb", "app/views/layouts/application.html.erb"
     end
 
-    def add_to_readme
-      create_file "README.md", "Built with [Slices](http://slices.withassociates.com)."
-    end
-
     def finishing_up
       say ""
       say "---------------------------", :green
