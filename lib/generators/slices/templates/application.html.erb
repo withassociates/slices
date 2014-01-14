@@ -1,21 +1,14 @@
 <!doctype html>
   <html>
     <head>
-      <title>#{app_const_base}</title>
-      <!-- <meta name="description" content=""> -->
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title><%= @page.title %></title>
+      <meta name="description" content="<%= @page.meta_description %>">
       <%= stylesheet_link_tag *%w[
         application
       ] %>
       <%= javascript_include_tag *%w[
-        //cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js
         application
       ] %>
-      <!--[if lt IE 9]>
-      <%= javascript_include_tag *%w[
-        //cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.min.js
-      ] %>
-      <![endif]-->
     </head>
     <body class="layout-default">
       <section id="main" role="main">
