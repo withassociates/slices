@@ -22,17 +22,6 @@ module Slices
       end
     end
 
-    def create_procfile
-      create_file "Procfile", "web: bundle exec unicorn -p $PORT"
-    end
-
-    def add_unicorn_and_foreman_gems
-      append_file "Gemfile", "group :development do
-  gem 'foreman', require: false
-  gem 'unicorn', require: false
-end"
-    end
-
     def create_initializer
       copy_file "slices.rb", "config/initializers/slices.rb"
     end
@@ -51,10 +40,19 @@ end"
       say "All done!", :green
       say "---------------------------", :green
       say ""
-      say "Run 'foreman start' and visit http://localhost:5000/admin to begin using Slices."
+      say "Run 'rails server' and visit http://localhost:3000/admin to begin using Slices."
       say "The next step is to create some slices. You can find the guides in the wiki:"
       say "https://github.com/withassociates/slices/wiki"
       say ""
     end
   end
 end
+
+
+
+
+
+
+
+
+
