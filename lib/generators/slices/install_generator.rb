@@ -6,7 +6,6 @@ require 'thor'
 module Slices
   class InstallGenerator < ::Rails::Generators::Base
     source_root File.expand_path('../templates', __FILE__)
-    class_option :mongoid, :type => :boolean, :default => false, :description => "Creates a mongoid.yml file"
     include Thor::Actions
 
     desc "This generator installs Slices within a Rails app."
@@ -16,16 +15,16 @@ module Slices
       create_file "app/slices/.gitkeep"
     end
 
-    def optionally_create_mongoid_yaml
-      copy_file "mongoid.yml", "config/mongoid.yml" if options.mongoid?
-    end
-
     def create_initializer
       copy_file "slices.rb", "config/initializers/slices.rb"
     end
 
     def create_application_layout
       copy_file "application.html.erb", "app/views/layouts/application.html.erb"
+    end
+
+    def optionally_create_mongoid_yaml
+      copy_file "mongoid.yml", "config/mongoid.yml"
     end
 
     def finishing_up
