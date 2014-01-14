@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ['With Associates']
   s.email       = ['hello@withassociates.com']
-  s.homepage    = 'http://www.withassociates.com'
+  s.homepage    = 'http://slices.withassociates.com'
   s.summary     = 'Slices CMS, from With Associates'
   s.description = 'A Rails 3 CMS that can be embedded within your own site.'
   s.license     = 'MIT'
@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'redcarpet'         , '~> 3.0.0'
   s.add_dependency 'RedCloth'          , '~> 4.2.9'
   s.add_dependency 'stringex'          , '~> 1.4.0'
-  s.add_dependency 'will_paginate'     , '3.0.pre2'
+  s.add_dependency 'will_paginate'     , '3.0.pre4'
 
   src_files           = Dir['{app,lib}/**/*']
   template_files      = Dir['public/slices/templates/*.hbs']

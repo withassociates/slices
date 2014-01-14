@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+  <head>
+    <title><%= @page.title %></title>
+    <meta name="description" content="<%= @page.meta_description %>">
+    <%= stylesheet_link_tag *%w[
+      application
+    ] %>
+    <%= javascript_include_tag *%w[
+      application
+    ] %>
+  </head>
+  <body class="layout-default">
+    <section id="main" role="main">
+      <%= container "content" %>
+    </section>
+  </body>
+</html>

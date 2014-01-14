@@ -1,0 +1,18 @@
+Description:
+    Installs Slices into your Rails 3.2 app.
+
+Example:
+    rails generate slices:install
+
+    This command will:
+        Create app/slices
+        Create a Slices initializer
+        Create an empty application layout
+
+Options:
+    [--mongoid]   # Add config/mongoid.yml
+                  # Default: false
+
+Tips:
+    Note the shorthand version `rails g slices:install`
+
