@@ -15,7 +15,6 @@ PATH
       rails (~> 3.2.16)
       redcarpet (~> 3.0.0)
       stringex (~> 1.4.0)
-      thor (~> 0.18.1)
       will_paginate (= 3.0.pre4)
 
 GEM
