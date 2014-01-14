@@ -2,34 +2,6 @@
 
 require 'spec_helper'
 
-describe "rails g slices:install" do
-  before do
-    run_generator "slices:install"
-  end
-
-  it "creates an app/slices directory" do
-    "app/slices/".should exist
-  end
-
-  it "creates a Slices initializer" do
-    "config/initializers/slices.rb".should exist
-  end
-
-  it "creates an application layout" do
-    "app/views/layouts/application.html.erb".should contain <<-CONTENT
-      <body class="layout-default">
-        <section id="main" role="main">
-          <%= container "content" %>
-        </section>
-      </body>
-    CONTENT
-  end
-
-  after do
-    FileUtils.rm %w(app/slices/.gitkeep config/initializers/slices.rb app/views/layouts/application.html.erb)
-  end
-end
-
 describe "rails g slice example" do
   before do
     run_generator "slice example"
