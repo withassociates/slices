@@ -42,12 +42,3 @@ module Slices
     end
   end
 end
-
-
-
-
-
-
-
-
-
