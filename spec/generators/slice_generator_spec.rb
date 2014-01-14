@@ -24,6 +24,10 @@ describe "rails g slices:install" do
       </body>
     CONTENT
   end
+
+  after do
+    FileUtils.rm %w(app/slices/.gitkeep config/initializers/slices.rb app/views/layouts/application.html.erb)
+  end
 end
 
 describe "rails g slice example" do
