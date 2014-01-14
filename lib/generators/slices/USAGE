@@ -6,9 +6,12 @@ Example:
 
     This command will:
         Create app/slices
-        Optionally create config/mongoid.yml
         Create a Slices initializer
         Create an empty application layout
+
+Options:
+    [--mongoid]   # Add config/mongoid.yml
+                  # Default: false
 
 Tips:
     Note the shorthand version `rails g slices:install`
