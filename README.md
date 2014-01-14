@@ -6,37 +6,19 @@ In-house CMS of [With Associates](http://withassociates.com/)
 
 Slices requires Ruby, MongoDB and ImageMagick. If you don't have them installed, follow this [guide](https://github.com/withassociates/slices/wiki/Installation.md) before beginning.
 
-We'll need to checkout the Slices project, install the relevant gems using Bundler and use a Rails template to create the new project:
-
-    $ cd ~/Projects     # or wherever you store git repositories
-    $ git clone git@github.com:withassociates/slices.git
-    $ cd slices
-    $ gem install bundler
-    $ bundle install
-
-Or if you have Slices already installed:
-
-    $ cd ~/Projects/slices  # or wherever you store git repositories
-    $ git pull
-    $ bundle install
-
 Now we're ready to create the Slices project:
 
     $ cd ~/Projects
-    $ gem install rails -v '~> 3.2.0'
-    $ rails new mywebsite -JOT -m ~/Projects/slices/lib/generators/templates/slices.rb
-    
-Or, if you have later versions of Rails installed, specify 3.2.0 with this command:
-
-    $ cd ~/Projects
-    $ rails _3.2.0_ new mywebsite -JOT -m ~/Projects/slices/lib/generators/templates/slices.rb
-
-At the end of this process we should have a new Slices project with a git repository created, gems installed, database seeded and ready to run:
-
+    $ rails _3.2.16_ new mywebsite
     $ cd ~/Projects/mywebsite
-    $ foreman start
 
-Visit http://localhost:5000/admin to begin using Slices.
+Add 'slices' to the Gemfile of your new project:
+
+    gem 'slices'
+
+Run `rails generate slices:install` in the terminal and follow the instructions.
+
+You're ready to go! Run `rails server` and visit http://localhost:3000/admin to begin using Slices.
 
 The next step is to create some [slices](https://github.com/withassociates/slices/wiki/Creating-Slices) - there are more guides in the [Wiki](https://github.com/withassociates/slices/wiki).
 
