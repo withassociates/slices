@@ -2,6 +2,50 @@
 
 require 'spec_helper'
 
+describe "rails g slices:install" do
+  before do
+    run_generator "slices:intall"
+  end
+
+  it "creates an app/slices directory" do
+    "app/slices/.gitkeep".should exist
+  end
+
+  it "creates a Slices initializer" do
+    "app/lib/generators/templates/slices.rb".should exist
+  end
+
+  it "creates an application layout" do
+    "app/views/layouts/application.html.erb".should contain <<-CONTENT
+      <!doctype html>
+      <html>
+        <head>
+          <title>#{app_const_base}</title>
+          <!-- <meta name="description" content=""> -->
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <%= stylesheet_link_tag *%w[
+            application
+          ] %>
+          <%= javascript_include_tag *%w[
+            //cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js
+            application
+          ] %>
+          <!--[if lt IE 9]>
+          <%= javascript_include_tag *%w[
+            //cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.min.js
+          ] %>
+          <![endif]-->
+        </head>
+        <body class="layout-default">
+          <section id="main" role="main">
+            <%= container "content" %>
+          </section>
+        </body>
+      </html>
+    CONTENT
+  end
+end
+
 describe "rails g slice example" do
   before do
     run_generator "slice example"

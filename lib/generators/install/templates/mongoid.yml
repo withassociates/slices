@@ -1,0 +1,12 @@
+development:
+  host: localhost
+  database: myapp_development
+
+test:
+  host: localhost
+  database: myapp_test
+
+production:
+  host: localhost
+  database: myapp_development
+
