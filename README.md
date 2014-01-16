@@ -9,7 +9,7 @@ Slices requires Ruby, MongoDB and ImageMagick. If you don't have them installed,
 Now we're ready to create the Slices project:
 
     $ cd ~/Projects
-    $ rails _3.2.16_ new mywebsite
+    $ rails _3.2.16_ new mywebsite -O
     $ cd ~/Projects/mywebsite
 
 Add 'slices' to the Gemfile of your new project:
