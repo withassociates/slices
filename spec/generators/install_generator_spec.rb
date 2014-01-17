@@ -14,4 +14,8 @@ describe "slices:install" do
   it "creates an application layout" do
     subject.should generate("app/views/layouts/application.html.erb")
   end
+
+  it "deletes public/index.html" do
+    File.exist?("public/index.html").should_not be_true
+  end
 end

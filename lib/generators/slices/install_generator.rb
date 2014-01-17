@@ -2,6 +2,7 @@
 
 require 'rails/generators'
 require 'thor'
+require 'FileUtils'
 
 module Slices
   class InstallGenerator < ::Rails::Generators::Base
@@ -25,6 +26,10 @@ module Slices
 
     def optionally_create_mongoid_yaml
       copy_file "mongoid.yml", "config/mongoid.yml"
+    end
+
+    def delete_public_index_html
+      remove_file "public/index.html"
     end
 
     def finishing_up
