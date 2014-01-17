@@ -2,7 +2,6 @@
 
 require 'rails/generators'
 require 'thor'
-require 'FileUtils'
 
 module Slices
   class InstallGenerator < ::Rails::Generators::Base
@@ -21,15 +20,22 @@ module Slices
     end
 
     def create_application_layout
-      copy_file "application.html.erb", "app/views/layouts/application.html.erb"
+      copy_file "application.html.erb", "app/views/layouts/default.html.erb"
     end
 
     def optionally_create_mongoid_yaml
       copy_file "mongoid.yml", "config/mongoid.yml"
     end
 
-    def delete_public_index_html
+    def add_precompilation_option
+      inject_into_file "config/application.rb", "config.assets.initialize_on_precompile = false",
+        :after => "config.assets.enabled = true\n"
+    end
+
+    def delete_superfluous_files
       remove_file "public/index.html"
+      remove_file "public/rails.png"
+      remove_dir "public/assets"
     end
 
     def finishing_up
