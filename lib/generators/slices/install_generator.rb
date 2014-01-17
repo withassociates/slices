@@ -32,6 +32,12 @@ module Slices
         :after => "config.assets.enabled = true\n"
     end
 
+    def change_precompilation_action
+      gsub_file "#{Rails.root}/config/environments/production.rb",
+        "config.assets.compile = false",
+        "config.assets.compile = true"
+    end
+
     def delete_superfluous_files
       remove_file "public/index.html"
       remove_file "public/rails.png"
