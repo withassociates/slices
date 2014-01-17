@@ -55,9 +55,8 @@ require 'slices/will_paginate_mongoid'
 require 'slices/will_paginate'
 require 'set_link_renderer'
 
-if Rails.env.development?
-  Slices::Config.use_snippets!
-end
+Slices::Config.use_snippets!
+
 if Rails.env.test? || Rails.env.development?
   require 'standard_tree'
 end

@@ -1,6 +1,6 @@
 # Slices CMS
 
-In-house CMS of [With Associates](http://withassociates.com/)
+In-house CMS of [With Associates](http://withassociates.com/).
 
 ## Starting a new Slices project
 
