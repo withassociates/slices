@@ -12,7 +12,7 @@ describe "slices:install" do
   end
 
   it "creates an application layout" do
-    subject.should generate("app/views/layouts/application.html.erb")
+    subject.should generate("app/views/layouts/default.html.erb")
   end
 
   it "deletes public/index.html" do

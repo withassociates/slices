@@ -28,7 +28,7 @@ module Slices
     end
 
     def add_precompilation_option
-      inject_into_file "config/application.rb", "config.assets.initialize_on_precompile = false",
+      inject_into_file "#{Rails.root}/config/application.rb", "config.assets.initialize_on_precompile = false",
         :after => "config.assets.enabled = true\n"
     end
 
