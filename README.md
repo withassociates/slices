@@ -18,6 +18,8 @@ Add 'slices' to the Gemfile of your new project:
 
 Run `rails generate slices:install` in the terminal and follow the instructions.
 
+If you intend to deploy your Slices app to Heroku, run `rails generate slices:install --heroku` to make life easier.
+
 You're ready to go! Run `rails server` and visit http://localhost:3000/admin to begin using Slices.
 
 The next step is to create some [slices](https://github.com/withassociates/slices/wiki/Creating-Slices) - there are more guides in the [Wiki](https://github.com/withassociates/slices/wiki).
