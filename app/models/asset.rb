@@ -24,7 +24,7 @@ class Asset
   has_mongoid_attached_file :file,
     default_style:   :admin,
     max_size:        50.megabytes,
-    url:             '/system/:attachment/:mon_year/:id/:style/:filename',
+    url:             '/system/:attachment/:mon_year/:id/:file_fingerprint/:style/:filename',
     path:            ':rails_root/public:url',
     only_process:    [:admin],
     styles:          Slices::Config.asset_styles,
