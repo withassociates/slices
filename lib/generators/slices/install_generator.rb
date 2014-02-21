@@ -6,6 +6,7 @@ require 'thor'
 module Slices
   class InstallGenerator < ::Rails::Generators::Base
     source_root File.expand_path('../templates', __FILE__)
+    class_option :heroku, type: :boolean, default: false, desc: "Configure Slices for easy Heroku deployment."
     include Thor::Actions
 
     desc "This generator installs Slices within a Rails app."
@@ -20,11 +21,29 @@ module Slices
     end
 
     def create_application_layout
-      copy_file "application.html.erb", "app/views/layouts/application.html.erb"
+      copy_file "application.html.erb", "app/views/layouts/default.html.erb"
     end
 
     def optionally_create_mongoid_yaml
       copy_file "mongoid.yml", "config/mongoid.yml"
+    end
+
+    def delete_superfluous_files
+      remove_file "public/index.html"
+      remove_file "public/rails.png"
+      remove_dir "public/assets"
+    end
+
+    def heroku_options
+      if options.heroku?
+        say "Installing Slices for Heroku", :green
+        inject_into_file "#{Rails.root}/config/application.rb", "config.assets.initialize_on_precompile = false",
+          :after => "config.assets.enabled = true\n"
+
+        gsub_file "#{Rails.root}/config/environments/production.rb",
+          "config.assets.compile = false",
+          "config.assets.compile = true"
+      end
     end
 
     def finishing_up

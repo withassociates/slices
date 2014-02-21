@@ -1,6 +1,6 @@
 # Slices CMS
 
-In-house CMS of [With Associates](http://withassociates.com/)
+In-house CMS of [With Associates](http://withassociates.com/).
 
 ## Starting a new Slices project
 
@@ -17,6 +17,8 @@ Add 'slices' to the Gemfile of your new project:
     gem 'slices'
 
 Run `rails generate slices:install` in the terminal and follow the instructions.
+
+If you intend to deploy your Slices app to Heroku, run `rails generate slices:install --heroku` to make life easier.
 
 You're ready to go! Run `rails server` and visit http://localhost:3000/admin to begin using Slices.
 
