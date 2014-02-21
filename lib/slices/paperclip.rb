@@ -1,8 +1,9 @@
 Paperclip.options[:log] = true
 require 'paperclip_validator'
 
-Paperclip.interpolates :mon_year do |attachment, style|
-  attachment.instance.id.generation_time.strftime("%m%Y")
+Paperclip.interpolates :fingerprint_partition do |attachment, style|
+  id = attachment.fingerprint
+  "#{id[0..2]}/#{id[3..-1]}"
 end
 
 #This is a hack used to access Paperclip's internal cache

@@ -27,6 +27,10 @@ Capybara.default_wait_time = ENV['CI'] ? 60 : 5
 Capybara.default_driver = :rack_test
 Capybara.javascript_driver = :poltergeist
 
+# Add spec to asset path to easily tear down after specs
+url = Asset.attachment_definitions[:file][:url]
+Asset.attachment_definitions[:file][:url] = url.gsub('/system/:', '/system/spec/:')
+
 RSpec.configure do |config|
   config.mock_with :rspec
   config.order = 'random'
@@ -44,8 +48,6 @@ RSpec.configure do |config|
     DatabaseCleaner.orm = 'mongoid'
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.start
-    Asset.attachment_definitions[:file][:url] =
-      '/system/spec/:attachment/:mon_year/:id/:style/:filename'
   end
 
   config.after do
