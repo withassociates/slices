@@ -24,3 +24,14 @@
   <% end %>
 
 </div>
+
+<% if Slices::Config.google_apps_domain %>
+  <% content_for :js_head do %>
+    $(document).bind("keydown", function(e) {
+      if(e.keyCode == 187) {
+        window.location = "<%= admin_omniauth_authorize_path(:google_apps) %>";
+      }
+    });
+  <% end %>
+<% end %>
+

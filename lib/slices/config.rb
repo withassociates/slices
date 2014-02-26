@@ -57,6 +57,20 @@ module Slices
       }
     end
 
+    # Google Apps domain for quick auth.
+    #
+    # @return [String] the domain
+    def self.google_apps_domain
+      @google_apps_domain
+    end
+
+    # Set Google Apps domain for quick auth.
+    #
+    # @param [String] the domain
+    def self.google_apps_domain=(domain)
+      @google_apps_domain = domain
+    end
+
     private
     def self.admin_asset_styles
       { admin: '180x180#' }
