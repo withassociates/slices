@@ -1,14 +1,11 @@
-require 'omniauth/openid'
-require 'openid/store/filesystem'
 require 'devise/orm/mongoid'
+require 'omniauth-google-apps'
 
 ActiveSupport::SecureRandom = SecureRandom
 
 Devise.setup do |config|
-  config.omniauth :google_apps,
-    OpenID::Store::Filesystem.new('/tmp'),
-    domain: Slices::Config.google_apps_domain
-
-  config.use_salt_as_remember_token = true
   config.mailer_sender = "hello@example.com"
+  if Slices::Config.google_apps_domain
+    config.omniauth :google_apps, domain: Slices::Config.google_apps_domain
+  end
 end

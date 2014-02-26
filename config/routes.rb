@@ -7,9 +7,9 @@ end
 Rails.application.routes.draw do
 
   devise_for :admin, :path => "admin", :controllers => {
-    :omniauth_callbacks => "admin/auth/omniauth_callbacks",
     :passwords          => "admin/auth/passwords",
     :sessions           => "admin/auth/sessions",
+    :omniauth_callbacks => "admin/auth/omniauth_callbacks",
   }
 
   namespace :admin do

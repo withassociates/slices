@@ -1,4 +1,5 @@
 * Add rails generate slices:install command
+* Upgrade Devise to 2.2.8
 
 # 1.0.2 / 2014-01-13
 
