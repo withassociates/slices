@@ -1,3 +1,6 @@
+# 1.0.3 / 2014-03-12
+
+* Put Page#as_json into its own module so it can be overridden in other modules
 * Add rails generate slices:install command
 * Upgrade Devise to 2.2.8
 
