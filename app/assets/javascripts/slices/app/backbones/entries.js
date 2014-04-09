@@ -84,16 +84,12 @@ var EntriesBackbone = $.extend(true, {}, GenericBackbone, {
                      value();
 
       fields = _.map(fields, function(key) {
-        var string;
-        if (key == 'name') {
-          string = "<td class='"+key+"'><a href='<%= url %>'><%= "+key+" %></a></td>"
-        } else if ( key != 'url' ) {
-          string = "<td class='"+key+"'><%= "+key+" %></td>";
-        }
-        return string;
+        return slices.entryTemplate(key);
       });
+
       fields.push("<td><a href='#' class='delete'>Delete</a></td>");
-      var template = _.template(fields.join(''));
+
+      var template = Handlebars.compile(fields.join(''));
       this.view_prototype = this.view_prototype.extend({template: template});
       this.collection.unbind('reset', this.set_view_template);
     },
