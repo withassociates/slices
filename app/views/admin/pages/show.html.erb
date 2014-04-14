@@ -46,8 +46,6 @@
 
 <% content_for :js_head do %>
   <%= render "slices" %>
-  <script>
-    slices.trigger('pages:show');
-  </script>
+  slices.trigger('pages:show');
 <% end %>
 
