@@ -302,7 +302,7 @@ slices.AttachmentComposerView = Backbone.View.extend({
         position = p ? p.index : this.collection.length;
 
     _.each(assets, function(asset) {
-      if (this.alreadyContains(asset)) return;
+      if (!this.options.allowDupes && this.alreadyContains(asset)) return;
       this.collection.add({ asset: asset, asset_id: asset.get('id') }, { at: position });
       position += 1;
     }, this);

@@ -2,9 +2,16 @@
 //
 // Within the attachmentComposer, define the html for the fields the composer
 // should display. Here, we’re assuming there’s a field on the slice called
-// `myAttachments`.
+// `slides`.
 //
-//     {{#attachmentComposer myAttachments}}
+//     {{#attachmentComposer field="slides"}}
+//       <textarea name="caption" class="full-height">{{caption}}</textarea>
+//     {{/attachmentComposer}}
+//
+// By default, attachment composer does not allow the same asset to be added
+// twice. To allow duplicates, set the `allowDupes` option to true:
+//
+//     {{#attachmentComposer field="slides" allowDupes=true}}
 //       <textarea name="caption" class="full-height">{{caption}}</textarea>
 //     {{/attachmentComposer}}
 //
@@ -23,7 +30,8 @@ Handlebars.registerHelper('attachmentComposer', function(options) {
     id         : slices.fieldId(this, options.hash.field),
     collection : this[options.hash.field],
     fields     : options.fn,
-    autoAttach : true
+    autoAttach : true,
+    allowDupes : options.hash.allowDupes
   });
 
   // Return the placeholder. Don’t worry, this is replaced automatically later.
