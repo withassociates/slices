@@ -28,5 +28,9 @@
 <% content_for :js_head do %>
 $(function() {
   EntriesBackbone.boot('<%= @page.id %>', <%= raw @options.to_json %>);
+  slices.trigger('entries:index');
+  <% @page.entry_types.each do |entry_type| %>
+    slices.trigger('entries:index:<%= entry_type %>');
+  <% end %>
 });
 <% end %>
