@@ -122,6 +122,9 @@ textarea,
 button {
   -webkit-appearance: none
 }
+button {
+  outline: none;
+}
 
 /* Master button styles*/
 input[type="submit"],
@@ -169,7 +172,8 @@ Submit Button
 */
 
 button[type="submit"],
-input[type="submit"] {
+input[type="submit"],
+.button.submit {
   background-color: hsl(107, 40%, 46%);
   background: -webkit-linear-gradient(
     hsl(106, 42%, 57%) 17%,
@@ -375,16 +379,16 @@ header ul li a {
 header nav {
   -webkit-font-smoothing: antialiased;
 }
-header nav ul li:first-child a {
+#admin-nav-sitemaps a {
   background-image: url(<%= asset_path('slices/icon_sitemap.png') %>)
 }
-header nav ul li:nth-child(2) a {
+#admin-nav-assets a {
   background-image: url(<%= asset_path('slices/icon_assets.png') %>)
 }
-header nav ul li:nth-child(3) a {
+#admin-nav-snippets a {
   background-image: url(<%= asset_path('slices/icon_snippets.png') %>)
 }
-header nav ul li#admin-nav-administrators a {
+#admin-nav-administrators a {
   background-image: url(<%= asset_path('slices/icon_admins.png') %>)
 }
 header ul li:first-child {
@@ -446,7 +450,8 @@ header ul li,
   margin-left: 7px
 }
 .toolbar .actions a,
-.toolbar .actions input {
+.toolbar .actions input,
+.toolbar .actions button {
   position: relative;
   top: 8px;
   padding-top: 5px;
