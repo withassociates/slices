@@ -1,3 +1,4 @@
+
 # -*- encoding: utf-8 -*-
 require 'spec_helper'
 
@@ -8,18 +9,27 @@ describe "Viewing the sets entries page", js: true do
       home, @page = StandardTree.build_minimal_with_slices
       sign_in_as_admin
       @set_page, articles = StandardTree.add_article_set(@page)
+      # Define predictable ordering
+      @set_page.set_slice('Article').update_attributes(
+        sort_field: 'name',
+        sort_direction: 'asc'
+      )
       51.times { StandardTree.add_article(@set_page) }
       visit admin_page_entries_path page_id: @set_page.id
+    end
+
+    let :articles do
+      Article.asc(:name)
     end
 
     it "displays 50 articles" do
       page.should have_css 'tbody tr', count: 50
     end
 
-    it "has links to edit an entry", ci: false do
-      article = Article.all.second
+    it "has links to edit an entry" do
+      article = articles.second
 
-      page.should have_css 'td a', text: article.name # Stop next spec randomly failing
+      page.should have_css 'td a', text: article.name
       page.should have_link article.name, href: admin_page_path(article.id)
     end
 
