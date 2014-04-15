@@ -7,7 +7,16 @@ describe "The set entries view", js: true do
     sign_in_as_admin
     set_page, articles = StandardTree.add_article_set(@page)
     51.times { StandardTree.add_article(set_page) }
+    # Define predictable order
+    set_page.set_slice('Article').update_attributes(
+      sort_field: 'name',
+      sort_direction: 'asc'
+    )
     visit admin_page_entries_path page_id: set_page.id
+  end
+
+  let :articles do
+    Article.asc(:name)
   end
 
   it "displays the correct number on the first page" do
@@ -20,7 +29,7 @@ describe "The set entries view", js: true do
   end
 
   it "links to the page editor", ci: false do
-    article = Article.all.second
+    article = articles.second
     click_on article.name
 
     page.should have_css '#meta-name' # Stop next spec randomly failing
