@@ -28,7 +28,7 @@ describe ArticleSetSlice do
             parent:       set_page,
             name:         "Article #{n}",
             permalink:    "article-#{n}",
-            published_at: rand(10).days.ago.at_beginning_of_day,
+            published_at: n.days.ago.at_beginning_of_day,
             active:       true,
             show_in_nav:  true
           )
