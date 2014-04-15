@@ -21,12 +21,12 @@ describe Slices::HasSlices, "#update_attributes" do
 
   context "with an existing slice" do
 
-    it "update the description (on page)" do
-      set_page.update_attributes({description: 'Updated Description',
+    it "update the meta_description (on page)" do
+      set_page.update_attributes({meta_description: 'Updated Description',
                                   slices: [json_slice]})
       set_page.reload
 
-      set_page.description.should eq "Updated Description"
+      set_page.meta_description.should eq "Updated Description"
     end
 
     it "update the title" do

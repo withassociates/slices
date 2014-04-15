@@ -1,12 +1,18 @@
 require 'spec_helper'
 
 describe Page do
+  let :new_description do
+    'New description'
+  end
 
-  let(:new_description) do
-     'New description'
-   end
+  before do
+    ActiveSupport::Deprecation
+    .should_receive(:warn)
+    .with(Page::DESCRIPTION_DEPRECATION_WARNING)
+    .at_least(:once)
+  end
 
-   context "when changing description" do
+  context "when changing description" do
     it "should update the meta_description" do
       page = Page.new
       page.description = new_description

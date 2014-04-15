@@ -8,6 +8,8 @@ class Page
   include Slices::HasSlices
   include Slices::HasAttachments::PageInstanceMethods
 
+  DESCRIPTION_DEPRECATION_WARNING = "Page#description is now meta_description. If you are upgrading, run 'rake slices:migrate:meta_description' to update."
+
   field :name
   field :role  # only relevant for virtual pages
   field :active, type: Boolean, default: false
@@ -164,12 +166,12 @@ class Page
   # End of added
 
   def description
-    ActiveSupport::Deprecation::warn "Page#description is now meta_description. If you are upgrading, run 'rake slices:migrate:meta_description' to update."
+    ActiveSupport::Deprecation::warn DESCRIPTION_DEPRECATION_WARNING
     meta_description
   end
 
   def description=(value)
-    ActiveSupport::Deprecation::warn "Page#description is now meta_description.  If you are upgrading, run 'rake slices:migrate:meta_description' to update."
+    ActiveSupport::Deprecation::warn DESCRIPTION_DEPRECATION_WARNING
     self.meta_description = value
   end
 

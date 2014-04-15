@@ -63,7 +63,7 @@ describe Slices::HasSlices, "#update_attributes with multiple slices" do
 
   def page_attributes(slices)
     attributes = {
-      'description'       => "",
+      'meta_description'  => "",
       'layout'            => "default",
       'permalink'         => "/",
       'position'          => "",
