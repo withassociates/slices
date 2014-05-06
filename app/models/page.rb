@@ -18,6 +18,8 @@ class Page
   field :title
   field :has_content, type: Boolean, default: false
 
+  belongs_to :author, class_name: 'Admin'
+
   index :_keywords, background: true
 
   has_slices :slices
