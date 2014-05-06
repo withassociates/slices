@@ -8,7 +8,8 @@ module Slices
         id:        id,
         permalink: permalink,
         slices:    ordered_slices_for(options[:slice_embed]).map {|slice| slice.as_json },
-        available_layouts: available_layouts
+        available_layouts: available_layouts,
+        author: author
       )
 
       keys = options[:only]

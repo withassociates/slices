@@ -17,8 +17,10 @@ class Admin::PagesController < Admin::AdminController
   end
 
   def create
-    @page = new_page_class.make(params[:page])
+    page_attrs = params[:page].merge(author: current_admin)
+    @page = new_page_class.make(page_attrs)
     @layouts = [['Default', 'default']]
+
     respond_with(:admin, @page) do |format|
       format.html { redirect_to admin_page_path(@page) }
     end
