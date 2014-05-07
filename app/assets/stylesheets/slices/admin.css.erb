@@ -1374,7 +1374,15 @@ a.remove-asset {
 #page-meta .attachment-composer {
   padding-right: 5px;
 }
-.attachment-composer .attachment-list {}
+.attachment-composer .attachment-list {
+  display: block;
+  position: relative;
+}
+.attachment-composer .attachment-list:after {
+  content: '';
+  display: block;
+  clear: both;
+}
 .attachment-composer.not-empty .attachment-list,
 .attachment-composer.assets-over .attachment-list {
   margin-bottom: 15px;
@@ -1393,6 +1401,7 @@ a.remove-asset {
 #page-meta .attachment-composer li {
   background-color: #e2e2e2;
 }
+
 .attachment-composer .cursor {
   height: 2px;
   background: rgb(255, 190, 0);
@@ -1406,6 +1415,7 @@ a.remove-asset {
 .attachment-composer .attachment-actions {
   display: block;
   text-align: center;
+  clear: both;
 }
 .attachment-composer .attachment-actions button {
   width: 170px;
@@ -1513,6 +1523,29 @@ a.remove-asset {
 .attachment-composer .ui-sortable-helper .remove {
   display: none;
 }
+
+/* Attachment composer in grid mode */
+
+.attachment-composer.layout-grid .attachment-list {
+  margin: -5px -6px 25px -6px;
+}
+
+.attachment-composer.layout-grid li,
+.attachment-composer.layout-grid .cursor {
+  float: left;
+  width: 180px; height: 180px;
+  margin: 5px;
+}
+
+.attachment-composer.layout-grid li .remove {
+  visibility: hidden;
+  top: 5px; right: 5px;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+.attachment-composer.layout-grid li:hover .remove {
+  visibility: visible;
+}
+
 
 /* Asset Library */
 .asset-library {
