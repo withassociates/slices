@@ -60,7 +60,7 @@ describe "Administering Admins", js: true do
 
     context "when an admin is deleted" do
       before do
-        js_click_on 'tbody tr:last-child a.delete'
+        js_click_on 'a.delete'
       end
 
       it "is removed from the page" do
