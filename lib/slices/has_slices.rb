@@ -34,8 +34,12 @@ module Slices
           slice = slice.symbolize_keys
           next if slice[:_destroy]
           slice.delete :_new
-          klass = (slice[:type] + '_slice').camelize.constantize
-          klass.new(slice)
+          (slice[:type] + '_slice').
+            camelize.
+            constantize.
+            new(slice).tap do |s|
+              s.id = slice[:id] if slice[:id].present?
+            end
         }.compact
       end
 
