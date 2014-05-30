@@ -44,6 +44,6 @@
 <li>
   <label>History</label>
   <ul class="page-history">
-    <li>Created by {{author.name}} <time datetime="{{created_at}}">{{moment created_at}}</time></li>
+    <li>Created {{#if author}}by {{author.name}} {{/if}}<time datetime="{{created_at}}">{{moment created_at}}</time></li>
   </ul>
 </li>
