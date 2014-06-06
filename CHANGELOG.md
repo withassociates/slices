@@ -1,3 +1,7 @@
+# 1.0.4 / 2014-06-06
+
+* Remove omniauth
+
 # 1.0.3 / 2014-03-12
 
 * Put Page#as_json into its own module so it can be overridden in other modules
