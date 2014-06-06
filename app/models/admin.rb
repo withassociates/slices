@@ -31,11 +31,6 @@ class Admin
 
   devise :database_authenticatable, :recoverable, :rememberable,
     :trackable, :validatable
-  devise :omniauthable, omniauth_providers: [:google_apps]
-
-  def self.find_for_google_apps(email)
-    where(email: email).first || where(email: /@#{Slices::Config.google_apps_domain}$/).first
-  end
 
   def super?
     self.super_user == true

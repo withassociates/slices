@@ -22,7 +22,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'mongo'             , '~> 1.7.1'
   s.add_dependency 'mongoid'           , '~> 2.5.1'
   s.add_dependency 'mongoid-paperclip' , '~> 0.0.8'
-  s.add_dependency 'omniauth-google-apps',  '~> 0.1.0'
   s.add_dependency 'paperclip'         , '~> 3.1.4'
   s.add_dependency 'rails'             , '~> 3.2.18'
   s.add_dependency 'redcarpet'         , '~> 3.0.0'
