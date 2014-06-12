@@ -27,7 +27,7 @@ class Admin::PagesController < Admin::AdminController
   end
 
   def show
-    page = Page.find_by_id!(params[:id])
+    page = Page.find(params[:id])
     @page = presenter_class(page.class).new(page)
     @layout = Layout.new(page.layout)
 
@@ -44,12 +44,12 @@ class Admin::PagesController < Admin::AdminController
         render hbs_path
       end
     end
-  rescue Page::NotFound
+  rescue Mongoid::Errors::DocumentNotFound
     redirect_to admin_site_maps_path
   end
 
   def update
-    @page = Page.find_by_id!(params[:id])
+    @page = Page.find(params[:id])
     if entry_page?
       params[:page][:set_slices] = params[:page].delete(:slices)
     end
@@ -64,7 +64,7 @@ class Admin::PagesController < Admin::AdminController
   end
 
   def destroy
-    @page = Page.find_by_id!(params[:id])
+    @page = Page.find(params[:id])
     @page.destroy
     respond_to do |format|
       format.html { redirect_to admin_site_maps_path }

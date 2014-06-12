@@ -74,15 +74,15 @@ class Page
     end
   end
 
-  # TODO The method isn't needed
   def self.find_by_id(id)
+    ActiveSupport::Deprecation::warn 'Page.find_by_id is depreciated, please use Page.find instead.'
     find(id)
   rescue Mongoid::Errors::DocumentNotFound
     nil
   end
 
-  # TODO The method isn't needed
   def self.find_by_id!(id)
+    ActiveSupport::Deprecation::warn 'Page.find_by_id is depreciated, please use Page.find instead.'
     find_by_id(id) || (raise NotFound)
   end
 
@@ -181,7 +181,7 @@ class Page
       if attributes.has_key?(:parent_path)
         Page.find_by_path(attributes.delete(:parent_path))
       elsif attributes.has_key?(:parent_id)
-        Page.find_by_id(attributes.delete(:parent_id))
+        Page.find(attributes.delete(:parent_id))
       else
         attributes.delete(:parent)
       end

@@ -217,7 +217,7 @@ describe "PUT to pages#update" do
     end
 
     it "does not remove the deleted slices" do
-      page = Page.find_by_id(@page.to_param)
+      page = Page.find(@page.to_param)
       deleted_slice = page.slices.detect { |slice| slice.id.to_s == @deleted_slice_id }
       expect(deleted_slice).to be_a Slice
     end
