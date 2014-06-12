@@ -43,13 +43,13 @@ describe "The token field", type: :request, js: true do
   end
 
   it "lets me click an existing token", ci: false do
-    within('#meta-author') { click_on 'Will' }
-    expect(page).to have_css '.token', text: 'Will'
+    within('#meta-tag') { click_on 'Will' }
+    expect(page).to have_css('.token', text: 'Will')
 
     click_on_save_changes
 
-    expect(page).to have_css '.token', text: 'Will'
-    expect(entry.reload.author).to eq('Will')
+    expect(page).to have_css('.token', text: 'Will')
+    expect(entry.reload.tag).to eq('Will')
   end
 
 end

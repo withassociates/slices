@@ -75,7 +75,7 @@ describe "The 'Save changes' button", type: :request, js: true do
 
   context "when using a tag field" do
     it "is enabled" do
-      within '#meta-author' do
+      within '#meta-tag' do
         click_on 'Will'
       end
       is_expected.to be_enabled

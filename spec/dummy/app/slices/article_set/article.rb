@@ -7,7 +7,7 @@ class Article < Page
 
   has_attachments :images, class_name: "Article::FeaturedImage"
 
-  field :author, type: String
+  field :tag, type: String
   field :categories, type: Array
   field :published_at, type: Time
 
@@ -35,13 +35,13 @@ class Article < Page
     self.class.categories
   end
 
-  def available_authors
+  def available_tags
     %w[Will Alex Jez]
   end
 
   def as_json options = {}
     super(options).merge(
-      available_authors: available_authors,
+      available_tags: available_tags,
       available_categories: available_categories,
       images: images
     )
