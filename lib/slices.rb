@@ -1,7 +1,5 @@
 require 'devise'
 require 'devise/orm/mongoid'
-require 'bson' # TODO remove bson
-require 'mongo' # TODO remove mongo
 require 'mongoid'
 require 'mongoid_paperclip'
 require 'RedCloth'

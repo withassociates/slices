@@ -15,11 +15,9 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = '>= 1.3.6'
   s.rubyforge_project         = 'slices'
 
-  s.add_dependency 'bson_ext'          , '~> 1.7.1'
   s.add_dependency 'cocaine'           , '~> 0.3.2'
   s.add_dependency 'devise'            , '~> 2.2.8'
   s.add_dependency 'highline'          , '~> 1.6.0'
-  s.add_dependency 'mongo'             , '~> 1.7.1'
   s.add_dependency 'mongoid'           , '~> 3.1.6'
   s.add_dependency 'mongoid-paperclip' , '~> 0.0.8'
   s.add_dependency 'paperclip'         , '~> 3.1.4'

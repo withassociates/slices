@@ -77,7 +77,7 @@ class Page
   # TODO The method isn't needed
   def self.find_by_id(id)
     find(id)
-  rescue BSON::InvalidObjectId, Mongoid::Errors::DocumentNotFound
+  rescue Mongoid::Errors::DocumentNotFound
     nil
   end
 
