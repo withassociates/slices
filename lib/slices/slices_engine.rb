@@ -13,18 +13,11 @@ module Slices
   # within the engine itself (for some stupid reason).
   class Railtie < Rails::Railtie
     initializer :autoload_slices, before: :set_autoload_paths do |app|
-      Slices.autoload_slices(app, Slices.gem_path) if Slices.test_environment?
       Slices.autoload_slices(app, Rails.root)
     end
 
     initializer :active_mongoid_observers do
       config.mongoid.observers.concat [:page_observer, :asset_observer]
-    end
-
-    initializer :load_config_initializers, after: :config_initializers do |app|
-      Dir.glob('config/initializers/*.rb').each do |initializer|
-        load(initializer)
-      end
     end
 
     initializer :slices_will_paginate_active_view, after:  'will_paginate.action_view' do
