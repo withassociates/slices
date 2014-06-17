@@ -22,3 +22,4 @@ public/system/**/*
 rdoc
 tmp/**/*
 zeus.json
+spec/dummy/tmp
