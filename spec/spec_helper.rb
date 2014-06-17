@@ -3,7 +3,7 @@ ENV['RAILS_ENV'] ||= 'test'
 require 'bundler'
 Bundler.setup
 
-require File.expand_path('../../config/environment', __FILE__)
+require File.expand_path('../dummy/config/environment.rb',  __FILE__)
 require 'rspec/rails'
 require 'capybara/rails'
 require 'capybara/poltergeist'
@@ -14,11 +14,10 @@ Paperclip.options[:log] = true
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
-Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+SLICES_GEM_ROOT = Pathname.new File.expand_path('.')
+Dir[SLICES_GEM_ROOT.join('spec/support/**/*.rb')].each { |f| require f }
 
 # Setup slices to use view/slice/site fixtures
-SlicesController.prepend_view_path(Rails.root.join(*%w[spec fixtures views]))
-SlicesController.prepend_view_path(Rails.root.join(*%w[spec fixtures slices]))
 
 Slices::Config.use_snippets!
 

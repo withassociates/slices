@@ -5,7 +5,7 @@ module AssetHelpers
   end
 
   def file_fixture_path
-    Rails::root.join 'spec', 'fixtures', 'files'
+    SLICES_GEM_ROOT.join 'spec', 'fixtures', 'files'
   end
 
 end
