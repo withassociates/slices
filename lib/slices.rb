@@ -42,10 +42,6 @@ module Slices
     end
   end
 
-  def self.test_environment?
-    Rails.env.test? && Rails.root.to_s == Slices.gem_path
-  end
-
 end
 
 require 'slices/slices_engine' if defined?(Rails)
