@@ -1,7 +1,5 @@
-require 'rails'
-require 'bson'
 require 'devise'
-require 'mongo'
+require 'devise/orm/mongoid'
 require 'mongoid'
 require 'mongoid_paperclip'
 require 'RedCloth'
