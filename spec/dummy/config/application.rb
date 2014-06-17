@@ -1,9 +1,11 @@
 require File.expand_path('../boot', __FILE__)
 
-require 'rails/all'
+require 'action_controller/railtie'
+require 'action_mailer/railtie'
+require 'sprockets/railtie'
 
 Bundler.require(*Rails.groups)
-require "slices"
+#require "slices"
 
 module Dummy
   class Application < Rails::Application
@@ -47,7 +49,7 @@ module Dummy
     # This will create an empty whitelist of attributes available for mass-assignment for all models
     # in your app. As such, your models will need to explicitly whitelist or blacklist accessible
     # parameters by using an attr_accessible or attr_protected declaration.
-    config.active_record.whitelist_attributes = true
+    # config.active_record.whitelist_attributes = true
 
     # Enable the asset pipeline
     config.assets.enabled = true
