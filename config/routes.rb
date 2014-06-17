@@ -4,7 +4,7 @@ class PageConstraints
   end
 end
 
-Slices::Engine.routes.draw do
+Rails.application.routes.draw do
 
   devise_for :admin, :path => "admin", :controllers => {
     :passwords          => "admin/auth/passwords",
