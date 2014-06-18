@@ -9,7 +9,7 @@ group :development, :test do
   gem 'database_cleaner'   , '~> 0.9.1'
   gem 'escape_utils'       , '~> 0.2.4'
   gem 'pry-rails'          , '~> 0.2.2'
-  gem 'rspec-rails'        , '~> 2.10.1'
+  gem 'rspec-rails'        , '~> 2.99'
   gem 'poltergeist'
 end
 
