@@ -16,7 +16,7 @@ describe "slices:install" do
   end
 
   it "should delete public/index.html" do
-    expect(File.exist?("public/index.html")).not_to be_truthy
+    expect(File).to_not be_exist('public/index.html')
   end
 end
 

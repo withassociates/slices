@@ -11,7 +11,7 @@ describe Asset, type: :model do
       end
 
       it "is an image?" do
-        expect(asset.is_image?).to be_truthy
+        expect(asset).to be_is_image
       end
     end
 
@@ -23,7 +23,7 @@ describe Asset, type: :model do
       end
 
       it "is an image?" do
-        expect(asset.is_image?).to be_falsey
+        expect(asset).to_not be_is_image
       end
 
     end
