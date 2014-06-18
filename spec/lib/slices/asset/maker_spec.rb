@@ -29,7 +29,7 @@ describe 'Slices::Asset::Maker' do
       maker.stub(new_asset: new_asset)
       matching_asset = double(:matching_asset).as_null_object
 
-      expect(Asset).to receive(:where).and_return(stub(first:matching_asset))
+      expect(Asset).to receive(:where).and_return(double(first:matching_asset))
       expect(maker.find_matching_asset(new_asset)).to eq matching_asset
     end
   end

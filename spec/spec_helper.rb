@@ -38,6 +38,10 @@ RSpec.configure do |config|
   config.include ControllerHelpers, type: :controller
   config.include Capybara::DSL, type: :request
 
+  # Added for Rspec 3.0
+  config.infer_spec_type_from_file_location!
+  config.expose_current_running_example_as :example
+
   # Hook in database cleaner
   config.before do
     DatabaseCleaner.orm = 'mongoid'
