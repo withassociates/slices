@@ -19,6 +19,7 @@ module Slices
 
     config.after_initialize do
       Slices.load_slice_classes_into_object_space(Rails.root)
+      require 'slices/i18n'
     end
 
   end

@@ -45,7 +45,6 @@ module Slices
 end
 
 require 'slices/engine' if defined?(Rails)
-require 'slices/i18n'
 require 'slices/will_paginate_mongoid'
 require 'slices/will_paginate'
 require 'set_link_renderer'
