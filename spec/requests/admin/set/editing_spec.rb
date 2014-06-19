@@ -56,7 +56,7 @@ describe "Viewing the sets entries page", type: :request, js: true do
     end
 
     it "displays no articles" do
-      expect(page).not_to have_css 'tbody tr'
+      expect(page).to have_no_css 'tbody tr'
     end
 
   end

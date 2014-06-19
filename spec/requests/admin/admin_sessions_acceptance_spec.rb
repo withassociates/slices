@@ -7,7 +7,7 @@ describe "Authentication for /admin", type: :request, js: true do
     StandardTree.build_minimal
 
     visit '/admin/sign_in'
-    expect(page).to have_no_css('header li a', value: 'Log out')
+    expect(page).to have_no_css('header li a', text: 'Log out')
 
     fill_in 'Email', with: 'hello@withassociates.com'
     fill_in 'Password', with: '123456'
@@ -29,9 +29,9 @@ describe "Authentication for /admin", type: :request, js: true do
 
   it "should have current user info in admin bar" do
     admin = sign_in_as_admin
-    expect(page).to have_css('header li a', value: 'Log out')
-    expect(page).to have_css('header li a', value: 'Account')
-    expect(page).to have_css('header li', value: admin.email)
+    expect(page).to have_css('header li a', text: 'Log out')
+    expect(page).to have_css('header li a', text: 'Account')
+    expect(page).to have_css('header li', text: admin.email)
   end
 
   it "should redirect /admin to /admin/site_maps" do

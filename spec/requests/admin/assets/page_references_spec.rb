@@ -38,7 +38,7 @@ describe "Viewing page_paths on an asset", type: :request, js: true do
     end
 
     it "has no links to related pages" do
-      expect(page).not_to have_css 'div.pages h3'
+      expect(page).to have_no_css 'div.pages h3'
     end
   end
 

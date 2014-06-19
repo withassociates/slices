@@ -31,7 +31,7 @@ describe "Add/Edit/Delete slices on a page", type: :request, js: true do
 
       click_on 'Save'
 
-      expect(page).not_to have_css '#container-slices .field-with-errors'
+      expect(page).to have_no_css '#container-slices .field-with-errors'
     end
 
     it "1 slice reloaded shouldn't duplicate itself" do
@@ -43,7 +43,12 @@ describe "Add/Edit/Delete slices on a page", type: :request, js: true do
       expect(page).to have_no_css('#container-slices .field-with-errors')
 
       sleep 0.5
+
       visit "/admin/pages/#{@page.id}"
+
+      within('ul.slices-holder li:first-child.slice') do
+        fill_in 'Title', with: 'one'
+      end
       click_on_save_changes
 
       expect(page).to have_no_css(@new_slice_id)
@@ -58,7 +63,6 @@ describe "Add/Edit/Delete slices on a page", type: :request, js: true do
       add_title_slice('four')
       click_on_save_changes
 
-      # binding.pry
       within('#container-container_one .slice:nth-child(2)') do
         expect(find_field('Title').value).to eq('one')
       end
@@ -75,7 +79,7 @@ describe "Add/Edit/Delete slices on a page", type: :request, js: true do
     it "1 slice is deleted" do
       click_on 'Delete'
       click_on_save_changes
-      expect(find(".slices-holder li").visible?).to be_falsey
+      expect(find('.slices-holder li.slice', visible: false)).to_not be_visible
     end
   end
 end
@@ -95,7 +99,7 @@ describe 'Edit slices on all entries in a set', type: :request, js: true do
 
   context "Editing" do
     it "a textile slice" do
-      first_slice_selector = 'ul.slices-holder li:first-child'
+      first_slice_selector = 'ul.slices-holder li:first-child.slice'
       new_copy = 'New copy for this slice'
       within(first_slice_selector) do
         fill_in 'textile', with: new_copy
@@ -125,9 +129,8 @@ describe 'Page data and meta-data', type: :request, js: true do
     fill_in 'meta-meta_description', with: updated_description
 
     click_on 'Save'
-
-    expect(page).to have_field 'meta-permalink', text: updated_parent
-    expect(page).to have_field 'meta-meta_description', text: updated_description
+    expect(page).to have_field 'meta-permalink', with: updated_parent
+    expect(page).to have_field 'meta-meta_description', with: updated_description
   end
 end
 

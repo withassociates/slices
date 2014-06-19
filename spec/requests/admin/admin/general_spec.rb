@@ -64,14 +64,14 @@ describe "Administering Admins", type: :request, js: true do
       end
 
       it "is removed from the page" do
-        expect(page).not_to have_css 'tbody tr', text: 'Jamie White'
         expect(page).to have_css 'tbody tr', count: 1
+        expect(page).to have_no_css 'tbody tr', text: 'Jamie White'
       end
 
-      it "is really deleted" do
-        sleep 0.2
-        expect(page).not_to have_css 'tbody tr', text: 'Jamie White'
+      it "is really deleted on reload" do
+        page.visit current_path
         expect(page).to have_css 'tbody tr', count: 1
+        expect(page).to have_no_css 'tbody tr', text: 'Jamie White'
       end
     end
   end

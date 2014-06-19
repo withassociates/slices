@@ -21,16 +21,16 @@ describe "A container with options", type: :request, js: true do
   it "only includes slices in the `only` option" do
     click_on 'Container One'
 
-    expect(slice_picker).to have_content 'Title'
-    expect(slice_picker).to have_content 'You Tube'
-    expect(slice_picker).not_to have_content 'Lunch Choice'
+    expect(slice_picker).to have_css 'option', text: 'Title'
+    expect(slice_picker).to have_css 'option', text: 'You Tube'
+    expect(slice_picker).to have_no_css 'option', text: 'Lunch Choice'
   end
 
   it "won't move slice into a container that doesn't allow it" do
     click_on 'Container Two'
     select 'Textile', from: 'add-slice-option'
 
-    expect(page).not_to have_css '.container-select'
+    expect(page).to have_no_css '.container-select'
   end
 
 end

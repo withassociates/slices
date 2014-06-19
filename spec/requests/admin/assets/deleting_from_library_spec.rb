@@ -8,7 +8,8 @@ describe "Deleting assets from the Library", type: :request, js: true do
       create_asset_fixtures
       sign_in_as_admin
       visit admin_assets_path
-      page.find('.asset-library-item:first').click
+
+      page.find('.asset-library-item:first-child').click
       auto_confirm_with true
       js_keydown 8
     end

@@ -34,6 +34,7 @@ describe "Creating a child page", type: :request, js: true do
 
     context "saving the page" do
       before do
+        fill_in 'Page Name', with: 'New Page'
         click_on 'Save changes'
       end
 

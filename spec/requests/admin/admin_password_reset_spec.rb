@@ -8,7 +8,7 @@ describe "Password reset for /admin", type: :request, js: true do
     StandardTree.build_minimal
 
     visit '/admin/sign_in'
-    expect(page).to have_no_css('header li a', value: 'Log out')
+    expect(page).to have_no_css('header li a', text: 'Log out')
 
     click_on 'Forgot your password?'
 

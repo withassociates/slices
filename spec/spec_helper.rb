@@ -23,7 +23,7 @@ SlicesController.prepend_view_path(Rails.root.join(*%w[spec fixtures slices]))
 Slices::Config.use_snippets!
 
 Capybara.default_selector = :css
-Capybara.default_wait_time = ENV['CI'] ? 30 : 5
+Capybara.default_wait_time = ENV['CI'] ? 60 : 5
 Capybara.default_driver = :rack_test
 Capybara.javascript_driver = :poltergeist
 
@@ -37,6 +37,7 @@ RSpec.configure do |config|
   config.include AssetHelpers
   config.include RequestHelpers, type: :request
   config.include ControllerHelpers, type: :controller
+  config.include Capybara::DSL, type: :request
 
   # Hook in database cleaner
   config.before do

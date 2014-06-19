@@ -14,12 +14,12 @@ describe "A simple site", type: :request do
 
   it "renders the home page" do
     visit '/'
-    expect(page).to have_css 'title', text: 'Home'
+    expect(page).to have_title 'Home'
   end
 
   it "renders the parent page" do
     visit '/parent'
-    expect(page).to have_css 'title', text: 'Parent'
+    expect(page).to have_title 'Parent'
   end
 
   it "renders homepage with layout one" do
@@ -36,7 +36,7 @@ describe "A simple site", type: :request do
     visit '/no-such-page'
 
     expect(page.status_code).to eq 404
-    expect(page).to have_css 'title', text: /not found/i
+    expect(page).to have_title /not found/i
   end
 
   it "renders the 404 for an inactive page" do
@@ -45,7 +45,7 @@ describe "A simple site", type: :request do
 
     visit '/parent'
     expect(page.status_code).to eq 404
-    expect(page).to have_css 'title', text: /not found/i
+    expect(page).to have_title /not found/i
   end
 
 end

@@ -19,6 +19,6 @@ describe "Clicking 'View page on site' after changing the permalink", type: :req
     fill_in 'Permalink', with: 'por-ejemplo'
     click_on 'Save changes'
 
-    expect(page).to have_link 'View page on site', 'href' => '/por-ejemplo'
+    expect(page).to have_link 'View page on site', href: '/por-ejemplo'
   end
 end

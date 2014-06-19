@@ -24,8 +24,8 @@ describe "Deleting a page", type: :request, js: true do
       end
 
       it "removes the page from the tree" do
-        expect(page).not_to have_content 'Parent'
-        expect(page).not_to have_css "li[rel='#{@page.id}']", text: 'Parent'
+        expect(page).to have_no_css 'a', text: 'Parent'
+        expect(page).to have_no_css "li[rel='#{@page.id}']", text: 'Parent'
       end
     end
   end

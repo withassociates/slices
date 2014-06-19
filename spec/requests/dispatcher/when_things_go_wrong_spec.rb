@@ -28,7 +28,7 @@ describe "Page dispatching when things go wrong", type: :request do
     def should_render_error_page
       yield
       expect(page.status_code).to eq 500
-      expect(page).to have_css 'title', text: 'Something went wrong'
+      expect(page).to have_title 'Something went wrong'
     end
 
     it "shows an error page if slice fails to render" do

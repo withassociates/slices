@@ -20,14 +20,13 @@ describe "A set with entries", type: :request, js: true do
     end
 
     it "is removed from the page" do
-      expect(page).not_to have_css 'tbody tr'
+      expect(page).to have_css 'tbody tr', count: 0
+      expect(page).to have_no_css 'tbody tr'
     end
 
     it "is really deleted on reload" do
-      sleep 0.2
       page.visit current_path
-      sleep 0.2
-      expect(page).not_to have_css 'tbody tr'
+      expect(page).to have_no_css 'tbody tr'
     end
 
   end

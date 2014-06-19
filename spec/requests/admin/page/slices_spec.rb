@@ -27,7 +27,7 @@ describe "Add/Edit/Delete slices on a page", type: :request, js: true do
 
       click_on 'Save'
 
-      expect(page).not_to have_css '#container-slices .field-with-errors'
+      expect(page).to have_no_css '#container-slices .field-with-errors'
     end
 
     it "1 slice reloaded shouldn't duplicate itself" do
@@ -39,6 +39,10 @@ describe "Add/Edit/Delete slices on a page", type: :request, js: true do
       expect(page).to have_no_css('#container-slices .field-with-errors')
 
       visit admin_page_path @page
+
+      within('ul.slices-holder li:first-child.slice') do
+        fill_in 'Title', with: 'one'
+      end
       click_on_save_changes
 
       expect(page).to have_no_css(new_slice_id)

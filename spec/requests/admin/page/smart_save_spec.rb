@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "The 'Save changes' button", type: :request, js: true do
   subject do
-    find_button 'Save changes'
+    find '#save-changes', visible: false
   end
 
   before do
@@ -63,7 +63,9 @@ describe "The 'Save changes' button", type: :request, js: true do
 
   context "when a slice is moved to another container" do
     before do
-      select 'Container Two'
+      within 'li.slice:first-child' do
+        select 'Container Two'
+      end
     end
 
     it "is enabled" do
