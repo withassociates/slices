@@ -26,17 +26,17 @@ describe PageObserver do
       end
 
       before do
-        subject.should_receive(:attachment_assets_changed?).any_number_of_times.and_return(true)
-        subject.should_receive(:did_attachment_assets_change?).any_number_of_times.and_return(true)
-        subject.should_receive(:page_changed?).any_number_of_times.and_return(false)
+        allow(subject).to receive(:attachment_assets_changed?).and_return(true)
+        allow(subject).to receive(:did_attachment_assets_change?).and_return(true)
+        allow(subject).to receive(:page_changed?).and_return(false)
       end
 
       it "updates attachement assets" do
         [new_asset, original_asset].each do |double_object|
-          double_object.should_receive(:reload)
-          double_object.should_receive(:save)
+          expect(double_object).to receive(:reload)
+          expect(double_object).to receive(:save)
         end
-        page.should_receive(:assets=).with([new_asset])
+        expect(page).to receive(:assets=).with([new_asset])
 
         subject.around_save(page) {}
       end
@@ -49,9 +49,9 @@ describe PageObserver do
       end
 
       before do
-        subject.should_receive(:attachment_assets_changed?).any_number_of_times.and_return(false)
-        subject.should_receive(:did_attachment_assets_change?).any_number_of_times.and_return(false)
-        subject.should_receive(:page_changed?).any_number_of_times.and_return(false)
+        allow(subject).to receive(:attachment_assets_changed?).and_return(false)
+        allow(subject).to receive(:did_attachment_assets_change?).and_return(false)
+        allow(subject).to receive(:page_changed?).and_return(false)
       end
 
       it "does not update attachement assets" do
@@ -70,14 +70,14 @@ describe PageObserver do
       end
 
       before do
-        subject.should_receive(:attachment_assets_changed?).any_number_of_times.and_return(false)
-        subject.should_receive(:did_attachment_assets_change?).any_number_of_times.and_return(false)
-        subject.should_receive(:page_changed?).any_number_of_times.and_return(true)
+        allow(subject).to receive(:attachment_assets_changed?).and_return(false)
+        allow(subject).to receive(:did_attachment_assets_change?).and_return(false)
+        allow(subject).to receive(:page_changed?).and_return(true)
       end
 
       it "updates attachement assets" do
-        original_asset.should_receive(:reload)
-        original_asset.should_receive(:save)
+        expect(original_asset).to receive(:reload)
+        expect(original_asset).to receive(:save)
 
         subject.around_save(page) {}
       end
@@ -99,12 +99,12 @@ describe PageObserver do
       end
 
       it "is true" do
-        subject.attachment_assets_changed?.should be_true
+        expect(subject.attachment_assets_changed?).to be_truthy
       end
 
       it "memoizes the value in did_attachment_assets_change?" do
         subject.attachment_assets_changed?
-        subject.did_attachment_assets_change?.should be_true
+        expect(subject.did_attachment_assets_change?).to be_truthy
       end
     end
 
@@ -125,11 +125,11 @@ describe PageObserver do
       end
 
       it "is true" do
-        subject.attachment_assets_changed?.should be_false
+        expect(subject.attachment_assets_changed?).to be_falsey
       end
 
       it "memoizes the value in did_attachment_assets_change?" do
-        subject.did_attachment_assets_change?.should be_false
+        expect(subject.did_attachment_assets_change?).to be_falsey
       end
     end
   end
@@ -141,12 +141,12 @@ describe PageObserver do
       end
 
       before do
-        page.should_receive(:path_changed?).and_return(true)
+        expect(page).to receive(:path_changed?).and_return(true)
         subject.record = page
       end
 
       it "is true" do
-        subject.page_changed?.should be_true
+        expect(subject.page_changed?).to be_truthy
       end
     end
   end

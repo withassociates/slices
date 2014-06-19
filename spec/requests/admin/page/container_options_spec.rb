@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "A container with options", js: true do
+describe "A container with options", type: :request, js: true do
   before do
     home = StandardTree.build_home
     home.update_attributes layout: 'layout_with_container_options'
@@ -15,22 +15,22 @@ describe "A container with options", js: true do
   it "excludes slices in the `except` option" do
     click_on 'Container Two'
 
-    slice_picker.should_not have_content 'Lunch Choice'
+    expect(slice_picker).not_to have_content 'Lunch Choice'
   end
 
   it "only includes slices in the `only` option" do
     click_on 'Container One'
 
-    slice_picker.should have_content 'Title'
-    slice_picker.should have_content 'You Tube'
-    slice_picker.should_not have_content 'Lunch Choice'
+    expect(slice_picker).to have_content 'Title'
+    expect(slice_picker).to have_content 'You Tube'
+    expect(slice_picker).not_to have_content 'Lunch Choice'
   end
 
   it "won't move slice into a container that doesn't allow it" do
     click_on 'Container Two'
     select 'Textile', from: 'add-slice-option'
 
-    page.should_not have_css '.container-select'
+    expect(page).not_to have_css '.container-select'
   end
 
 end

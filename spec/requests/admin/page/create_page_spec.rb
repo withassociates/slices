@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Creating a child page", js: true do
+describe "Creating a child page", type: :request, js: true do
 
   before do
     home, @parent = StandardTree.build_minimal
@@ -24,12 +24,12 @@ describe "Creating a child page", js: true do
     end
 
     it "sets the page name field to 'New Page'" do
-      page.should have_field 'meta-name', with: new_page_name
+      expect(page).to have_field 'meta-name', with: new_page_name
     end
 
     it "sets the permalink to 'new-page'" do
       # This is a new page, so the 'advanced options' pane should already be open.
-      page.should have_field 'meta-permalink', with: 'new-page'
+      expect(page).to have_field 'meta-permalink', with: 'new-page'
     end
 
     context "saving the page" do
@@ -38,7 +38,7 @@ describe "Creating a child page", js: true do
       end
 
       it "updates the view on site link" do
-        page.should have_xpath("//a[@href='/parent/new-page']")
+        expect(page).to have_xpath("//a[@href='/parent/new-page']")
       end
     end
 
@@ -49,7 +49,7 @@ describe "Creating a child page", js: true do
 
       it "adds the new page to the sitemap" do
         css = "li[rel='#{@parent.id}'] ol li div h2" # check that New Page is a child of Parent
-        page.should have_css css, text: new_page_name
+        expect(page).to have_css css, text: new_page_name
       end
     end
 

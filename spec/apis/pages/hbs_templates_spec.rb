@@ -13,14 +13,14 @@ describe "GET to pages#show.hbs" do
       slice: 'lunch_choice',
       template: 'lunch_choice'
 
-    response.body.should include '<span class="lunch-comment" />'
+    expect(response.body).to include '<span class="lunch-comment" />'
   end
 
   it "renders page templates" do
     get admin_page_path(@page, format: :hbs),
       template: 'page_main'
 
-    response.body.should include '<p>hello</p>'
+    expect(response.body).to include '<p>hello</p>'
   end
 end
 

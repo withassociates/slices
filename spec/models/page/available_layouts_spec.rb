@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe Page do
+describe Page, type: :model do
   before do
-    Layout.should_receive(:all).and_return([["Default", "default"]])
+    expect(Layout).to receive(:all).and_return([["Default", "default"]])
   end
 
   describe ".available_layouts" do
@@ -11,7 +11,7 @@ describe Page do
     end
 
     it "returns an array of layouts as { :human_name => '', :machine_name => ''}" do
-      should == [ { human_name: "Default", machine_name: "default" } ]
+      is_expected.to eq([ { human_name: "Default", machine_name: "default" } ])
     end
   end
 
@@ -21,7 +21,7 @@ describe Page do
     end
 
     it "returns an array of layouts, with one marked as selected" do
-      should == [ { human_name: "Default", machine_name: "default" } ]
+      is_expected.to eq([ { human_name: "Default", machine_name: "default" } ])
     end
   end
 

@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 require 'spec_helper'
 
-describe "Adding tags to an asset", js: true do
+describe "Adding tags to an asset", type: :request, js: true do
   let! :asset do
     Asset.make file: file_fixture
   end
@@ -13,8 +13,8 @@ describe "Adding tags to an asset", js: true do
     click_on 'Edit'
     fill_in 'tags', with: 'super cool'
     click_on 'Save Changes'
-    page.should have_no_css '.asset-editor'
-    asset.reload.tags.should == 'super cool'
+    expect(page).to have_no_css '.asset-editor'
+    expect(asset.reload.tags).to eq('super cool')
   end
 end
 

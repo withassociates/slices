@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "The 'Save changes' button", js: true do
+describe "The 'Save changes' button", type: :request, js: true do
   subject do
     find_button 'Save changes'
   end
@@ -17,7 +17,7 @@ describe "The 'Save changes' button", js: true do
 
   context "before changes have been made" do
     it "is disabled" do
-      should be_disabled
+      is_expected.to be_disabled
     end
   end
 
@@ -27,7 +27,7 @@ describe "The 'Save changes' button", js: true do
     end
 
     it "is enabled" do
-      should_not be_disabled
+      is_expected.not_to be_disabled
     end
   end
 
@@ -37,7 +37,7 @@ describe "The 'Save changes' button", js: true do
     end
 
     it "is enabled" do
-      should_not be_disabled
+      is_expected.not_to be_disabled
     end
   end
 
@@ -47,7 +47,7 @@ describe "The 'Save changes' button", js: true do
     end
 
     it "is enabled" do
-      should_not be_disabled
+      is_expected.not_to be_disabled
     end
   end
 
@@ -57,7 +57,7 @@ describe "The 'Save changes' button", js: true do
     end
 
     it "is enabled" do
-      should_not be_disabled
+      is_expected.not_to be_disabled
     end
   end
 
@@ -67,7 +67,7 @@ describe "The 'Save changes' button", js: true do
     end
 
     it "is enabled" do
-      should_not be_disabled
+      is_expected.not_to be_disabled
     end
   end
 
@@ -76,7 +76,7 @@ describe "The 'Save changes' button", js: true do
       within '#meta-author' do
         click_on 'Will'
       end
-      should be_enabled
+      is_expected.to be_enabled
     end
   end
 
@@ -87,12 +87,12 @@ describe "The 'Save changes' button", js: true do
     end
 
     it "is disabled" do
-      should be_disabled
+      is_expected.to be_disabled
     end
 
     it "re-enables when a field is changed" do
       fill_in 'Page Name', with: 'Helter Skelter'
-      should_not be_disabled
+      is_expected.not_to be_disabled
     end
   end
 

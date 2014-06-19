@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "The site map", js: true do
+describe "The site map", type: :request, js: true do
 
   before do
     home, @page = StandardTree.build_minimal
@@ -12,10 +12,10 @@ describe "The site map", js: true do
 
     visit '/admin/site_maps'
 
-    page.should have_css '#virtual-pages h2 a', text: error.name
-    page.should have_css '#virtual-pages h2 a', text: not_found.name
+    expect(page).to have_css '#virtual-pages h2 a', text: error.name
+    expect(page).to have_css '#virtual-pages h2 a', text: not_found.name
 
-    page.should have_no_css '#virtual-pages a.add-child'
+    expect(page).to have_no_css '#virtual-pages a.add-child'
   end
 
 end

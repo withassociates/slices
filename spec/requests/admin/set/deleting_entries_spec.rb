@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "A set with entries", js: true do
+describe "A set with entries", type: :request, js: true do
   before do
     home, @page = StandardTree.build_minimal_with_slices
     sign_in_as_admin
@@ -11,7 +11,7 @@ describe "A set with entries", js: true do
   end
 
   it "displayes one article" do
-    page.should have_css 'tbody tr', count: 1
+    expect(page).to have_css 'tbody tr', count: 1
   end
 
   context "when an article is deleted" do
@@ -20,14 +20,14 @@ describe "A set with entries", js: true do
     end
 
     it "is removed from the page" do
-      page.should_not have_css 'tbody tr'
+      expect(page).not_to have_css 'tbody tr'
     end
 
     it "is really deleted on reload" do
       sleep 0.2
       page.visit current_path
       sleep 0.2
-      page.should_not have_css 'tbody tr'
+      expect(page).not_to have_css 'tbody tr'
     end
 
   end

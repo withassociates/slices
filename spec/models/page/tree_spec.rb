@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Page do
+describe Page, type: :model do
 
   context "tree building" do
 
@@ -17,15 +17,15 @@ describe Page do
     end
 
     it "does not set page on home" do
-      @home.parent.should be_nil
+      expect(@home.parent).to be_nil
     end
 
     it "has @home as @parent.page" do
-      @home.should eq @parent.parent
+      expect(@home).to eq @parent.parent
     end
 
     it "includes @parent in @home.children" do
-      @home.children.entries.should include @parent
+      expect(@home.children.entries).to include @parent
     end
 
   end
@@ -57,110 +57,110 @@ describe Page do
 
     context "the home page" do
       it "is home page" do
-        home.should be_home
+        expect(home).to be_home
       end
 
       it "has no parent" do
-        home.parent.should be_nil
+        expect(home.parent).to be_nil
       end
 
       it "has no any siblings" do
-        home.siblings.should eq []
+        expect(home.siblings).to eq []
       end
 
       it "is not a first sibling" do
-        home.should_not be_first_sibling
+        expect(home).not_to be_first_sibling
       end
 
       it "is not a last sibling" do
-        home.should_not be_last_sibling
+        expect(home).not_to be_last_sibling
       end
 
       it "has parent as a child" do
-        home.children.entries.should include parent
+        expect(home.children.entries).to include parent
       end
     end
 
     context "the parent page" do
       it "is not the home page" do
-        parent.should_not be_home
+        expect(parent).not_to be_home
       end
 
       it "has a parent" do
-        parent.parent.should eq Page.home
+        expect(parent.parent).to eq Page.home
       end
 
       it "has children" do
-        parent.children.entries.should eq [child, sibling, youngest]
+        expect(parent.children.entries).to eq [child, sibling, youngest]
       end
     end
 
     context "the child page (parent's first child)" do
 
       it "is the first sibling" do
-        child.should be_first_sibling
+        expect(child).to be_first_sibling
       end
 
       it "is not the last s a next sibling" do
-        child.should_not be_last_sibling
+        expect(child).not_to be_last_sibling
       end
 
       it "has no previous sibling" do
-        child.previous_sibling.should be_nil
+        expect(child.previous_sibling).to be_nil
       end
 
       it "has sibling as the next sibling" do
-        child.next_sibling.should eq sibling
+        expect(child.next_sibling).to eq sibling
       end
 
       it "has siblings" do
-        child.siblings.entries.should eq [sibling, youngest]
+        expect(child.siblings.entries).to eq [sibling, youngest]
       end
     end
 
     context "the sibling page (parent's middle child)" do
 
       it "is not the first sibling" do
-        sibling.should_not be_first_sibling
+        expect(sibling).not_to be_first_sibling
       end
 
       it "is not the last sibling" do
-        sibling.should_not be_last_sibling
+        expect(sibling).not_to be_last_sibling
       end
 
       it "has sibling as the previous sibling" do
-        sibling.previous_sibling.should eq child
+        expect(sibling.previous_sibling).to eq child
       end
 
       it "has youngest as the next sibling" do
-        sibling.next_sibling.should eq youngest
+        expect(sibling.next_sibling).to eq youngest
       end
 
       it "has siblings" do
-        sibling.siblings.entries.should eq [child, youngest]
+        expect(sibling.siblings.entries).to eq [child, youngest]
       end
     end
 
     context "the youngest page (parent's youngest child)" do
 
       it "is not the first sibling" do
-        youngest.should_not be_first_sibling
+        expect(youngest).not_to be_first_sibling
       end
 
       it "is the last sibling" do
-        youngest.should be_last_sibling
+        expect(youngest).to be_last_sibling
       end
 
       it "has a previous sibling" do
-        youngest.previous_sibling.should eq sibling
+        expect(youngest.previous_sibling).to eq sibling
       end
 
       it "has no next sibling" do
-        youngest.next_sibling.should be_nil
+        expect(youngest.next_sibling).to be_nil
       end
 
       it "has siblings" do
-        youngest.siblings.entries.should eq [child, sibling]
+        expect(youngest.siblings.entries).to eq [child, sibling]
       end
     end
   end

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::AdminsController do
+describe Admin::AdminsController, :type => :controller do
 
   before do
     sign_in_as_admin
@@ -9,7 +9,7 @@ describe Admin::AdminsController do
   context "on GET to :index" do
     it "adds current_admin property to admin documents" do
       get :index, format: :json
-      response.body.should include 'current_admin'
+      expect(response.body).to include 'current_admin'
     end
   end
 
@@ -36,20 +36,20 @@ describe Admin::AdminsController do
     end
 
     let :admin do
-      stub(:admin).as_null_object
+      double(:admin).as_null_object
     end
 
     before do
-      Admin.should_receive(:find).with(admin_id).and_return(admin)
+      expect(Admin).to receive(:find).with(admin_id).and_return(admin)
     end
 
     context "with valid attributes" do
       before do
-        admin.should_receive(:valid?).and_return(true)
+        expect(admin).to receive(:valid?).and_return(true)
       end
 
       it "does not update :password if is blank" do
-        admin.should_receive(:update_attributes).with(
+        expect(admin).to receive(:update_attributes).with(
           {
             name: 'Updated Name',
             email: 'updated@withassociates.com',
@@ -59,25 +59,25 @@ describe Admin::AdminsController do
       end
 
       it "updates :password if is present" do
-        admin.should_receive(:update_attributes).with(admin_params_with_password.stringify_keys)
+        expect(admin).to receive(:update_attributes).with(admin_params_with_password.stringify_keys)
         put :update, id: admin_id, admin: admin_params_with_password
       end
 
       it "responds with a redirect" do
         put :update, id: admin_id, admin: admin_params
-        response.code.should eq '302'
+        expect(response.code).to eq '302'
       end
 
     end
 
     context "with in valid attributes" do
       before do
-        admin.should_receive(:valid?).and_return(false)
+        expect(admin).to receive(:valid?).and_return(false)
       end
 
       it "renders the :show template" do
         put :update, id: admin_id, admin: admin_params
-        should render_template :show
+        is_expected.to render_template :show
       end
 
     end
@@ -92,7 +92,7 @@ describe Admin::AdminsController do
     context "when deleting the current_admin" do
       it "returns a 409 error" do
         delete :destroy, id: current_admin.id, format: :json
-        response.code.should eq '409'
+        expect(response.code).to eq '409'
       end
     end
   end

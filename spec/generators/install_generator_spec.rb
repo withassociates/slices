@@ -4,19 +4,19 @@ require 'spec_helper'
 
 describe "slices:install" do
   it "should create an app/slices directory" do
-    subject.should generate("app/slices/")
+    expect(subject).to generate("app/slices/")
   end
 
   it "should create a Slices initializer" do
-    subject.should generate("config/initializers/slices.rb")
+    expect(subject).to generate("config/initializers/slices.rb")
   end
 
   it "should create an application layout" do
-    subject.should generate("app/views/layouts/default.html.erb")
+    expect(subject).to generate("app/views/layouts/default.html.erb")
   end
 
   it "should delete public/index.html" do
-    File.exist?("public/index.html").should_not be_true
+    expect(File.exist?("public/index.html")).not_to be_truthy
   end
 end
 

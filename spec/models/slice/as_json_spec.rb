@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Slice do
+describe Slice, type: :model do
   describe "#as_json" do
 
     let :slice do
@@ -15,19 +15,19 @@ describe Slice do
     end
 
     it "has slice attributes" do
-      json_slice[:title].should eq 'Title'
-      json_slice[:container].should eq 'container_one'
-      json_slice[:position].should eq 0
+      expect(json_slice[:title]).to eq 'Title'
+      expect(json_slice[:container]).to eq 'container_one'
+      expect(json_slice[:position]).to eq 0
     end
 
     it "not have underscored attributes" do
-      json_slice.should_not include '_id'
-      json_slice.should_not include '_type'
+      expect(json_slice).not_to include '_id'
+      expect(json_slice).not_to include '_type'
     end
 
     it "uses client_id if the slice is new" do
       new_slice = Slice.new(client_id: 'new_123').as_json
-      new_slice[:client_id].should eq 'new_123'
+      expect(new_slice[:client_id]).to eq 'new_123'
     end
 
   end

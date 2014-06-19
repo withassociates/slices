@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe "Slices::CmsFormBuilder" do
+describe "Slices::CmsFormBuilder", type: :helper do
 
   def snowman
     txt =  %{<div style="margin:0;padding:0;display:inline">}

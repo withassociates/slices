@@ -4,11 +4,11 @@ describe Slices::HasSlices do
   describe ".slice_embeds" do
 
     it "has slice fields defined for Page" do
-      Page.slice_embeds.should eq [:slices]
+      expect(Page.slice_embeds).to eq [:slices]
     end
 
     it "has slice fields defined for SetPage" do
-      SetPage.slice_embeds.should eq [:slices, :set_slices]
+      expect(SetPage.slice_embeds).to eq [:slices, :set_slices]
     end
   end
 end

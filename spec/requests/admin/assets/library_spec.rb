@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "The Asset Library", js: true do
+describe "The Asset Library", type: :request, js: true do
 
   before do
     create_asset_fixtures
@@ -9,11 +9,11 @@ describe "The Asset Library", js: true do
   end
 
   it "shows the correct count" do
-    page.should have_content "Showing all 2 assets, latest first"
+    expect(page).to have_content "Showing all 2 assets, latest first"
   end
 
   it "shows the correct number of thumbnails" do
-    page.should have_css ".asset-library-item", count: 2
+    expect(page).to have_css ".asset-library-item", count: 2
   end
 
 end

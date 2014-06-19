@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Page do
+describe Page, type: :model do
   describe "#update_attributes" do
 
     def update_page_attributes_with(page, options = {})
@@ -32,13 +32,13 @@ describe Page do
       before { update_page_attributes_with(page, 'permalink' => 'new-parent') }
 
       it "updates the path" do
-        page.path.should eq '/new-parent'
-        '/new-parent'.should be_findable
+        expect(page.path).to eq '/new-parent'
+        expect('/new-parent').to be_findable
       end
 
       it "updates it's descendents paths" do
-        '/new-parent/child'.should be_findable
-        '/new-parent/child/grand-child'.should be_findable
+        expect('/new-parent/child').to be_findable
+        expect('/new-parent/child/grand-child').to be_findable
       end
     end
 
@@ -48,8 +48,8 @@ describe Page do
       end
 
       it "keeps the orginal path" do
-        page.path.should eq '/parent'
-        '/parent'.should be_findable
+        expect(page.path).to eq '/parent'
+        expect('/parent').to be_findable
       end
     end
 
@@ -63,7 +63,7 @@ describe Page do
       end
 
       it "keeps the orginal path" do
-        child.path.should eq '/parent/child'
+        expect(child.path).to eq '/parent/child'
       end
     end
 
@@ -73,23 +73,23 @@ describe Page do
       end
 
       it "updates the path" do
-        page.path.should eq '/hello-there'
+        expect(page.path).to eq '/hello-there'
       end
 
       it "updates it's descendents paths" do
-        '/hello-there/child'.should be_findable
-        '/hello-there/child/grand-child'.should be_findable
+        expect('/hello-there/child').to be_findable
+        expect('/hello-there/child/grand-child').to be_findable
       end
 
       it "updates the permalink" do
-        page.permalink.should eq 'hello-there'
+        expect(page.permalink).to eq 'hello-there'
       end
     end
 
     context 'Updating home with attributes' do
       it "does not update the path" do
         update_page_attributes_with(home, 'name' => 'Hello There')
-        home.path.should eq '/'
+        expect(home.path).to eq '/'
       end
     end
   end

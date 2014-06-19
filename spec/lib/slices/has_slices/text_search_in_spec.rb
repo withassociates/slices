@@ -39,12 +39,12 @@ describe Slices::HasSlices do
       end
 
       it "search contents of String fields" do
-        DummyPage.text_search("Hello").first.should eq page
+        expect(DummyPage.text_search("Hello").first).to eq page
       end
 
       it "not search on container or id fields" do
-        DummyPage.text_search("container").first.should eq nil
-        DummyPage.text_search("1234").first.should eq nil
+        expect(DummyPage.text_search("container").first).to eq nil
+        expect(DummyPage.text_search("1234").first).to eq nil
       end
     end
 
@@ -58,11 +58,11 @@ describe Slices::HasSlices do
       end
 
       it "not search on String fields" do
-        DummyPage.text_search("Hello").first.should eq nil
+        expect(DummyPage.text_search("Hello").first).to eq nil
       end
 
       it "search on search_text" do
-        DummyPage.text_search("shoes").first.should eq page
+        expect(DummyPage.text_search("shoes").first).to eq page
       end
     end
   end

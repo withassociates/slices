@@ -28,15 +28,15 @@ describe Slices::Config do
     end
 
     it "keeps the existing admin style" do
-      asset_styles[:admin].geometry.should eq '180x180#'
+      expect(asset_styles[:admin].geometry).to eq '180x180#'
     end
 
     it "has the new extended style" do
-      asset_styles[:extended].geometry.should eq '705x456>'
+      expect(asset_styles[:extended].geometry).to eq '705x456>'
     end
 
     it "generates conversion options" do
-      convert_options.keys.should include :extended
+      expect(convert_options.keys).to include :extended
     end
   end
 

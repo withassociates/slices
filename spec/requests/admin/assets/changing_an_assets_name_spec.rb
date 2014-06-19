@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 require 'spec_helper'
 
-describe "Changing an asset's name in the asset editor", js: true do
+describe "Changing an asset's name in the asset editor", type: :request, js: true do
   let! :asset do
     Asset.make file: file_fixture
   end
@@ -16,11 +16,11 @@ describe "Changing an asset's name in the asset editor", js: true do
   end
 
   it "closes the editor" do
-    page.should have_no_css ".asset-editor"
+    expect(page).to have_no_css ".asset-editor"
   end
 
   it "updates the name in the thumb" do
     hover_over_asset_thumb
-    page.should have_css '.asset-details .filename', text: 'Cute_Ladybug.jpg'
+    expect(page).to have_css '.asset-details .filename', text: 'Cute_Ladybug.jpg'
   end
 end

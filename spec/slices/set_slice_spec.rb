@@ -27,14 +27,14 @@ describe SetSlice do
     end
 
     it "is able to iterate over it's own entries" do
-      article_slice.entries.map(&:class).uniq.should include Article
+      expect(article_slice.entries.map(&:class).uniq).to include Article
     end
 
     it "return a limited number of entries per page" do
       while article_slice.entries.length <= article_slice.per_page + 1
         StandardTree.add_article(set_page)
       end
-      article_slice.page_entries.length.should eq article_slice.per_page
+      expect(article_slice.page_entries.length).to eq article_slice.per_page
     end
 
   end

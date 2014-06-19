@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Article do
+describe Article, type: :model do
   describe "#as_json" do
 
     let :article do
@@ -14,18 +14,18 @@ describe Article do
     end
 
     it "has page attributes" do
-      json_article[:id].should eq article.id
-      json_article[:name].should eq article.name
-      json_article[:permalink].should eq article.permalink
+      expect(json_article[:id]).to eq article.id
+      expect(json_article[:name]).to eq article.name
+      expect(json_article[:permalink]).to eq article.permalink
     end
 
     it "has slice attributes" do
       slice = article.slices.first
-      json_article[:slices][0][:title].should eq slice.title
+      expect(json_article[:slices][0][:title]).to eq slice.title
     end
 
     it "has article attributes" do
-      json_article[:published_at].should eq article.published_at
+      expect(json_article[:published_at]).to eq article.published_at
     end
 
   end

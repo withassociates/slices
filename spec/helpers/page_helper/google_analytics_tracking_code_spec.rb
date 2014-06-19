@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe PagesHelper do
+describe PagesHelper, type: :helper do
 
   describe "#google_analytics_tracking_code" do
 
@@ -19,7 +19,7 @@ describe PagesHelper do
         end
 
         it "includes the tracking code" do
-          should include tracking
+          is_expected.to include tracking
         end
       end
 
@@ -33,7 +33,7 @@ describe PagesHelper do
         end
 
         it "includes the tracking code" do
-          should include tracking
+          is_expected.to include tracking
         end
       end
 
@@ -43,7 +43,7 @@ describe PagesHelper do
         end
 
         it "includes the tracking code" do
-          should be_nil
+          is_expected.to be_nil
         end
       end
     end
@@ -51,7 +51,7 @@ describe PagesHelper do
     context "when not tracking" do
 
       before do
-        helper.should_receive(:add_tracking_code?).and_return(false)
+        expect(helper).to receive(:add_tracking_code?).and_return(false)
       end
 
       context "tracking one account" do
@@ -64,7 +64,7 @@ describe PagesHelper do
         end
 
         it "tracks nothing" do
-          should be_nil
+          is_expected.to be_nil
         end
       end
 
@@ -79,7 +79,7 @@ describe PagesHelper do
 
     context "in test mode" do
       it "is false" do
-        should be_false
+        is_expected.to be_falsey
       end
     end
 
@@ -90,22 +90,22 @@ describe PagesHelper do
 
       context "not signed in" do
         before do
-          helper.should_receive(:admin_signed_in?).and_return(false)
+          expect(helper).to receive(:admin_signed_in?).and_return(false)
         end
 
         it "is true" do
-          should be_true
+          is_expected.to be_truthy
         end
       end
 
       context "signed in" do
 
         before do
-          helper.should_receive(:admin_signed_in?).and_return(true)
+          expect(helper).to receive(:admin_signed_in?).and_return(true)
         end
 
         it "is false" do
-          should be_false
+          is_expected.to be_falsey
         end
       end
 

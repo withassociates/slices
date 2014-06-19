@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Asset do
+describe Asset, type: :model do
 
   context "#soft_restore!" do
 
@@ -15,8 +15,8 @@ describe Asset do
     end
 
     it "is not destroyed" do
-      asset.should_not be_soft_destroyed
-      asset.reload.should_not be_soft_destroyed
+      expect(asset).not_to be_soft_destroyed
+      expect(asset.reload).not_to be_soft_destroyed
     end
 
   end
@@ -43,11 +43,11 @@ describe Asset do
       end
 
       it "does not include soft deleted assets" do
-        should_not include rubbish
+        is_expected.not_to include rubbish
       end
 
       it "does include other assets" do
-        should include otters
+        is_expected.to include otters
       end
     end
 
@@ -57,11 +57,11 @@ describe Asset do
       end
 
       it "does not include soft deleted assets" do
-        should_not include rubbish
+        is_expected.not_to include rubbish
       end
 
       it "does include other assets" do
-        should include otters
+        is_expected.to include otters
       end
     end
   end

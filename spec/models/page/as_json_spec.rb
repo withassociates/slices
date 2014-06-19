@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Page do
+describe Page, type: :model do
   describe "#as_json" do
 
     let :slice_json do
@@ -21,7 +21,7 @@ describe Page do
       end
 
       it "has page attributes" do
-        page_json.should include({
+        expect(page_json).to include({
           id: page.id,
           name: page.name,
           permalink: page.permalink
@@ -29,7 +29,7 @@ describe Page do
       end
 
       it "has slice attributes" do
-        slice_json.should include({
+        expect(slice_json).to include({
           title: slice.title
         })
       end
@@ -60,7 +60,7 @@ describe Page do
       end
 
       it "has page attributes" do
-        page_json.should include({
+        expect(page_json).to include({
           id: page.id,
           name: page.name,
           permalink: page.permalink
@@ -68,7 +68,7 @@ describe Page do
       end
 
       it "has slice attributes" do
-        slice_json.should include({
+        expect(slice_json).to include({
           textile: slice.textile
         })
       end

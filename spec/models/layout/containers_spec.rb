@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Layout do
+describe Layout, type: :model do
   describe ".containers" do
 
     subject do
@@ -8,10 +8,10 @@ describe Layout do
     end
 
     it 'finds all containers' do
-      subject.containers.should == {
+      expect(subject.containers).to eq({
         'container_one' => { name: 'Container One', primary: true },
         'container_two' => { name: 'Container Two' },
-      }
+      })
     end
   end
 end

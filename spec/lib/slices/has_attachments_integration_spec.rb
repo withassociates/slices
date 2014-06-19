@@ -24,11 +24,11 @@ describe "Asset Reference" do
     end
 
     it "stores the page url in the asset page_cache" do
-      asset.reload.page_cache.first.should include ({'path' => '/parent'})
+      expect(asset.reload.page_cache.first).to include ({'path' => '/parent'})
     end
 
     it "stores the page id in the pages ids" do
-      asset.reload.page_ids.should include parent.id
+      expect(asset.reload.page_ids).to include parent.id
     end
   end
 
@@ -57,19 +57,19 @@ describe "Asset Reference" do
 
     context "adding" do
       it "(asset) adds the page url to the asset page_cache" do
-        loaded_asset.page_cache.first.should include ({'path' => '/parent'})
+        expect(loaded_asset.page_cache.first).to include ({'path' => '/parent'})
       end
 
       it "(asset) has reference of page" do
-        loaded_asset.page_ids.should eq [parent.id]
+        expect(loaded_asset.page_ids).to eq [parent.id]
       end
 
       it "(page) has reference of asset" do
-        parent.reload.asset_ids.should eq [asset.id]
+        expect(parent.reload.asset_ids).to eq [asset.id]
       end
 
       it "(page) has referenced attachments" do
-        parent.reload.attachment_asset_ids.should eq [asset.id]
+        expect(parent.reload.attachment_asset_ids).to eq [asset.id]
       end
 
     end
@@ -81,19 +81,19 @@ describe "Asset Reference" do
       end
 
       it "removes the page url from the asset page_cache" do
-        loaded_asset.page_cache.should eq []
+        expect(loaded_asset.page_cache).to eq []
       end
 
       it "(asset) has no reference of page" do
-        loaded_asset.page_ids.should eq []
+        expect(loaded_asset.page_ids).to eq []
       end
 
       it "(page) has no reference of asset" do
-        parent.reload.asset_ids.should eq []
+        expect(parent.reload.asset_ids).to eq []
       end
 
       it "(page) has no reference of attachments" do
-        parent.reload.attachment_asset_ids.should eq []
+        expect(parent.reload.attachment_asset_ids).to eq []
       end
     end
   end
@@ -123,7 +123,7 @@ describe "Asset Reference" do
     end
 
     it "adds the page url to the asset page_cache" do
-      asset.reload.page_cache.first.should include ({'path' => '/parent'})
+      expect(asset.reload.page_cache.first).to include ({'path' => '/parent'})
     end
   end
 
@@ -151,11 +151,11 @@ describe "Asset Reference" do
     end
 
     it "updates the page url from the asset page_cache" do
-      asset.reload.page_cache.first.should include ({'path' => '/new-parent'})
+      expect(asset.reload.page_cache.first).to include ({'path' => '/new-parent'})
     end
 
     it "changes the path" do
-      parent.reload.path.should eq '/new-parent'
+      expect(parent.reload.path).to eq '/new-parent'
     end
   end
 end

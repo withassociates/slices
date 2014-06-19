@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Administering Admins", js: true do
+describe "Administering Admins", type: :request, js: true do
   before do
     sign_in_as_admin
   end
@@ -18,12 +18,12 @@ describe "Administering Admins", js: true do
     end
 
     it "shows 50 on the index page" do
-      page.should have_css 'tbody tr', count: 50
+      expect(page).to have_css 'tbody tr', count: 50
     end
 
     it "has links to edit an admin" do
       admin = Admin.all.second
-      page.should have_link admin.name, href: admin_admin_path(admin.id)
+      expect(page).to have_link admin.name, href: admin_admin_path(admin.id)
     end
 
     context "viewing the second page" do
@@ -32,7 +32,7 @@ describe "Administering Admins", js: true do
       end
 
       it "displays 12 admins" do
-        page.should have_css 'tbody tr', count: 2
+        expect(page).to have_css 'tbody tr', count: 2
       end
     end
 
@@ -50,12 +50,12 @@ describe "Administering Admins", js: true do
     end
 
     it "displays two admins" do
-      page.should have_css 'tbody tr', count: 2
+      expect(page).to have_css 'tbody tr', count: 2
     end
 
     it "does not display a delete button for me" do
-      page.should have_css 'tbody tr', text: 'This is you'
-      page.should have_css 'tbody tr .delete', count: 1
+      expect(page).to have_css 'tbody tr', text: 'This is you'
+      expect(page).to have_css 'tbody tr .delete', count: 1
     end
 
     context "when an admin is deleted" do
@@ -64,14 +64,14 @@ describe "Administering Admins", js: true do
       end
 
       it "is removed from the page" do
-        page.should_not have_css 'tbody tr', text: 'Jamie White'
-        page.should have_css 'tbody tr', count: 1
+        expect(page).not_to have_css 'tbody tr', text: 'Jamie White'
+        expect(page).to have_css 'tbody tr', count: 1
       end
 
       it "is really deleted" do
         sleep 0.2
-        page.should_not have_css 'tbody tr', text: 'Jamie White'
-        page.should have_css 'tbody tr', count: 1
+        expect(page).not_to have_css 'tbody tr', text: 'Jamie White'
+        expect(page).to have_css 'tbody tr', count: 1
       end
     end
   end
@@ -92,8 +92,8 @@ describe "Administering Admins", js: true do
       end
 
       it "adds it to the index page" do
-        page.should have_css 'tbody tr', count: 2
-        page.should have_content 'Courage Wolf'
+        expect(page).to have_css 'tbody tr', count: 2
+        expect(page).to have_content 'Courage Wolf'
       end
     end
 
@@ -104,7 +104,7 @@ describe "Administering Admins", js: true do
       end
 
       it "shows an error" do
-        page.should have_css 'li.error', count: 2
+        expect(page).to have_css 'li.error', count: 2
       end
     end
   end
@@ -122,11 +122,11 @@ describe "Administering Admins", js: true do
       end
 
       it "updates the name" do
-        find_field('Name').value.should == 'Maru'
+        expect(find_field('Name').value).to eq('Maru')
       end
 
       it "updates with no errors" do
-        page.should have_no_css 'li.error'
+        expect(page).to have_no_css 'li.error'
       end
     end
   end

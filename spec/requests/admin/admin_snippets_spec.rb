@@ -4,7 +4,7 @@ describe "Admin Snippets", %q{
   In order to keep the site up to date
   As an admin user
   I want to edit snippets
-}, js: true do
+}, type: :request, js: true do
 
   before do
     StandardTree.build_minimal
@@ -15,7 +15,7 @@ describe "Admin Snippets", %q{
   end
 
   it "Viewing snippets" do
-    page.should have_css('tbody tr', count: 2)
+    expect(page).to have_css('tbody tr', count: 2)
   end
 
   it "Editing a snippet" do
@@ -25,8 +25,8 @@ describe "Admin Snippets", %q{
     fill_in 'Value', with: 'Courage Wolf'
     click_button 'Save'
 
-    page.should have_css('tbody tr', count: 2)
-    page.should have_css('tbody tr', text: 'Courage Wolf')
+    expect(page).to have_css('tbody tr', count: 2)
+    expect(page).to have_css('tbody tr', text: 'Courage Wolf')
   end
 
 end

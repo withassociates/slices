@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Asset do
+describe Asset, type: :model do
   describe "#is_image?" do
 
     context "when asset is an image" do
@@ -11,7 +11,7 @@ describe Asset do
       end
 
       it "is an image?" do
-        asset.is_image?.should be_true
+        expect(asset.is_image?).to be_truthy
       end
     end
 
@@ -23,7 +23,7 @@ describe Asset do
       end
 
       it "is an image?" do
-        asset.is_image?.should be_false
+        expect(asset.is_image?).to be_falsey
       end
 
     end

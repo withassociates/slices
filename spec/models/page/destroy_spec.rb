@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Page do
+describe Page, type: :model do
   describe "#destroy" do
 
     context "with no children" do
@@ -12,11 +12,11 @@ describe Page do
       end
 
       it "is not in home's children" do
-        Page.home.children.entries.should eq []
+        expect(Page.home.children.entries).to eq []
       end
 
       it "deletes the parent page" do
-        '/parent'.should_not be_findable
+        expect('/parent').not_to be_findable
       end
 
     end
@@ -31,19 +31,19 @@ describe Page do
       end
 
       it "is not in home's children" do
-        Page.home.children.entries.should eq []
+        expect(Page.home.children.entries).to eq []
       end
 
       it "deletes the parent page" do
-        '/parent'.should_not be_findable
+        expect('/parent').not_to be_findable
       end
 
       it "deletes the child page" do
-        '/parent/child'.should_not be_findable
+        expect('/parent/child').not_to be_findable
       end
 
       it "deletes the grand child path" do
-        '/parent/child/grand-child'.should_not be_findable
+        expect('/parent/child/grand-child').not_to be_findable
       end
 
     end

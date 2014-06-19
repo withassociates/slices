@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "The token field", js: true do
+describe "The token field", type: :request, js: true do
   let! :home do
     StandardTree.build_home
   end
@@ -36,20 +36,20 @@ describe "The token field", js: true do
 
     click_on_save_changes
 
-    page.should have_css '.token', text: 'Art'
-    page.should have_css '.token', text: 'Design'
-    page.should have_css '.token', text: 'Branding'
-    entry.reload.categories.should == %w[Art Design Branding]
+    expect(page).to have_css '.token', text: 'Art'
+    expect(page).to have_css '.token', text: 'Design'
+    expect(page).to have_css '.token', text: 'Branding'
+    expect(entry.reload.categories).to eq(%w[Art Design Branding])
   end
 
   it "lets me click an existing token", ci: false do
     within('#meta-author') { click_on 'Will' }
-    page.should have_css '.token', text: 'Will'
+    expect(page).to have_css '.token', text: 'Will'
 
     click_on_save_changes
 
-    page.should have_css '.token', text: 'Will'
-    entry.reload.author.should == 'Will'
+    expect(page).to have_css '.token', text: 'Will'
+    expect(entry.reload.author).to eq('Will')
   end
 
 end

@@ -1,7 +1,7 @@
 require 'spec_helper'
 require Rails.root.join 'spec/fixtures/slices/broken/broken_slice'
 
-describe "Page dispatching when things go wrong" do
+describe "Page dispatching when things go wrong", type: :request do
   extend ErrorHandlingMacros
 
   let :parent do
@@ -27,8 +27,8 @@ describe "Page dispatching when things go wrong" do
 
     def should_render_error_page
       yield
-      page.status_code.should eq 500
-      page.should have_css 'title', text: 'Something went wrong'
+      expect(page.status_code).to eq 500
+      expect(page).to have_css 'title', text: 'Something went wrong'
     end
 
     it "shows an error page if slice fails to render" do
@@ -47,15 +47,15 @@ describe "Page dispatching when things go wrong" do
   context "with no error handeling" do
 
     it "raises a NoMethodError when BrokenSlice fails to render" do
-      lambda {
+      expect {
         visit page_with_broken_slice.path
-      }.should raise_error NoMethodError
+      }.to raise_error NoMethodError
     end
 
     it "raises a NoMethodError when the broken layout failes to render" do
-      lambda {
+      expect {
         visit page_with_broken_layout.path
-      }.should raise_error NoMethodError
+      }.to raise_error NoMethodError
     end
 
   end

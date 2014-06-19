@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Password reset for /admin", js: true do
+describe "Password reset for /admin", type: :request, js: true do
 
   it "Reset admin users password" do
     Devise::Mailer.default_url_options[:host] = "example.com"
@@ -8,7 +8,7 @@ describe "Password reset for /admin", js: true do
     StandardTree.build_minimal
 
     visit '/admin/sign_in'
-    page.should have_no_css('header li a', value: 'Log out')
+    expect(page).to have_no_css('header li a', value: 'Log out')
 
     click_on 'Forgot your password?'
 
@@ -24,7 +24,7 @@ describe "Password reset for /admin", js: true do
     fill_in 'Confirm new password', with: 'hello12'
     click_on 'Change my password'
 
-    page.current_path.should == '/admin/site_maps'
+    expect(page.current_path).to eq('/admin/site_maps')
   end
 
 end

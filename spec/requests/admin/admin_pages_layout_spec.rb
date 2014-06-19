@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 require 'spec_helper'
 
-describe "The page layout selector", js: true do
+describe "The page layout selector", type: :request, js: true do
 
   before do
     home, my_page = StandardTree.build_minimal_with_slices
@@ -16,7 +16,7 @@ describe "The page layout selector", js: true do
   end
 
   it "exists, with the expected options, and expected value selected" do
-    should have_select "meta-layout", options: [
+    is_expected.to have_select "meta-layout", options: [
       "Default",
       "Broken",
       "Layout One",
@@ -29,7 +29,7 @@ describe "The page layout selector", js: true do
   it "saves successfully" do
     select "Layout Two", from: "Layout"
     click_on_save_changes
-    should have_select "meta-layout", selected: "Layout Two"
+    is_expected.to have_select "meta-layout", selected: "Layout Two"
   end
 
 end

@@ -2,32 +2,32 @@ require 'spec_helper'
 
 shared_examples "updates slices correctly" do
   it "removes deleted slices" do
-    json_slices.find { |slice| slice['id'] == @deleted_slice_id }.should be_nil
+    expect(json_slices.find { |slice| slice['id'] == @deleted_slice_id }).to be_nil
   end
 
   it "keeps client_id on new slices" do
     container_one_slices, new_slice = container_one_slices_and_new_slice
 
-    new_slice['client_id'].should eq 'new_123'
+    expect(new_slice['client_id']).to eq 'new_123'
   end
 
   it "removes _new from new slices" do
     container_one_slices, new_slice = container_one_slices_and_new_slice
 
-    new_slice['_new'].should be_nil
+    expect(new_slice['_new']).to be_nil
   end
 
   it "does not use client_id for id in new slices" do
     container_one_slices, new_slice = container_one_slices_and_new_slice
 
-    new_slice['client_id'].should_not eq new_slice['id']
+    expect(new_slice['client_id']).not_to eq new_slice['id']
   end
 
   it "orders slices correctly" do
     container_one_slices, new_slice = container_one_slices_and_new_slice
 
-    container_one_slices.first['id'].should eq new_slice['id']
-    container_one_slices.second['id'].should eq @updated_slice_id
+    expect(container_one_slices.first['id']).to eq new_slice['id']
+    expect(container_one_slices.second['id']).to eq @updated_slice_id
   end
 end
 
@@ -123,30 +123,30 @@ describe "PUT to pages#update" do
     end
 
     it "responds with success" do
-      response.code.should eq '200'
+      expect(response.code).to eq '200'
     end
 
     it_behaves_like "updates slices correctly"
 
     it "updates page attributes" do
-      json_response.should include({'name' => 'Updated parent'})
-      json_response.should include({'active' => true})
-      json_response.should include({'show_in_nav' => false})
-      json_response.should include({'layout' => 'layout_three'})
-      json_response.should include({'meta_description' => 'This is an important page'})
-      json_response.should include({'title' => 'Title'})
+      expect(json_response).to include({'name' => 'Updated parent'})
+      expect(json_response).to include({'active' => true})
+      expect(json_response).to include({'show_in_nav' => false})
+      expect(json_response).to include({'layout' => 'layout_three'})
+      expect(json_response).to include({'meta_description' => 'This is an important page'})
+      expect(json_response).to include({'title' => 'Title'})
     end
 
     it "updates slice attributes" do
       updated_slice = json_slices.find { |slice| slice['id'] == @updated_slice_id }
-      updated_slice['title'].should eq 'Updated Title'
+      expect(updated_slice['title']).to eq 'Updated Title'
     end
 
     it "adds new slices" do
       container_one_slices, new_slice = container_one_slices_and_new_slice
 
-      container_one_slices.length.should eq 2
-      new_slice['title'].should eq 'New content'
+      expect(container_one_slices.length).to eq 2
+      expect(new_slice['title']).to eq 'New content'
     end
 
   end
@@ -163,24 +163,24 @@ describe "PUT to pages#update" do
     end
 
     it "responds with success" do
-      response.code.should eq '200'
+      expect(response.code).to eq '200'
     end
 
     it "does not return page attributes" do
-      json_response.should_not include 'name'
-      json_response.should_not include 'layout'
+      expect(json_response).not_to include 'name'
+      expect(json_response).not_to include 'layout'
     end
 
     it "updates slice attributes" do
       updated_slice = json_slices.find { |slice| slice['id'] == @updated_slice_id }
-      updated_slice['textile'].should eq 'h2. New heading'
+      expect(updated_slice['textile']).to eq 'h2. New heading'
     end
 
     it "adds new slices" do
       container_one_slices, new_slice = container_one_slices_and_new_slice
 
-      container_one_slices.length.should eq 2
-      new_slice['title'].should eq 'New content'
+      expect(container_one_slices.length).to eq 2
+      expect(new_slice['title']).to eq 'New content'
     end
 
     it_behaves_like "updates slices correctly"
@@ -201,25 +201,25 @@ describe "PUT to pages#update" do
     end
 
     it "responds with error" do
-      response.code.should eq '422'
+      expect(response.code).to eq '422'
     end
 
     it "has errors on page document" do
-      json_response.should include({'name' => ["can't be blank"]})
+      expect(json_response).to include({'name' => ["can't be blank"]})
     end
 
     it "has errors on slices" do
       new_slice = json_errors['new_123']
-      new_slice.should include({'title' => ["can't be blank"]})
+      expect(new_slice).to include({'title' => ["can't be blank"]})
 
       updated_slice = json_errors[@updated_slice_id]
-      updated_slice.should include({'title' => ["can't be blank"]})
+      expect(updated_slice).to include({'title' => ["can't be blank"]})
     end
 
     it "does not remove the deleted slices" do
       page = Page.find_by_id(@page.to_param)
       deleted_slice = page.slices.detect { |slice| slice.id.to_s == @deleted_slice_id }
-      deleted_slice.should be_a Slice
+      expect(deleted_slice).to be_a Slice
     end
   end
 
@@ -235,11 +235,11 @@ describe "PUT to pages#update" do
     end
 
     it "responds with success" do
-      response.code.should eq '200'
+      expect(response.code).to eq '200'
     end
 
     it "removes the delete slices" do
-      json_slices.find { |slice| slice['id'] == @deleted_slice_id }.should be_nil
+      expect(json_slices.find { |slice| slice['id'] == @deleted_slice_id }).to be_nil
     end
   end
 
@@ -254,7 +254,7 @@ describe "PUT to pages#update" do
     end
 
     it "responds with success" do
-      response.code.should eq '200'
+      expect(response.code).to eq '200'
     end
 
   end

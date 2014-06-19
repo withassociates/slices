@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::PageSearchController do
+describe Admin::PageSearchController, type: :controller do
 
   describe "GET show :query = 'about', format: :json" do
     before do
@@ -24,15 +24,15 @@ describe Admin::PageSearchController do
     end
 
     it "responds with success" do
-      response.should be_success
+      expect(response).to be_success
     end
 
     it "assigns pages" do
-      assigns(:pages).should == Page.where(name: /about/i, role: nil).limit(5)
+      expect(assigns(:pages)).to eq(Page.where(name: /about/i, role: nil).limit(5))
     end
 
     it "responds with json" do
-      response.body.should == Page.where(name: /about/i, role: nil).limit(5).as_json({}).to_json
+      expect(response.body).to eq(Page.where(name: /about/i, role: nil).limit(5).as_json({}).to_json)
     end
   end
 

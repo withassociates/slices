@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin do
+describe Admin, type: :model do
   describe "#as_json" do
 
     let :admin do
@@ -20,18 +20,18 @@ describe Admin do
     context "when a current_admin is passed as an option" do
 
       it "sets the current_admin to true" do
-        admin.as_json(current_admin: admin).should include ({current_admin: true})
+        expect(admin.as_json(current_admin: admin)).to include ({current_admin: true})
       end
 
       it "sets the current_admin to false" do
-        admin.as_json(current_admin: other_admin).should include ({current_admin: false})
+        expect(admin.as_json(current_admin: other_admin)).to include ({current_admin: false})
       end
     end
 
     context "when no current_admin is passed" do
 
       it "does not add a current_admin key" do
-        admin.as_json({}).keys.should_not include :current_admin
+        expect(admin.as_json({}).keys).not_to include :current_admin
       end
     end
 

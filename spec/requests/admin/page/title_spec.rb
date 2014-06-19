@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "The page editor title", js: true do
+describe "The page editor title", type: :request, js: true do
   let! :home do
     StandardTree.build_home
   end
@@ -11,7 +11,7 @@ describe "The page editor title", js: true do
   end
 
   it "Uses the page name as the Title" do
-    page.should have_selector('title', content: 'Home')
+    expect(page).to have_selector('title', content: 'Home')
   end
 
 end

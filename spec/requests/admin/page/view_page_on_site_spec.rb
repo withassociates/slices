@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 require 'spec_helper'
 
-describe "Clicking 'View page on site' after changing the permalink", js: true do
+describe "Clicking 'View page on site' after changing the permalink", type: :request, js: true do
   it "takes me to the right page" do
     home, parent = StandardTree.build_minimal
 
@@ -19,6 +19,6 @@ describe "Clicking 'View page on site' after changing the permalink", js: true d
     fill_in 'Permalink', with: 'por-ejemplo'
     click_on 'Save changes'
 
-    page.should have_link 'View page on site', 'href' => '/por-ejemplo'
+    expect(page).to have_link 'View page on site', 'href' => '/por-ejemplo'
   end
 end

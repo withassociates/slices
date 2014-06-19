@@ -2,7 +2,7 @@
 # -*- encoding: utf-8 -*-
 require 'spec_helper'
 
-describe "Viewing the sets entries page", js: true do
+describe "Viewing the sets entries page", type: :request, js: true do
 
   context "with lots of articles" do
     before do
@@ -23,14 +23,14 @@ describe "Viewing the sets entries page", js: true do
     end
 
     it "displays 50 articles" do
-      page.should have_css 'tbody tr', count: 50
+      expect(page).to have_css 'tbody tr', count: 50
     end
 
     it "has links to edit an entry" do
       article = articles.second
 
-      page.should have_css 'td a', text: article.name
-      page.should have_link article.name, href: admin_page_path(article.id)
+      expect(page).to have_css 'td a', text: article.name
+      expect(page).to have_link article.name, href: admin_page_path(article.id)
     end
 
     context "viewing the second page" do
@@ -39,7 +39,7 @@ describe "Viewing the sets entries page", js: true do
       end
 
       it "displays 3 articles" do
-        page.should have_css 'tbody tr', count: 3
+        expect(page).to have_css 'tbody tr', count: 3
       end
 
     end
@@ -56,7 +56,7 @@ describe "Viewing the sets entries page", js: true do
     end
 
     it "displays no articles" do
-      page.should_not have_css 'tbody tr'
+      expect(page).not_to have_css 'tbody tr'
     end
 
   end

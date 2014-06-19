@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Searching the Asset Library", js: true do
+describe "Searching the Asset Library", type: :request, js: true do
 
   before do
     create_asset_fixtures
@@ -10,13 +10,13 @@ describe "Searching the Asset Library", js: true do
   end
 
   it "updates the count correctly" do
-    page.should have_content "Showing 1 matching asset"
+    expect(page).to have_content "Showing 1 matching asset"
   end
 
   it "finds the right assets" do
-    page.should have_css ".asset-library-item", count: 1
-    page.body.should include "lady_bird.jpg"
-    page.body.should_not include "pepper-pot.jpg"
+    expect(page).to have_css ".asset-library-item", count: 1
+    expect(page.body).to include "lady_bird.jpg"
+    expect(page.body).not_to include "pepper-pot.jpg"
   end
 
 end

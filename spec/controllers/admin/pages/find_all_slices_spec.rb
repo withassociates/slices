@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::PagesController do
+describe Admin::PagesController, type: :controller do
 
   before do
     sign_in_as_admin
@@ -8,7 +8,7 @@ describe Admin::PagesController do
 
   context "in development mode" do
     before do
-      Page.stub(:find_by_id!).and_return(page)
+      allow(Page).to receive(:find_by_id!).and_return(page)
     end
 
     let :id do
@@ -16,11 +16,11 @@ describe Admin::PagesController do
     end
 
     let :page do
-      mock(:page).as_null_object
+      double(:page).as_null_object
     end
 
     it "loads all slices before udpating a page" do
-      Slices::AvailableSlices.should_receive(:all)
+      expect(Slices::AvailableSlices).to receive(:all)
       post :update, id: id, page: {}
     end
 

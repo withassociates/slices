@@ -49,15 +49,15 @@ describe Slices::HasAttachments do
       end
 
       it "stores the asset_id" do
-        subject[:asset_id].should eq asset.id
+        expect(subject[:asset_id]).to eq asset.id
       end
 
       it "stores the caption" do
-        subject[:caption].should eq caption
+        expect(subject[:caption]).to eq caption
       end
 
       it "stores the position" do
-        subject[:position].should eq 1
+        expect(subject[:position]).to eq 1
       end
     end
 
@@ -81,7 +81,7 @@ describe Slices::HasAttachments do
       end
 
       it "has TestSlide attachments" do
-        subject.slides.first.should be_a TestSlide
+        expect(subject.slides.first).to be_a TestSlide
       end
     end
 
@@ -93,7 +93,7 @@ describe Slices::HasAttachments do
       end
 
       it "has Attachment attachments" do
-        subject.attachments.first.should be_a Attachment
+        expect(subject.attachments.first).to be_a Attachment
       end
     end
   end
@@ -134,15 +134,15 @@ describe Slices::HasAttachments do
       end
 
       it "calls as_json on the superclass" do
-        subject["super"].should == true
+        expect(subject["super"]).to eq(true)
       end
 
       it "merges attachments into an array" do
-        subject[:attachments].should be_an Array
+        expect(subject[:attachments]).to be_an Array
       end
 
       it "calls as_json on attachments" do
-        subject[:attachments].first.should == attachment.as_json
+        expect(subject[:attachments].first).to eq(attachment.as_json)
       end
 
     end
@@ -153,7 +153,7 @@ describe Slices::HasAttachments do
       end
 
       it "returns an empty array" do
-        subject[:attachments].should be_an Array
+        expect(subject[:attachments]).to be_an Array
       end
 
     end
@@ -182,12 +182,12 @@ describe Slices::HasAttachments do
 
       context "with two attachments" do
         subject do
-          slice.should_receive(:attachments).and_return([attachment, other_attachment])
+          expect(slice).to receive(:attachments).and_return([attachment, other_attachment])
           slice.attachment_asset_ids
         end
 
         it "is an array of asset_ids" do
-          subject.should eq [asset_id, other_asset_id]
+          expect(subject).to eq [asset_id, other_asset_id]
         end
 
       end
@@ -198,12 +198,12 @@ describe Slices::HasAttachments do
         end
 
         subject do
-          slice.should_receive(:attachments).and_return([broken_attachment])
+          expect(slice).to receive(:attachments).and_return([broken_attachment])
           slice.attachment_asset_ids
         end
 
         it "is an empty array" do
-          subject.should eq []
+          expect(subject).to eq []
         end
 
       end
@@ -214,7 +214,7 @@ describe Slices::HasAttachments do
         end
 
         it "is an empty array" do
-          subject.should eq []
+          expect(subject).to eq []
         end
 
       end
@@ -242,12 +242,12 @@ describe Slices::HasAttachments do
       end
 
       subject do
-        slice.should_receive(:attachments).and_return([attachment])
+        expect(slice).to receive(:attachments).and_return([attachment])
         page.attachment_asset_ids
       end
 
       it "is an array of asset_ids" do
-        subject.should eq [asset_id]
+        expect(subject).to eq [asset_id]
       end
 
     end
@@ -290,13 +290,13 @@ describe Slices::HasAttachments do
         end
 
         subject do
-          page.should_receive(:attachments).and_return([page_attachment])
-          slice.should_receive(:attachments).and_return([slice_attachment])
+          expect(page).to receive(:attachments).and_return([page_attachment])
+          expect(slice).to receive(:attachments).and_return([slice_attachment])
           page.attachment_asset_ids
         end
 
         it "is an array of asset_ids" do
-          subject.should eq [page_asset_id, slice_asset_id]
+          expect(subject).to eq [page_asset_id, slice_asset_id]
         end
 
       end
@@ -310,8 +310,8 @@ describe Slices::HasAttachments do
         end
 
         before do
-          page.should_receive(:attachments).and_return([page_attachment])
-          slice.should_receive(:attachments).and_return([page_attachment, slice_attachment])
+          expect(page).to receive(:attachments).and_return([page_attachment])
+          expect(slice).to receive(:attachments).and_return([page_attachment, slice_attachment])
         end
 
         subject do
@@ -319,7 +319,7 @@ describe Slices::HasAttachments do
         end
 
         it "is an array of asset_ids" do
-          subject.should eq [page_asset_id, slice_asset_id]
+          expect(subject).to eq [page_asset_id, slice_asset_id]
         end
 
       end
@@ -330,7 +330,7 @@ describe Slices::HasAttachments do
         end
 
         before do
-          page.should_receive(:attachment_asset_ids).and_return [page_asset_id]
+          expect(page).to receive(:attachment_asset_ids).and_return [page_asset_id]
         end
 
         subject do
@@ -338,7 +338,7 @@ describe Slices::HasAttachments do
         end
 
         it "is an empty array" do
-          subject.should eq []
+          expect(subject).to eq []
         end
       end
     end
@@ -383,12 +383,12 @@ describe Slices::HasAttachments do
       end
 
       subject do
-        slice.should_receive(:attachments).and_return([slice_attachment])
+        expect(slice).to receive(:attachments).and_return([slice_attachment])
         page.slice_attachment_asset_ids
       end
 
       it "is an array of asset_ids" do
-        subject.should eq [slice_asset_id]
+        expect(subject).to eq [slice_asset_id]
       end
 
     end
@@ -401,12 +401,12 @@ describe Slices::HasAttachments do
       end
 
       subject do
-        slice.should_receive(:attachments).and_return([slice_attachment])
+        expect(slice).to receive(:attachments).and_return([slice_attachment])
         page.slice_attachment_asset_ids
       end
 
       it "is an array of asset_ids" do
-        subject.should eq [slice_asset_id]
+        expect(subject).to eq [slice_asset_id]
       end
 
     end
@@ -421,7 +421,7 @@ describe Slices::HasAttachments do
       end
 
       it "is an empty array" do
-        subject.should eq []
+        expect(subject).to eq []
       end
 
     end

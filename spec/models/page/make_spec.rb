@@ -1,17 +1,17 @@
 require 'spec_helper'
 
-describe Page do
+describe Page, type: :model do
   describe ".make" do
 
     context "when no pages exist" do
       it "returns a page" do
-        Page.make(name: 'Home', permalink: '').should be_a Page
+        expect(Page.make(name: 'Home', permalink: '')).to be_a Page
       end
 
       it "returns a home page" do
         home = Page.make(name: 'Home', permalink: '')
-        home.should eq Page.home
-        home.path.should eq '/'
+        expect(home).to eq Page.home
+        expect(home.path).to eq '/'
       end
     end
 
@@ -25,19 +25,19 @@ describe Page do
       end
 
       it "returns a page with a position" do
-        page.position.should eq 0
+        expect(page.position).to eq 0
       end
 
       it "returns a page with a parent" do
-        page.parent.should eq home
+        expect(page.parent).to eq home
       end
 
       it "returns a page with a path" do
-        page.path.should eq '/parent'
+        expect(page.path).to eq '/parent'
       end
 
       it "returns a page with the default layout" do
-        page.layout.should eq 'default'
+        expect(page.layout).to eq 'default'
       end
 
       it "returns an entry page with the layout set by the parent" do
@@ -45,7 +45,7 @@ describe Page do
         home.update_attributes(layout: layout)
         entry = Article.make(name: 'article', parent: home)
 
-        entry.layout.should eq layout
+        expect(entry.layout).to eq layout
       end
     end
 

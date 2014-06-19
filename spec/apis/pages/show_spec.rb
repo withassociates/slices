@@ -11,18 +11,18 @@ describe "GET to pages#show" do
     end
 
     it "responds with success" do
-      response.code.should eq '200'
+      expect(response.code).to eq '200'
     end
 
     it "has page attributes" do
-      json_response.should include({'name' => 'Parent'})
-      json_response.should include({'layout' => 'default'})
+      expect(json_response).to include({'name' => 'Parent'})
+      expect(json_response).to include({'layout' => 'default'})
     end
 
     it "has slice attributes" do
-      json_slices[0].should include({'title' => 'Title'})
+      expect(json_slices[0]).to include({'title' => 'Title'})
       slice_id = @page.slices.first.id.to_s
-      json_slices[0].should include({'id' => slice_id})
+      expect(json_slices[0]).to include({'id' => slice_id})
     end
   end
 
@@ -36,11 +36,11 @@ describe "GET to pages#show" do
 
     it "includes set's entry content slices" do
       slice = json_slices.find { |slice| slice['type'] == 'placeholder' }
-      slice.should be
+      expect(slice).to be
     end
 
     it "does not display include information for set page" do
-      json_response.should_not include :name
+      expect(json_response).not_to include :name
     end
   end
 

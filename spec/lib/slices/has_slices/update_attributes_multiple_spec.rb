@@ -14,7 +14,7 @@ describe Slices::HasSlices do
 
     def has_no_slice_with_textile(slices, text)
       slices.each do |slice|
-        slice['textile'].should_not include text
+        expect(slice['textile']).not_to include text
       end
     end
 
@@ -23,16 +23,16 @@ describe Slices::HasSlices do
       slices.each do |slice|
         found = true if slice['textile'] == text
       end
-      found.should be_true
+      expect(found).to be_truthy
       #assert_equal true, found, "Could not find a slice with '#{text}' in #{slices.inspect}"
     end
 
     def assert_all_slices_have_necessary_fields(slices)
       slices.each do |slice|
-        slice.raw_attributes['position'].should_not be_nil
-        slice.raw_attributes['_type'].should_not be_nil
-        slice.raw_attributes['textile'].should_not be_nil
-        slice.raw_attributes['container'].should_not be_nil
+        expect(slice.raw_attributes['position']).not_to be_nil
+        expect(slice.raw_attributes['_type']).not_to be_nil
+        expect(slice.raw_attributes['textile']).not_to be_nil
+        expect(slice.raw_attributes['container']).not_to be_nil
       end
     end
 
@@ -86,11 +86,11 @@ describe Slices::HasSlices do
     end
 
     it "has 5 slices, each with type & position" do
-      slices.length.should eq 5
+      expect(slices.length).to eq 5
       slices.each do |slice|
-        slice.raw_attributes['position'].should be
-        slice.raw_attributes['_type'].should be
-        slice.raw_attributes['textile'].should be
+        expect(slice.raw_attributes['position']).to be
+        expect(slice.raw_attributes['_type']).to be
+        expect(slice.raw_attributes['textile']).to be
       end
     end
 
@@ -107,7 +107,7 @@ describe Slices::HasSlices do
       end
 
       it "has 4 slices, each with type, textile, position & container" do
-        home.slices.length.should eq 4
+        expect(home.slices.length).to eq 4
         assert_all_slices_have_necessary_fields(home.slices)
       end
 
@@ -132,7 +132,7 @@ describe Slices::HasSlices do
       end
 
       it "has 6 slices, each with type, textile, position & container" do
-        home.slices.length.should eq 6
+        expect(home.slices.length).to eq 6
         assert_all_slices_have_necessary_fields(home.slices)
       end
 
@@ -163,7 +163,7 @@ describe Slices::HasSlices do
       end
 
       it "has 2 slices, each with type, textile, position & container" do
-        home.slices.length.should eq 2
+        expect(home.slices.length).to eq 2
         assert_all_slices_have_necessary_fields(home.slices)
       end
 
@@ -194,7 +194,7 @@ describe Slices::HasSlices do
       end
 
       it "has 5 slices, each with type, textile, position & container" do
-        home.slices.length.should eq 5
+        expect(home.slices.length).to eq 5
         assert_all_slices_have_necessary_fields(home.slices)
       end
 

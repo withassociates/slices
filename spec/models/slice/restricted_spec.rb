@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Slice do
+describe Slice, type: :model do
   describe ".restricted" do
 
     class TestSlice < Slice; end
@@ -10,13 +10,13 @@ describe Slice do
 
     context "A restricted slice" do
       it "be restricted" do
-        RestricedSlice.should be_restricted
+        expect(RestricedSlice).to be_restricted
       end
     end
 
     context "A normal slice" do
       it "is not restricted" do
-        TestSlice.should_not be_restricted
+        expect(TestSlice).not_to be_restricted
       end
     end
 

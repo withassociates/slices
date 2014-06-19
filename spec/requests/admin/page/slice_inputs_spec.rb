@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Slices with non-text inputs", js: true do
+describe "Slices with non-text inputs", type: :request, js: true do
 
   let :new_slice_id do
     '#slice-__new__0'
@@ -19,11 +19,11 @@ describe "Slices with non-text inputs", js: true do
 
     it "persists the HD choice" do
       choose 'HD'
-      page.should have_checked_field 'HD'
+      expect(page).to have_checked_field 'HD'
 
       click_on 'Save'
 
-      page.should have_checked_field 'HD'
+      expect(page).to have_checked_field 'HD'
     end
 
   end

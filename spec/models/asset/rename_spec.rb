@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Renaming an asset" do
+describe "Renaming an asset", type: :model do
 
   context "with a simple name" do
     let :asset do
@@ -13,15 +13,15 @@ describe "Renaming an asset" do
     end
 
     it "ensures the extension is maintained" do
-      asset.name.should == "Cute_Ladybird.jpg"
+      expect(asset.name).to eq("Cute_Ladybird.jpg")
     end
 
     it "alters the file name accordingly" do
-      asset.file_file_name.should == "Cute_Ladybird.jpg"
+      expect(asset.file_file_name).to eq("Cute_Ladybird.jpg")
     end
 
     it "moves the file on storage" do
-      asset.file.exists?.should be_true
+      expect(asset.file.exists?).to be_truthy
     end
   end
 
@@ -31,11 +31,11 @@ describe "Renaming an asset" do
     end
 
     it "sanitizes the problem characters" do
-      asset.file_file_name.should == ".._.._.._Ladybird_ladybug_1.jpg"
+      expect(asset.file_file_name).to eq(".._.._.._Ladybird_ladybug_1.jpg")
     end
 
     it "manages to store the file" do
-      asset.file.exists?.should be_true
+      expect(asset.file.exists?).to be_truthy
     end
   end
 
@@ -50,12 +50,12 @@ describe "Renaming an asset" do
     end
 
     it "obeys the new case" do
-      asset.file_file_name.should == "Ladybird.jpg"
+      expect(asset.file_file_name).to eq("Ladybird.jpg")
     end
 
     it "actually moves the file" do
-      asset.file.path.should match /Ladybird.jpg$/
-      asset.file.exists?.should be_true
+      expect(asset.file.path).to match /Ladybird.jpg$/
+      expect(asset.file.exists?).to be_truthy
     end
   end
 

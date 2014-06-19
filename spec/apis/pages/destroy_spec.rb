@@ -10,7 +10,7 @@ describe "DELETE to pages#destroy" do
   end
 
   it "responds with deleted (no content)" do
-    response.code.should eq '204'
+    expect(response.code).to eq '204'
   end
 
 end

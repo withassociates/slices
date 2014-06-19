@@ -13,7 +13,7 @@ describe ArticlePresenter do
   end
 
   it "lists the columns to display" do
-    ArticlePresenter.headings.should eq ['Name', 'Content', 'Date Published']
+    expect(ArticlePresenter.headings).to eq ['Name', 'Content', 'Date Published']
   end
 
   context "when article has data" do
@@ -27,8 +27,8 @@ describe ArticlePresenter do
     end
 
     it "knows the article's name" do
-      presenter.name.should eq 'Article 1'
-      presenter.as_json['name'].should eq 'Article 1'
+      expect(presenter.name).to eq 'Article 1'
+      expect(presenter.as_json['name']).to eq 'Article 1'
     end
 
     it "truncates the article's content" do
@@ -38,13 +38,13 @@ describe ArticlePresenter do
       slice.textile = '0123456789' * 10
       truncated = ('0123456789' * 6) + '...'
 
-      presenter.content.should eq truncated
-      presenter.as_json['content'].should eq truncated
+      expect(presenter.content).to eq truncated
+      expect(presenter.as_json['content']).to eq truncated
     end
 
     it "knows the article's published_at date" do
-      presenter.published_at.to_date.should eq published_at
-      presenter.as_json['published_at'].to_date.should eq published_at
+      expect(presenter.published_at.to_date).to eq published_at
+      expect(presenter.as_json['published_at'].to_date).to eq published_at
     end
 
     it "return the fields in the correct order" do
@@ -52,11 +52,11 @@ describe ArticlePresenter do
         presenter.send(method)
       end
 
-      presenter.fields.should eq values
+      expect(presenter.fields).to eq values
     end
 
     it "know the article's _id" do
-      presenter.as_json['_id'].should eq article.id
+      expect(presenter.as_json['_id']).to eq article.id
     end
   end
 
@@ -68,15 +68,15 @@ describe ArticlePresenter do
     end
 
     it "say there is no name" do
-      presenter.name.should eq '(no name)'
+      expect(presenter.name).to eq '(no name)'
     end
 
     it "say there is no content" do
-      presenter.content.should eq '(no content)'
+      expect(presenter.content).to eq '(no content)'
     end
 
     it "say the article has no published_at date" do
-      presenter.published_at.should eq '-'
+      expect(presenter.published_at).to eq '-'
     end
   end
 end

@@ -39,14 +39,14 @@ describe ArticleSetSlice do
         entries = set_slice.page_entries
         first = entries.first
         last = entries.last
-        entries.should have(5).items
-        first.published_at.should > last.published_at
+        expect(entries.size).to eq(5)
+        expect(first.published_at).to be > last.published_at
       end
     end
 
     context "with no entries" do
       it "returns an empty array" do
-        set_slice.page_entries.should have(0).items
+        expect(set_slice.page_entries.size).to eq(0)
       end
     end
   end

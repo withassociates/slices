@@ -18,20 +18,20 @@ describe Slices::GeneratorMacros do
 
   describe ".generator" do
     it "defines a generator method" do
-      subject.test.should == "ohai"
+      expect(subject.test).to eq("ohai")
     end
   end
 
   describe ".generators" do
     it "returns a catalogue of generators" do
-      subject.generators.should == [:test]
+      expect(subject.generators).to eq([:test])
     end
   end
 
   describe ".generate!" do
     it "runs all generators" do
       subject.generate!
-      subject.test_generator_called?.should be_true
+      expect(subject.test_generator_called?).to be_truthy
     end
   end
 end

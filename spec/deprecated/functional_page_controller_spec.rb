@@ -31,7 +31,7 @@ describe "Old function page controller tests", type: :api do
       end
 
       it "is a success" do
-        response.code.should eq '200'
+        expect(response.code).to eq '200'
       end
     end
 
@@ -41,8 +41,8 @@ describe "Old function page controller tests", type: :api do
       end
 
       it "redirects to the Site Maps page" do
-        response.code.should eq '302'
-        response.location.should eq admin_site_maps_url
+        expect(response.code).to eq '302'
+        expect(response.location).to eq admin_site_maps_url
       end
     end
   end
@@ -63,11 +63,11 @@ describe "Old function page controller tests", type: :api do
       end
 
       it "responds with redirect" do
-        response.code.should eq '302'
+        expect(response.code).to eq '302'
       end
 
       it "creates a new child of home" do
-        Page.home.children.length.should eq 2
+        expect(Page.home.children.length).to eq 2
       end
     end
 
@@ -78,15 +78,15 @@ describe "Old function page controller tests", type: :api do
       end
 
       it "responds with redirect" do
-        response.code.should eq '302'
+        expect(response.code).to eq '302'
       end
 
       it "creates a child of article" do
-        @set_page.reload.children.length.should eq 3
+        expect(@set_page.reload.children.length).to eq 3
       end
 
       it "creates an article" do
-        Page.last.should be_a Article
+        expect(Page.last).to be_a Article
       end
     end
 
@@ -99,7 +99,7 @@ describe "Old function page controller tests", type: :api do
     end
 
     it "responds with redirect" do
-      response.code.should eq '302'
+      expect(response.code).to eq '302'
     end
   end
 end

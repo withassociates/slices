@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "When posting to a slice" do
+describe "When posting to a slice", type: :request do
   extend ErrorHandlingMacros
   enable_production_error_handling
 

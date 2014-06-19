@@ -12,7 +12,7 @@ describe "rails g slice example" do
   end
 
   it "creates example_slice.rb" do
-    "app/slices/example/example_slice.rb".should contain <<-CONTENT
+    expect("app/slices/example/example_slice.rb").to contain <<-CONTENT
       class ExampleSlice < Slice
         # For each field that you want to store on the slice, declare the
         # field as follow:
@@ -45,11 +45,11 @@ describe "rails g slice example" do
   end
 
   it "creates templates/example.hbs" do
-    "app/slices/example/templates/example.hbs".should exist
+    expect("app/slices/example/templates/example.hbs").to exist
   end
 
   it "creates views/show.html.erb" do
-    "app/slices/example/views/show.html.erb".should contain <<-CONTENT
+    expect("app/slices/example/views/show.html.erb").to contain <<-CONTENT
       <div class="slice example">
 
         <!--
@@ -76,7 +76,7 @@ describe "rails g slice example title:string images:attachments featured_at:date
   end
 
   it "creates example_slice.rb" do
-    "app/slices/example/example_slice.rb".should contain <<-CONTENT
+    expect("app/slices/example/example_slice.rb").to contain <<-CONTENT
       include Slices::HasAttachments
       field :title, type: String
       class Image < Attachment
@@ -91,7 +91,7 @@ describe "rails g slice example title:string images:attachments featured_at:date
   end
 
   it "creates templates/example.hbs" do
-    "app/slices/example/templates/example.hbs".should contain <<-CONTENT
+    expect("app/slices/example/templates/example.hbs").to contain <<-CONTENT
       <li>
         <label for="slices-{{id}}-title">Title</label>
         <input type="text" id="slices-{{id}}-title" placeholder="Title…" value="{{title}}">
@@ -135,7 +135,7 @@ describe "rails g slice example title:string images:attachments featured_at:date
   end
 
   it "creates views/show.html.erb" do
-    "app/slices/example/views/show.html.erb".should contain <<-CONTENT
+    expect("app/slices/example/views/show.html.erb").to contain <<-CONTENT
       <div class="slice example">
 
         <!--
@@ -181,7 +181,7 @@ describe "rails g slice example example:text (a field whose name matches the sli
   end
 
   it "creates templates/examples.hbs without a label" do
-    "app/slices/example/templates/example.hbs".should contain <<-CONTENT
+    expect("app/slices/example/templates/example.hbs").to contain <<-CONTENT
       <li>
         <textarea id="slices-{{id}}-example" placeholder="Example…" rows="24">{{example}}</textarea>
       </li>
@@ -199,7 +199,7 @@ describe "rails g slice example_form" do
   end
 
   it "creates example_form_slice.rb with post handling options" do
-    "app/slices/example_form/example_form_slice.rb".should contain <<-CONTENT
+    expect("app/slices/example_form/example_form_slice.rb").to contain <<-CONTENT
       # The handle_post method will get passed the params from the POST
       # request, and should return true or false, depending on whether or
       # not processing was successful.
@@ -228,7 +228,7 @@ describe "rails g slice example_form" do
   end
 
   it "creates show.html.erb with a form tag in place" do
-    "app/slices/example_form/views/show.html.erb".should contain <<-CONTENT
+    expect("app/slices/example_form/views/show.html.erb").to contain <<-CONTENT
       <%= form_for slice, url: slice.page.path do |f| %>
         <!--
           Stick the HTML that should be rendered when your slice is displayed here.
@@ -255,7 +255,7 @@ describe "rails g slice example_set published_at:datetime --with-entry-templates
   end
 
   it "creates example.rb" do
-    "app/slices/example_set/example.rb".should contain <<-CONTENT
+    expect("app/slices/example_set/example.rb").to contain <<-CONTENT
       class Example < Page
         field :published_at, type: DateTime
 
@@ -279,7 +279,7 @@ describe "rails g slice example_set published_at:datetime --with-entry-templates
   end
 
   it "creates example_presenter.rb" do
-    "app/slices/example_set/example_presenter.rb".should contain <<-CONTENT
+    expect("app/slices/example_set/example_presenter.rb").to contain <<-CONTENT
       class ExamplePresenter < PagePresenter
         include EntryPresenter
 
@@ -320,7 +320,7 @@ describe "rails g slice example_set published_at:datetime --with-entry-templates
   end
 
   it "creates example_set_slice.rb" do
-    "app/slices/example_set/example_set_slice.rb".should contain <<-CONTENT
+    expect("app/slices/example_set/example_set_slice.rb").to contain <<-CONTENT
       class ExampleSetSlice < SetSlice
         restricted_slice
 
@@ -336,7 +336,7 @@ describe "rails g slice example_set published_at:datetime --with-entry-templates
   end
 
   it "creates templates/example_main.hbs" do
-    "app/slices/example_set/templates/example_main.hbs".should contain <<-CONTENT
+    expect("app/slices/example_set/templates/example_main.hbs").to contain <<-CONTENT
       <!--
         Any extra fields required for editing entries can be added here.
 
@@ -351,7 +351,7 @@ describe "rails g slice example_set published_at:datetime --with-entry-templates
   end
 
   it "creates templates/example_meta.hbs" do
-    "app/slices/example_set/templates/example_meta.hbs".should contain <<-CONTENT
+    expect("app/slices/example_set/templates/example_meta.hbs").to contain <<-CONTENT
       <!--
         Any extra meta field required for editing entries can be added here.
 
@@ -366,7 +366,7 @@ describe "rails g slice example_set published_at:datetime --with-entry-templates
   end
 
   it "creates templates/example_set.hbs" do
-    "app/slices/example_set/templates/example_set.hbs".should contain <<-CONTENT
+    expect("app/slices/example_set/templates/example_set.hbs").to contain <<-CONTENT
       <li>
         <label for="slices-{{id}}-per_page">Per page</label>
         <input type="text" id="slices-{{id}}-per_page" value="{{per_page}}">
@@ -375,7 +375,7 @@ describe "rails g slice example_set published_at:datetime --with-entry-templates
   end
 
   it "creates views/set.html.erb" do
-    "app/slices/example_set/views/set.html.erb".should contain <<-CONTENT
+    expect("app/slices/example_set/views/set.html.erb").to contain <<-CONTENT
       <%= will_paginate slice.page_entries, renderer: SetLinkRenderer, class: 'pagination above' %>
       <ul class="entries">
         <% slice.page_entries.each do |entry| -%>

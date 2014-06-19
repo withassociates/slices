@@ -29,41 +29,41 @@ describe ActiveSupport::Cache::FileStore do
     end
 
     it "reads from the cache" do
-      cache.read('localhost/blog/1?page=1').should eq 'article 1,2,3,4,5'
-      cache.read('localhost/blog/1?page=2').should eq 'article 6,7,8,9'
+      expect(cache.read('localhost/blog/1?page=1')).to eq 'article 1,2,3,4,5'
+      expect(cache.read('localhost/blog/1?page=2')).to eq 'article 6,7,8,9'
     end
 
     it "deletes from the cache" do
       cache.delete_matched(/^localhost\/blog\/1/)
-      cache.read('localhost/blog/1?page=1').should be_nil
-      cache.read('localhost/blog/1?page=2').should be_nil
+      expect(cache.read('localhost/blog/1?page=1')).to be_nil
+      expect(cache.read('localhost/blog/1?page=2')).to be_nil
     end
   end
 
   it "depreacates expires in on read" do
-    pending
+    skip
     ActiveSupport::Deprecation.silence do
       old_cache = ActiveSupport::Cache.lookup_store(:file_store, cache_dir)
 
       time = Time.local(2008, 4, 24)
-      Time.stub(:now).and_return(time)
+      allow(Time).to receive(:now).and_return(time)
 
       old_cache.write("foo", "bar")
-      old_cache.read('foo', expires_in: 60).should eq 'bar'
+      expect(old_cache.read('foo', expires_in: 60)).to eq 'bar'
 
-      Time.stub(:now).and_return(time + 30)
-      old_cache.read('foo', expires_in: 60).should eq 'bar'
+      allow(Time).to receive(:now).and_return(time + 30)
+      expect(old_cache.read('foo', expires_in: 60)).to eq 'bar'
 
-      Time.stub(:now).and_return(time + 61)
-      old_cache.read('foo').should eq 'bar'
-      old_cache.read('foo', expires_in: 60).should be_nil
-      old_cache.read('foo').should be_nil
+      allow(Time).to receive(:now).and_return(time + 61)
+      expect(old_cache.read('foo')).to eq 'bar'
+      expect(old_cache.read('foo', expires_in: 60)).to be_nil
+      expect(old_cache.read('foo')).to be_nil
     end
   end
 
   it "transforms keys" do
     key = cache.send(:key_file_path, "views/index?id=1")
-    cache.send(:file_path_key, key).should eq "views/index?id=1"
+    expect(cache.send(:file_path_key, key)).to eq "views/index?id=1"
   end
 end
 

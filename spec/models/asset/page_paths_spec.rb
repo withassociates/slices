@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Asset do
+describe Asset, type: :model do
 
   let :asset do
     Asset.new
@@ -12,13 +12,13 @@ describe Asset do
         page = double(:page, id: 1, name: '1', path: '/path')
         other_page = double(:page, id: 2, name: 'b', path: '/other-path')
 
-        asset.stub(:page_ids).and_return [:id]
-        asset.stub(:pages).and_return [page, other_page]
+        allow(asset).to receive(:page_ids).and_return [:id]
+        allow(asset).to receive(:pages).and_return [page, other_page]
         asset.update_page_cache
       end
 
       it "sets page_cache" do
-        asset.page_cache.should eq [
+        expect(asset.page_cache).to eq [
           {id: 1, name: '1', path:'/path'},
           {id: 2, name: 'b', path:'/other-path'}
         ]
@@ -28,12 +28,12 @@ describe Asset do
 
     context "when the asset is not associated with pages" do
       before do
-        asset.stub(:page_ids).and_return []
+        allow(asset).to receive(:page_ids).and_return []
         asset.update_page_cache
       end
 
       it "sets page_cache to an empty array" do
-        asset.page_cache.should eq []
+        expect(asset.page_cache).to eq []
       end
 
     end

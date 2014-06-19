@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Restricted slice", js: true do
+describe "Restricted slice", type: :request, js: true do
 
   let! :my_page do
     home, my_page = StandardTree.build_minimal_with_slices
@@ -20,11 +20,11 @@ describe "Restricted slice", js: true do
     end
 
     it "is not addable" do
-      page.should have_no_css 'option', text: 'Placeholder'
+      expect(page).to have_no_css 'option', text: 'Placeholder'
     end
 
     it "is not deletable" do
-      page.should have_no_css "#slice-#{slice.id} .delete"
+      expect(page).to have_no_css "#slice-#{slice.id} .delete"
     end
   end
 
@@ -35,11 +35,11 @@ describe "Restricted slice", js: true do
     end
 
     it "is addable" do
-      page.should have_css 'option', text: 'Placeholder'
+      expect(page).to have_css 'option', text: 'Placeholder'
     end
 
     it "is deletable" do
-      page.should have_css "#slice-#{slice.id} .delete"
+      expect(page).to have_css "#slice-#{slice.id} .delete"
     end
   end
 

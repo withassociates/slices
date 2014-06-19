@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SetPage do
+describe SetPage, type: :model do
   context "When a page has sets" do
     let :set_page do
       home, parent = StandardTree.build_minimal
@@ -9,11 +9,11 @@ describe SetPage do
     end
 
     it "they should_eventually be available" do
-      set_page.sets.first.should eq set_page.slices.first
+      expect(set_page.sets.first).to eq set_page.slices.first
     end
 
     it "be findable by type" do
-      set_page.set_slice(:article).should eq set_page.sets.first
+      expect(set_page.set_slice(:article)).to eq set_page.sets.first
     end
   end
 
@@ -25,11 +25,11 @@ describe SetPage do
     end
 
     it "be able to return children by type" do
-      @set_page.entries(:article).should eq @articles
+      expect(@set_page.entries(:article)).to eq @articles
     end
 
     it "return list of available entry types" do
-      @set_page.entry_types.should include :article
+      expect(@set_page.entry_types).to include :article
     end
   end
 end

@@ -23,7 +23,7 @@ describe Slices::HasSlices do
 
     it "return slices in order" do
       ordered_titles = %w(t1 t2 t3)
-      page.ordered_slices.map(&:title).should eq ordered_titles
+      expect(page.ordered_slices.map(&:title)).to eq ordered_titles
     end
   end
 end

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Page do
+describe Page, type: :model do
 
   context "#cache_virtual_page" do
     let :page do
@@ -8,7 +8,7 @@ describe Page do
     end
 
     it "is called after save" do
-      page.should_receive(:cache_virtual_page)
+      expect(page).to receive(:cache_virtual_page)
       page.save
     end
   end

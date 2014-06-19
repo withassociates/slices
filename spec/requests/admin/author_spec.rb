@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "History", js: true do
+describe "History", type: :request, js: true do
   let! :admin do
     sign_in_as_admin
   end
@@ -14,6 +14,6 @@ describe "History", js: true do
   end
 
   it "records the author on creation" do
-    page.should have_content "Created by #{admin.name}"
+    expect(page).to have_content "Created by #{admin.name}"
   end
 end

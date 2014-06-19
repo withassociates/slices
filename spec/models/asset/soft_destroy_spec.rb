@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Asset do
+describe Asset, type: :model do
 
   context "#soft_destroy!" do
 
@@ -13,12 +13,12 @@ describe Asset do
     end
 
     it "is destroyed" do
-      asset.should be_soft_destroyed
-      asset.reload.should be_soft_destroyed
+      expect(asset).to be_soft_destroyed
+      expect(asset.reload).to be_soft_destroyed
     end
 
     it "was destroyed at a Time" do
-      asset.destroyed_at.should be_a Time
+      expect(asset.destroyed_at).to be_a Time
     end
 
   end
@@ -44,11 +44,11 @@ describe Asset do
       end
 
       it "does not include soft deleted assets" do
-        should_not include rubbish
+        is_expected.not_to include rubbish
       end
 
       it "does include other assets" do
-        should include otters
+        is_expected.to include otters
       end
     end
 
@@ -58,11 +58,11 @@ describe Asset do
       end
 
       it "does not include soft deleted assets" do
-        should_not include rubbish
+        is_expected.not_to include rubbish
       end
 
       it "does include other assets" do
-        should include otters
+        is_expected.to include otters
       end
     end
   end

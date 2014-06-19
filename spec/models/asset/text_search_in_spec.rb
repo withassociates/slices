@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Asset do
+describe Asset, type: :model do
 
   context "searching on :name" do
     before do
@@ -10,15 +10,15 @@ describe Asset do
     end
 
     it 'returns two results when searching for dolphins' do
-      Asset.text_search('dolphins').count.should eq 2
+      expect(Asset.text_search('dolphins').count).to eq 2
     end
 
     it 'return two results when searching for otters' do
-      Asset.text_search('otters').count.should eq 2
+      expect(Asset.text_search('otters').count).to eq 2
     end
 
     it 'return one result when searching for cuttlefish' do
-      Asset.text_search('cuttlefish').count.should eq 1
+      expect(Asset.text_search('cuttlefish').count).to eq 1
     end
   end
 
@@ -39,19 +39,19 @@ describe Asset do
 
     it "stores pages_paths" do
       # Make sure the page cache isn't overridden
-      asset.page_cache.should eq page_cache
+      expect(asset.page_cache).to eq page_cache
     end
 
     it "stores pages_paths in _keywords" do
-      asset.reload._keywords.should include '/animals'
+      expect(asset.reload._keywords).to include '/animals'
     end
 
     it "return one result when searching for animals" do
-      Asset.text_search('animals').count.should eq 1
+      expect(Asset.text_search('animals').count).to eq 1
     end
 
     it "return one result when searching for creatures" do
-      Asset.text_search('creatures').count.should eq 1
+      expect(Asset.text_search('creatures').count).to eq 1
     end
   end
 end

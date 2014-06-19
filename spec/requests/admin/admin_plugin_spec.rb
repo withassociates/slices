@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 require 'spec_helper'
 
-describe "Extending a slice with javascript", js: true do
+describe "Extending a slice with javascript", type: :request, js: true do
 
   before do
     sign_in_as_admin
@@ -22,7 +22,7 @@ describe "Extending a slice with javascript", js: true do
 
       it "comments on the user's choice" do
         select "Uludag", from: "Where are we going for lunch today?"
-        page.should have_css ".lunch-comment", text: "Good choice"
+        expect(page).to have_css ".lunch-comment", text: "Good choice"
       end
     end
 
@@ -35,12 +35,12 @@ describe "Extending a slice with javascript", js: true do
       end
 
       it "comments on the user's choice" do
-        page.should have_css ".lunch-comment", text: "Good choice"
+        expect(page).to have_css ".lunch-comment", text: "Good choice"
       end
 
       it "saves the new choice" do
         click_on_save_changes
-        page.should have_select "Where are we going for lunch today?", selected: "Arthur’s"
+        expect(page).to have_select "Where are we going for lunch today?", selected: "Arthur’s"
       end
     end
 

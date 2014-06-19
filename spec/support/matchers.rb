@@ -20,7 +20,7 @@ end
 
 RSpec::Matchers.define :have_stopped_communicating do
   match do |actual|
-    actual.should have_no_css '#server-communication', visible: true
+    expect(actual).to have_no_css '#server-communication', visible: true
   end
 
   failure_message_for_should do |actual|

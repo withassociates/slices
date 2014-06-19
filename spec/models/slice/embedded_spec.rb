@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Slice do
+describe Slice, :type => :model do
 
   context "is embeded in a page" do
     let :page do
@@ -12,7 +12,7 @@ describe Slice do
 
     it "reference page" do
       slice = page.slices.first
-      slice.normal_page.should eq page
+      expect(slice.normal_page).to eq page
     end
   end
 
@@ -27,14 +27,14 @@ describe Slice do
 
     it "reference @page in slice" do
       slice = page.slices.first
-      slice.normal_page.should eq page
-      slice.normal_or_set_page.should eq page
+      expect(slice.normal_page).to eq page
+      expect(slice.normal_or_set_page).to eq page
     end
 
     it "reference @page in set_slice" do
       slice = page.set_slices.first
-      slice.set_page.should eq page
-      slice.normal_or_set_page.should eq page
+      expect(slice.set_page).to eq page
+      expect(slice.normal_or_set_page).to eq page
     end
   end
 

@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 require 'spec_helper'
 
-describe "Deleting assets from the Library", js: true do
+describe "Deleting assets from the Library", type: :request, js: true do
 
   describe "a single asset" do
     before do
@@ -14,16 +14,16 @@ describe "Deleting assets from the Library", js: true do
     end
 
     it "updates the count correctly" do
-      page.should have_content "Showing 1 asset"
+      expect(page).to have_content "Showing 1 asset"
     end
 
     it "removes the asset from view" do
-      page.should have_css ".asset-library-item", count: 1
+      expect(page).to have_css ".asset-library-item", count: 1
     end
 
     it "really removes the asset" do
       visit admin_assets_path
-      page.should have_css ".asset-library-item", count: 1
+      expect(page).to have_css ".asset-library-item", count: 1
     end
   end
 
@@ -41,11 +41,11 @@ describe "Deleting assets from the Library", js: true do
     end
 
     it "updates the count correctly" do
-      page.should have_content "No assets, yet…"
+      expect(page).to have_content "No assets, yet…"
     end
 
     it "removes the asset from view" do
-      page.should_not have_css ".asset-library-item"
+      expect(page).not_to have_css ".asset-library-item"
     end
   end
 

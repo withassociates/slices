@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Page do
+describe Page, type: :model do
   describe "roles" do
 
     context "When creating virtual pages" do
@@ -10,21 +10,21 @@ describe Page do
 
       it "creates the not found page" do
         Page.make(role: 'not_found', name: 'Page not found')
-        Page.find_virtual('not_found').name.should eq 'Page not found'
+        expect(Page.find_virtual('not_found').name).to eq 'Page not found'
       end
 
       it "creates the error page" do
         Page.make(role: 'error', name: 'Whoops')
-        Page.find_virtual('error').name.should eq 'Whoops'
+        expect(Page.find_virtual('error').name).to eq 'Whoops'
       end
     end
 
     context "When finding virtual pages" do
 
       it "is able to return virtual page role for HTTP status code" do
-        Page.role_for_status('500').should eq 'error'
-        Page.role_for_status('404').should eq 'not_found'
-        Page.role_for_status('123').should be_nil
+        expect(Page.role_for_status('500')).to eq 'error'
+        expect(Page.role_for_status('404')).to eq 'not_found'
+        expect(Page.role_for_status('123')).to be_nil
       end
 
       it "returns all virtual pages for scope" do
@@ -32,8 +32,8 @@ describe Page do
         not_found, error = StandardTree.build_virtual
         virtual_pages = Page.virtual
 
-        virtual_pages.should include not_found
-        virtual_pages.should include error
+        expect(virtual_pages).to include not_found
+        expect(virtual_pages).to include error
       end
     end
 

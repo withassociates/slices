@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 require 'spec_helper'
 
-describe "Viewing page_paths on an asset", js: true do
+describe "Viewing page_paths on an asset", type: :request, js: true do
 
   let :slide do
     { asset_id: asset.id }
@@ -28,7 +28,7 @@ describe "Viewing page_paths on an asset", js: true do
 
     it "has a link to edit the associated page" do
       path = "/admin/pages/" + parent.id.to_s
-      page.should have_css 'a[href="' + path + '"]', text: 'Parent'
+      expect(page).to have_css 'a[href="' + path + '"]', text: 'Parent'
     end
   end
 
@@ -38,7 +38,7 @@ describe "Viewing page_paths on an asset", js: true do
     end
 
     it "has no links to related pages" do
-      page.should_not have_css 'div.pages h3'
+      expect(page).not_to have_css 'div.pages h3'
     end
   end
 

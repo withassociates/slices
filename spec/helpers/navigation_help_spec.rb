@@ -8,7 +8,7 @@ module NavigationMacros
       navigation_for_level(level, depth)
       expected = yield
 
-      output_buffer.should be_html_equivalent expected
+      expect(output_buffer).to be_html_equivalent expected
     end
   end
 
@@ -17,7 +17,7 @@ module NavigationMacros
       @page = Page.find_by_path(path)
       navigation_for_level(level, depth)
 
-      output_buffer.should be_html_equivalent ''
+      expect(output_buffer).to be_html_equivalent ''
     end
   end
 
@@ -41,7 +41,7 @@ RSpec::Matchers.define :be_html_equivalent do |expected|
   end
 end
 
-describe NavigationHelper do
+describe NavigationHelper, type: :helper do
   extend NavigationMacros
 
   def logger
@@ -52,7 +52,7 @@ describe NavigationHelper do
   end
 
   def assert_html_equivalent(expected, actual=output_buffer)
-    stripped_html(actual).should eq stripped_html(expected)
+    expect(stripped_html(actual)).to eq stripped_html(expected)
   end
 
   def navigation_for_level(level, depth)
@@ -110,7 +110,7 @@ describe NavigationHelper do
         @page = Page.home
         primary_navigation('footer_navigation')
 
-        output_buffer.should be_html_equivalent <<-EOF
+        expect(output_buffer).to be_html_equivalent <<-EOF
         <ul id="footer_navigation">
           <li class="first active nav-home"><a href="/">Home</a></li>
           <li class="nav-parent"><a href="/parent">Parent</a></li>
@@ -132,7 +132,7 @@ describe NavigationHelper do
         it "does not render inactive pages" do
           primary_navigation
 
-          output_buffer.should be_html_equivalent <<-EOF
+          expect(output_buffer).to be_html_equivalent <<-EOF
           <ul id="primary_navigation">
             <li class="first nav-home">
               <a href="/">Home</a>
@@ -161,7 +161,7 @@ describe NavigationHelper do
         it "does not render pages that are not shown in nav" do
           primary_navigation
 
-          output_buffer.should be_html_equivalent <<-EOF
+          expect(output_buffer).to be_html_equivalent <<-EOF
           <ul id="primary_navigation">
             <li class="first nav-home">
               <a href="/">Home</a>
@@ -190,7 +190,7 @@ describe NavigationHelper do
         it "not render pages that are not shown in nav" do
           primary_navigation
 
-          output_buffer.should be_html_equivalent <<-EOF
+          expect(output_buffer).to be_html_equivalent <<-EOF
           <ul id="primary_navigation">
             <li class="first active nav-parent">
               <a href="/parent">Parent</a>
@@ -221,7 +221,7 @@ describe NavigationHelper do
         it "link to first active child" do
           primary_navigation
 
-          output_buffer.should be_html_equivalent <<-EOF
+          expect(output_buffer).to be_html_equivalent <<-EOF
           <ul id="primary_navigation">
             <li class="first nav-home">
               <a href="/">Home</a>
@@ -369,9 +369,9 @@ describe NavigationHelper do
       it "allow specification of id and class" do
         @page = Page.find_by_path('/parent/child')
 
-        navigation(
+        expect(navigation(
           page: @page, depth: 1, id: 'nav-id', class: 'nav-class'
-        ).should be_html_equivalent <<-EOF
+        )).to be_html_equivalent <<-EOF
         <ul class="nav-class" id="nav-id">
           <li class="first active nav-parent-child">
             <a href="/parent/child">Child</a>
@@ -388,7 +388,7 @@ describe NavigationHelper do
 
       it "render 2 levels of navigation" do
         @page = Page.find_by_path('/')
-        navigation(page: Page.home, depth: 2).should be_html_equivalent <<-EOF
+        expect(navigation(page: Page.home, depth: 2)).to be_html_equivalent <<-EOF
         <ul>
           <li class="first active nav-home">
             <a href="/">Home</a>

@@ -1,20 +1,20 @@
 require 'spec_helper'
 
-describe Layout do
+describe Layout, type: :model do
   describe "#all" do
 
     subject { Layout.all }
 
     it 'finds layouts in app/view/layouts' do
-      subject.should include(['Default', 'default'])
+      expect(subject).to include(['Default', 'default'])
     end
 
     it 'finds layouts in test/fixtures/view/layouts' do
-      subject.should include(['Layout One', 'layout_one'])
+      expect(subject).to include(['Layout One', 'layout_one'])
     end
 
     it 'ignores admin layout' do
-      subject.should_not include(['Admin', 'admin'])
+      expect(subject).not_to include(['Admin', 'admin'])
     end
 
   end

@@ -27,11 +27,11 @@ describe Slices::Renderer do
     end
 
     it "renders container one" do
-      renderer.render_container('container_one').should eq rendered_container_one
+      expect(renderer.render_container('container_one')).to eq rendered_container_one
     end
 
     it "renders container two" do
-      renderer.render_container('container_two').should eq rendered_container_two
+      expect(renderer.render_container('container_two')).to eq rendered_container_two
     end
   end
 
@@ -43,11 +43,11 @@ describe Slices::Renderer do
     end
 
     it "renders container one" do
-      renderer.render_container('container_one', slices).should eq rendered_container_one
+      expect(renderer.render_container('container_one', slices)).to eq rendered_container_one
     end
 
     it "renders container two" do
-      renderer.render_container('container_two', slices).should eq rendered_container_two
+      expect(renderer.render_container('container_two', slices)).to eq rendered_container_two
     end
   end
 
@@ -64,7 +64,7 @@ describe Slices::Renderer do
     end
 
     it "renders all slices" do
-      renderer.render_slices.should eq expected
+      expect(renderer.render_slices).to eq expected
     end
   end
 end

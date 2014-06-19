@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Asset do
+describe Asset, type: :model do
   describe "on create duplicate images are checked for" do
 
     let :asset do
@@ -14,7 +14,7 @@ describe Asset do
       end
 
       it "returns the same id for new asset with the same image" do
-        asset.id.should eq new_asset.id
+        expect(asset.id).to eq new_asset.id
       end
 
       context "for a soft deleted asset" do
@@ -23,11 +23,11 @@ describe Asset do
         end
 
         it "returns the same id for new asset with the same image" do
-          asset.id.should eq new_asset.id
+          expect(asset.id).to eq new_asset.id
         end
 
         it "should not be soft destroyed" do
-          new_asset.should_not be_soft_destroyed
+          expect(new_asset).not_to be_soft_destroyed
         end
       end
 

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "'Edit in CMS' button" do
+describe "'Edit in CMS' button", type: :request do
 
   before do
     StandardTree.build_minimal
@@ -9,7 +9,7 @@ describe "'Edit in CMS' button" do
   context "when not logged in" do
     it "is not shown" do
       visit '/'
-      page.should have_no_css '#edit_in_cms'
+      expect(page).to have_no_css '#edit_in_cms'
     end
   end
 
@@ -21,11 +21,11 @@ describe "'Edit in CMS' button" do
     end
 
     it "is shown" do
-      page.should have_css '#edit_in_cms'
+      expect(page).to have_css '#edit_in_cms'
     end
 
     it "is a link to the CMS" do
-      page.should have_link 'Edit Page in CMS', href: "/admin/pages/#{Page.home.id}"
+      expect(page).to have_link 'Edit Page in CMS', href: "/admin/pages/#{Page.home.id}"
     end
   end
 

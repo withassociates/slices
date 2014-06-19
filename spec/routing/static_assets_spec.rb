@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe "static asset routing" do
+describe "static asset routing", type: :routing do
   it "routes static assets with dots" do
-    get('/slices/templates/article_set/article_meta.hbs').should route_to(
+    expect(get('/slices/templates/article_set/article_meta.hbs')).to route_to(
       controller: 'static_assets',
       action:     'templates',
       slice:      'article_set',

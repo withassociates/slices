@@ -3,13 +3,13 @@ require 'spec_helper'
 shared_examples "it has been reparented" do |name, from, to|
   it "be reparented" do
     page = instance_variable_get("@#{name}")
-    Page.find_by_path(from).children.include?(page).should be_false
-    lambda { Page.find_by_path("#{from}/#{name}") }.should raise_error(Page::NotFound)
-    Page.find_by_path("#{to}/#{name}").should be_a Page
+    expect(Page.find_by_path(from).children.include?(page)).to be_falsey
+    expect { Page.find_by_path("#{from}/#{name}") }.to raise_error(Page::NotFound)
+    expect(Page.find_by_path("#{to}/#{name}")).to be_a Page
   end
 end
 
-describe SiteMap do
+describe SiteMap, type: :model do
 
   def site_map_tree_beneath(page)
     tree = { 'id' => page.id.to_s }
@@ -38,7 +38,7 @@ describe SiteMap do
     it "prevent you from moving the home page" do
       tree = site_map_tree
       tree.first['id'] = 'bad-id-for-home-page'
-      lambda { SiteMap.rebuild(tree) }.should raise_error(RuntimeError)
+      expect { SiteMap.rebuild(tree) }.to raise_error(RuntimeError)
     end
 
     context "with entries" do
@@ -51,19 +51,19 @@ describe SiteMap do
 
       it "not include entries in site_map_tree" do
         article_id = @article.id.to_s
-        site_map_tree.to_s.index(article_id).should be_false
+        expect(site_map_tree.to_s.index(article_id)).to be_falsey
       end
 
       it "copy entries" do
-        Page.find_by_path(@article.path).should be_a Page
+        expect(Page.find_by_path(@article.path)).to be_a Page
       end
 
       it "maintain the id of set_page" do
-        Page.find_by_path(@set_page.path).id.should eq @set_page.id
+        expect(Page.find_by_path(@set_page.path).id).to eq @set_page.id
       end
 
       it "maintain the id of entries" do
-        Page.find_by_path(@article.path).id.should eq @article.id
+        expect(Page.find_by_path(@article.path).id).to eq @article.id
       end
     end
 
@@ -71,8 +71,8 @@ describe SiteMap do
       was_first = Page.home.children.first
       was_second = Page.home.children.second
       SiteMap.rebuild(swap_first_children(site_map_tree))
-      Page.home.children.second.should eq was_first
-      Page.home.children.first.should eq was_second
+      expect(Page.home.children.second).to eq was_first
+      expect(Page.home.children.first).to eq was_second
     end
 
     def move_child_to_parents_sibling(tree, child_path, new_parent_path)
@@ -99,7 +99,7 @@ describe SiteMap do
       it_behaves_like "it has been reparented", :child, '/parent', '/aunt'
 
       it "maintain the id" do
-        Page.find_by_path('/aunt/child').id.should eq @child_id
+        expect(Page.find_by_path('/aunt/child').id).to eq @child_id
       end
     end
 
@@ -115,7 +115,7 @@ describe SiteMap do
       it_behaves_like "it has been reparented", :cousin, '/uncle', '/parent'
 
       it "maintain the id" do
-        Page.find_by_path('/parent/cousin').id.should eq @cousin_id
+        expect(Page.find_by_path('/parent/cousin').id).to eq @cousin_id
       end
     end
   end

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Page do
+describe Page, type: :model do
   describe ".find_by_path" do
 
     context "when pages exist" do
@@ -10,29 +10,29 @@ describe Page do
       end
 
       it "returns the home page" do
-        Page.find_by_path('/').should eq @home
+        expect(Page.find_by_path('/')).to eq @home
       end
 
       it "returns the parent page" do
-        Page.find_by_path('/parent').should eq @parent
+        expect(Page.find_by_path('/parent')).to eq @parent
       end
 
       it "returns the child page" do
         child, grand_child = StandardTree.add_complex(@home, @parent)
-        Page.find_by_path('/parent/child').should eq child
+        expect(Page.find_by_path('/parent/child')).to eq child
       end
 
       it "returns the grand child page" do
         child, grand_child = StandardTree.add_complex(@home, @parent)
-        Page.find_by_path('/parent/child/grand-child').should eq grand_child
+        expect(Page.find_by_path('/parent/child/grand-child')).to eq grand_child
       end
     end
 
     context "when pages do not exist" do
       it "raises Page::NotFound" do
-        lambda {
+        expect {
           Page.find_by_path('no-such-page')
-        }.should raise_error Page::NotFound
+        }.to raise_error Page::NotFound
       end
     end
   end
@@ -45,17 +45,17 @@ describe Page do
       end
 
       it "returns the home page" do
-        Page.find_by_id(@home.id).should eq @home
+        expect(Page.find_by_id(@home.id)).to eq @home
       end
 
       it "returns the parent page" do
-        Page.find_by_id(@parent.id).should eq @parent
+        expect(Page.find_by_id(@parent.id)).to eq @parent
       end
     end
 
     context "when pages do not exist" do
       it "returns nil" do
-        Page.find_by_id('no-such-id').should be_nil
+        expect(Page.find_by_id('no-such-id')).to be_nil
       end
     end
 
@@ -69,19 +69,19 @@ describe Page do
       end
 
       it "returns the home page" do
-        Page.find_by_id(@home.id).should eq @home
+        expect(Page.find_by_id(@home.id)).to eq @home
       end
 
       it "returns the parent page" do
-        Page.find_by_id(@parent.id).should eq @parent
+        expect(Page.find_by_id(@parent.id)).to eq @parent
       end
     end
 
     context "when pages do not exist" do
       it "raises Page::NotFound" do
-        lambda {
+        expect {
           Page.find_by_id!('no-such-id')
-        }.should raise_error Page::NotFound
+        }.to raise_error Page::NotFound
       end
 
     end
@@ -95,15 +95,15 @@ describe Page do
       end
 
       it "returns the home page" do
-        Page.home.should eq @home
+        expect(Page.home).to eq @home
       end
     end
 
     context "when pages do not exist" do
       it "raises Page::NotFound" do
-        lambda {
+        expect {
           Page.home
-        }.should raise_error Page::NotFound
+        }.to raise_error Page::NotFound
       end
     end
   end

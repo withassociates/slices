@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe PagesController do
+describe PagesController, type: :controller do
   describe "#render_page" do
 
     before do
@@ -9,7 +9,7 @@ describe PagesController do
     end
 
     it "runs callbacks in render_page" do
-      controller.should_receive(:my_callback).and_return(false)
+      expect(controller).to receive(:my_callback).and_return(false)
       get :show
     end
 

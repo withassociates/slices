@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Add/Edit/Delete slices on a page", js: true do
+describe "Add/Edit/Delete slices on a page", type: :request, js: true do
 
   let :new_slice_id do
     '#slice-__new__0'
@@ -21,13 +21,13 @@ describe "Add/Edit/Delete slices on a page", js: true do
       click_on 'Save'
 
       within new_slice_id do
-        page.should have_css ".field-with-errors"
+        expect(page).to have_css ".field-with-errors"
         fill_in 'Title', with: 'New slice title'
       end
 
       click_on 'Save'
 
-      page.should_not have_css '#container-slices .field-with-errors'
+      expect(page).not_to have_css '#container-slices .field-with-errors'
     end
 
     it "1 slice reloaded shouldn't duplicate itself" do
@@ -36,12 +36,12 @@ describe "Add/Edit/Delete slices on a page", js: true do
       end
       click_on_save_changes
 
-      page.should have_no_css('#container-slices .field-with-errors')
+      expect(page).to have_no_css('#container-slices .field-with-errors')
 
       visit admin_page_path @page
       click_on_save_changes
 
-      page.should have_no_css(new_slice_id)
+      expect(page).to have_no_css(new_slice_id)
     end
 
   end

@@ -1,32 +1,32 @@
 require 'spec_helper'
 
-describe Admin::SiteMapsController do
+describe Admin::SiteMapsController, type: :controller do
 
   before do
     sign_in_as_admin
   end
 
   context "on GET to :index" do
-    let(:home) { stub(:home) }
-    let(:virtual) { stub(:virtual) }
+    let(:home) { double(:home) }
+    let(:virtual) { double(:virtual) }
 
     before do
-      Page.should_receive(:home).and_return(home)
-      Page.should_receive(:virtual).and_return(virtual)
+      expect(Page).to receive(:home).and_return(home)
+      expect(Page).to receive(:virtual).and_return(virtual)
 
       get :index
     end
 
     it "responds with success" do
-      response.should be_success
+      expect(response).to be_success
     end
 
     it "assigns to :page" do
-      assigns(:pages).should be
+      expect(assigns(:pages)).to be
     end
 
     it "assigns to :page" do
-      assigns(:virtuals).should eq virtual
+      expect(assigns(:virtuals)).to eq virtual
     end
   end
 
@@ -34,14 +34,14 @@ describe Admin::SiteMapsController do
     let(:sitemap) { 'sitemap' }
 
     before do
-      SiteMap.should_receive(:rebuild).with(sitemap)
-      controller.should_receive(:expire_fragment).with(/navigation/)
+      expect(SiteMap).to receive(:rebuild).with(sitemap)
+      expect(controller).to receive(:expire_fragment).with(/navigation/)
 
       put :update, sitemap: sitemap
     end
 
     it "responds with success" do
-      response.should be_success
+      expect(response).to be_success
     end
 
   end

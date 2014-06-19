@@ -12,7 +12,7 @@ describe AssetObserver do
 
   context "#after_validation" do
     it "updates machine tags" do
-      asset.should_receive :update_page_cache
+      expect(asset).to receive :update_page_cache
       subject.after_validation asset
     end
   end

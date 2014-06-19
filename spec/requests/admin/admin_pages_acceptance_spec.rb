@@ -8,7 +8,7 @@ def add_title_slice(text)
   end
 end
 
-describe "Add/Edit/Delete slices on a page", js: true do
+describe "Add/Edit/Delete slices on a page", type: :request, js: true do
   before do
     home, @page = StandardTree.build_minimal_with_slices
     sign_in_as_admin
@@ -25,13 +25,13 @@ describe "Add/Edit/Delete slices on a page", js: true do
       click_on 'Save'
 
       within @new_slice_id do
-        page.should have_css ".field-with-errors"
+        expect(page).to have_css ".field-with-errors"
         fill_in 'Title', with: 'New slice title'
       end
 
       click_on 'Save'
 
-      page.should_not have_css '#container-slices .field-with-errors'
+      expect(page).not_to have_css '#container-slices .field-with-errors'
     end
 
     it "1 slice reloaded shouldn't duplicate itself" do
@@ -40,13 +40,13 @@ describe "Add/Edit/Delete slices on a page", js: true do
       end
       click_on_save_changes
 
-      page.should have_no_css('#container-slices .field-with-errors')
+      expect(page).to have_no_css('#container-slices .field-with-errors')
 
       sleep 0.5
       visit "/admin/pages/#{@page.id}"
       click_on_save_changes
 
-      page.should have_no_css(@new_slice_id)
+      expect(page).to have_no_css(@new_slice_id)
     end
 
     it "three slices added in order should stay in that order when reloaded" do
@@ -60,13 +60,13 @@ describe "Add/Edit/Delete slices on a page", js: true do
 
       # binding.pry
       within('#container-container_one .slice:nth-child(2)') do
-        find_field('Title').value.should == 'one'
+        expect(find_field('Title').value).to eq('one')
       end
       within('#container-container_one .slice:nth-child(3)') do
-        find_field('Title').value.should == 'two'
+        expect(find_field('Title').value).to eq('two')
       end
       within('#container-container_one .slice:nth-child(4)') do
-        find_field('Title').value.should == 'three'
+        expect(find_field('Title').value).to eq('three')
       end
     end
   end
@@ -75,12 +75,12 @@ describe "Add/Edit/Delete slices on a page", js: true do
     it "1 slice is deleted" do
       click_on 'Delete'
       click_on_save_changes
-      find(".slices-holder li").visible?.should be_false
+      expect(find(".slices-holder li").visible?).to be_falsey
     end
   end
 end
 
-describe 'Edit slices on all entries in a set', js: true do
+describe 'Edit slices on all entries in a set', type: :request, js: true do
   def set_entries_page
     "/admin/pages/#{@page.id}?entries=1"
   end
@@ -104,12 +104,12 @@ describe 'Edit slices on all entries in a set', js: true do
       click_on_save_changes
       visit set_entries_page
       sleep 0.2
-      page.should have_css(first_slice_selector + ' textarea', text: new_copy)
+      expect(page).to have_css(first_slice_selector + ' textarea', text: new_copy)
     end
   end
 end
 
-describe 'Page data and meta-data', js: true do
+describe 'Page data and meta-data', type: :request, js: true do
   before do
     home, @page = StandardTree.build_minimal_with_slices
     sign_in_as_admin
@@ -126,8 +126,8 @@ describe 'Page data and meta-data', js: true do
 
     click_on 'Save'
 
-    page.should have_field 'meta-permalink', text: updated_parent
-    page.should have_field 'meta-meta_description', text: updated_description
+    expect(page).to have_field 'meta-permalink', text: updated_parent
+    expect(page).to have_field 'meta-meta_description', text: updated_description
   end
 end
 

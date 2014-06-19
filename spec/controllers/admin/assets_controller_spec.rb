@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::AssetsController do
+describe Admin::AssetsController, type: :controller do
 
   before do
     sign_in_as_admin
@@ -17,12 +17,12 @@ describe Admin::AssetsController do
       end
 
       before do
-        Asset.should_receive(:make).with(file: file).and_return(asset)
+        expect(Asset).to receive(:make).with(file: file).and_return(asset)
         post :create, file: file, format: :json
       end
 
       it "responds with a JSON description of the asset" do
-        response.body.should == asset.to_json
+        expect(response.body).to eq(asset.to_json)
       end
     end
 
@@ -33,7 +33,7 @@ describe Admin::AssetsController do
 
       it "converts the url string into a URI object" do
         uri = URI(url.gsub(' ', '+'))
-        Asset.should_receive(:make).with(file: uri)
+        expect(Asset).to receive(:make).with(file: uri)
 
         post :create, file: url, format: :json
       end
@@ -50,14 +50,14 @@ describe Admin::AssetsController do
     end
 
     before do
-      Asset.should_receive(:find).with('123').and_return(asset)
-      asset.should_receive(:update_attributes).with(file: file)
+      expect(Asset).to receive(:find).with('123').and_return(asset)
+      expect(asset).to receive(:update_attributes).with(file: file)
 
       put :update, id: '123', file: file, format: :json
     end
 
     it "responds with a JSON description of the asset" do
-      response.body.should == asset.to_json
+      expect(response.body).to eq(asset.to_json)
     end
   end
 
@@ -71,18 +71,18 @@ describe Admin::AssetsController do
     end
 
     before do
-      Asset.should_receive(:find).with(asset_id).and_return(asset)
-      asset.should_receive(:soft_destroy!)
+      expect(Asset).to receive(:find).with(asset_id).and_return(asset)
+      expect(asset).to receive(:soft_destroy!)
 
       delete :destroy, id: asset_id, format: :json
     end
 
     it "is a success" do
-      response.should be_success
+      expect(response).to be_success
     end
 
     it "is a json success" do
-      response.body.should == 'true'
+      expect(response.body).to eq('true')
     end
   end
 end
