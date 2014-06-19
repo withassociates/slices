@@ -1,75 +1,77 @@
 require 'spec_helper'
 
-describe Page, "#as_json" do
+describe Page do
+  describe "#as_json" do
 
-  let :slice_json do
-    page_json[:slices].first
-  end
-
-  context "with no arguments" do
-    let :page do
-      StandardTree.build_minimal_with_slices.last
+    let :slice_json do
+      page_json[:slices].first
     end
 
-    let :page_json do
-      page.as_json
-    end
+    context "with no arguments" do
+      let :page do
+        StandardTree.build_minimal_with_slices.last
+      end
 
-    let :slice do
-      page.slices.first
-    end
+      let :page_json do
+        page.as_json
+      end
 
-    it "has page attributes" do
-      page_json.should include({
-        id: page.id,
-        name: page.name,
-        permalink: page.permalink
-      })
-    end
+      let :slice do
+        page.slices.first
+      end
 
-    it "has slice attributes" do
-      slice_json.should include({
-        title: slice.title
-      })
-    end
-  end
+      it "has page attributes" do
+        page_json.should include({
+          id: page.id,
+          name: page.name,
+          permalink: page.permalink
+        })
+      end
 
-  context "specifiying :slice_embed" do
-    let :page do
-      home, parent = StandardTree.build_minimal
-      SetPage.make(
-        parent: home,
-        name: 'Articles',
-        permalink: 'articles',
-        layout: 'layout_one'
-      ).tap do |page|
-        page.set_slices << TextileSlice.new(
-          textile: 'I appear above every article.',
-          container: 'container_one'
-        )
+      it "has slice attributes" do
+        slice_json.should include({
+          title: slice.title
+        })
       end
     end
 
-    let :page_json do
-      page.as_json(slice_embed: :set_slices)
-    end
+    context "specifiying :slice_embed" do
+      let :page do
+        home, parent = StandardTree.build_minimal
+        SetPage.make(
+          parent: home,
+          name: 'Articles',
+          permalink: 'articles',
+          layout: 'layout_one'
+        ).tap do |page|
+          page.set_slices << TextileSlice.new(
+            textile: 'I appear above every article.',
+            container: 'container_one'
+          )
+        end
+      end
 
-    let :slice do
-      page.set_slices.first
-    end
+      let :page_json do
+        page.as_json(slice_embed: :set_slices)
+      end
 
-    it "has page attributes" do
-      page_json.should include({
-        id: page.id,
-        name: page.name,
-        permalink: page.permalink
-      })
-    end
+      let :slice do
+        page.set_slices.first
+      end
 
-    it "has slice attributes" do
-      slice_json.should include({
-        textile: slice.textile
-      })
+      it "has page attributes" do
+        page_json.should include({
+          id: page.id,
+          name: page.name,
+          permalink: page.permalink
+        })
+      end
+
+      it "has slice attributes" do
+        slice_json.should include({
+          textile: slice.textile
+        })
+      end
     end
   end
 end

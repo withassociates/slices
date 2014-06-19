@@ -1,23 +1,24 @@
 require 'spec_helper'
 
-describe Slice, ".restricted" do
+describe Slice do
+  describe ".restricted" do
 
-  class TestSlice < Slice; end
-  class RestricedSlice < Slice;
-    restricted_slice
-  end
-
-  context "A restricted slice" do
-    it "be restricted" do
-      RestricedSlice.should be_restricted
+    class TestSlice < Slice; end
+    class RestricedSlice < Slice;
+      restricted_slice
     end
-  end
 
-  context "A normal slice" do
-    it "is not restricted" do
-      TestSlice.should_not be_restricted
+    context "A restricted slice" do
+      it "be restricted" do
+        RestricedSlice.should be_restricted
+      end
     end
-  end
 
+    context "A normal slice" do
+      it "is not restricted" do
+        TestSlice.should_not be_restricted
+      end
+    end
+
+  end
 end
-
