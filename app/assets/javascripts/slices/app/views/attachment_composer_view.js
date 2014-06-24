@@ -38,7 +38,7 @@ slices.AttachmentComposerView = Backbone.View.extend({
   initialize: function() {
     _.bindAll(this);
 
-    this.layout = this.options.layout || 'list';
+    this.columns = this.options.columns || 1;
 
     // If this.options.collection is just a simple array, we need to
     // instantiate and AttachmentCollection.
@@ -64,7 +64,7 @@ slices.AttachmentComposerView = Backbone.View.extend({
 
   render: function() {
     this.broadcastChanges = false;
-    this.el.className = this.className + ' layout-' + this.layout;
+    this.el.className = this.className + ' columns-' + this.columns;
     $(this.el).html(this.template(this));
     this.collection.each(this.addAttachment);
     this.makeSortable();

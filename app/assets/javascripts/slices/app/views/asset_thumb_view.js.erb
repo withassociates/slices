@@ -34,6 +34,13 @@ slices.AssetThumbView = Backbone.View.extend({
 
   render: function() {
     this.$el.find('.asset-details').html(this.template(this));
+    this.$el.find('img').on('load', function() {
+      var img = $(this);
+      img.css({
+        position: 'relative',
+        top: (img.parent().height() - img.height()) / 2 + 'px'
+      });
+    });
     return this;
   },
 

@@ -15,10 +15,11 @@
 //       <textarea name="caption" class="full-height">{{caption}}</textarea>
 //     {{/attachmentComposer}}
 //
-// Attachment composer supports two layouts modes, `list` and `grid`. The
-// default is `list`. To switch to grid mode, set the `layout` option:
 //
-//     {{attachmentComposer field="slides" layout="grid"}}
+// The attachment composer lets your specify the number of columns shown.
+// The default is 1.
+//
+//     {{attachmentComposer field="slides" columns=5}}
 //
 Handlebars.registerHelper('attachmentComposer', function(options) {
   if (!options.hash) {
@@ -37,7 +38,7 @@ Handlebars.registerHelper('attachmentComposer', function(options) {
     fields     : options.fn,
     autoAttach : true,
     allowDupes : options.hash.allowDupes,
-    layout     : options.hash.layout
+    columns    : options.hash.columns
   });
 
   // Return the placeholder. Don’t worry, this is replaced automatically later.

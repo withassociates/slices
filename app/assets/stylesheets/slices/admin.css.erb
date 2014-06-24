@@ -1425,8 +1425,7 @@ a.remove-asset {
   display: block;
   position: absolute;
   left: 0px;
-  width: 180px;
-  height: 180px;
+  width: 100%; height: 100%;
   overflow: hidden;
   cursor: move;
 }
@@ -1491,58 +1490,52 @@ a.remove-asset {
   display: block;
 }
 
-.attachment-composer li .remove {
-  position: absolute;
-  background: url(<%= asset_path('slices/trash.png') %>) no-repeat 50% 50%;
-  text-indent: -1000px;
-  overflow: hidden;
-  border: 0 none;
-  outline: 0 none;
-  width: 20px;
-  height: 20px;
-  top: -6px;
-  right: -25px;
-  cursor: hand; cursor: pointer;
-}
-.attachment-composer .status-uploading .remove,
-.attachment-composer .status-processing .remove {
-  display: none;
-}
-.attachment-composer li .remove:active {
-  opacity: 0.5;
-}
-.attachment-composer .ui-sortable-helper {
-  -webkit-box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.15);
-  -moz-box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.15);
-  -ms-box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.15);
-  box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.15);
-  overflow: hidden;
-}
+/* Attachment composer columns */
 
-.attachment-composer .ui-sortable-helper .attachment-thumb:hover button,
-.attachment-composer .ui-sortable-helper .remove {
-  display: none;
-}
-
-/* Attachment composer in grid mode */
-
-.attachment-composer.layout-grid .attachment-list {
+.attachment-composer .attachment-list {
   margin: -5px -6px 25px -6px;
 }
 
-.attachment-composer.layout-grid li,
-.attachment-composer.layout-grid .cursor {
+.attachment-composer li,
+.attachment-composer .cursor {
   float: left;
-  width: 180px; height: 180px;
   margin: 5px;
 }
 
-.attachment-composer.layout-grid li .remove {
+.attachment-composer img {
+  width: auto;
+}
+
+.attachment-composer.columns-1 li, .attachment-composer.columns-1 .cursor {
+  width: calc(100% - 10px);
+}
+
+.attachment-composer.columns-2 li, .attachment-composer.columns-2 .cursor {
+  width: calc(50% - 10px);
+}
+
+.attachment-composer.columns-3 li, .attachment-composer.columns-3 .cursor {
+  width: calc(33.3333% - 10px);
+}
+
+.attachment-composer.columns-4 li, .attachment-composer.columns-4 .cursor {
+  width: calc(25% - 10px);
+}
+
+.attachment-composer.columns-5 li, .attachment-composer.columns-5 .cursor {
+  width: calc(20% - 10px);
+}
+
+.attachment-composer.columns-6 li, .attachment-composer.columns-6 .cursor {
+  width: calc(16.66666% - 10px);
+}
+
+.attachment-composer li .remove {
   visibility: hidden;
   top: 5px; right: 5px;
   background-color: rgba(255, 255, 255, 0.9);
 }
-.attachment-composer.layout-grid li:hover .remove {
+.attachment-composer li:hover .remove {
   visibility: visible;
 }
 
@@ -1584,23 +1577,27 @@ a.remove-asset {
   bottom: 0;
 }
 
-.asset-library-item {
+.asset-details {
   display: block;
+  width: 100%; height: 100%;
+}
+
+.asset-library-item {
   position: relative;
-  width: 180px;
-  height: 180px;
+  display: block;
+  max-width: 180px; height: 180px;
   word-wrap: break-word;
+  border-radius: 3px;
+  box-sizing: border-box;
 }
 .library .asset-library-item {
   margin: 5px;
+  width: 180px; height: 180px;
   float: left;
-  -webkit-box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5);
-  -ms-box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5);
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5);
+  border: 3px solid transparent;
 }
   .asset-library-item.selected {
-    outline: 3px solid rgb(255, 190, 0);
+    border: 3px solid rgb(255, 190, 0);
   }
   .asset-library-item .name {
     display: block;
@@ -1615,9 +1612,14 @@ a.remove-asset {
   }
   .asset-library-item img {
     display: block;
-    position: absolute;
-    margin: 0;
+    max-width: 95%;
+    max-height: 95%;
+    margin: 0 auto;
     background: url(<%= asset_path('slices/asset-background.png') %>) 0 0 repeat;
+    -webkit-box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5);
+    -ms-box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5);
   }
   .asset-library-item .meta {
     display: block;
@@ -1631,6 +1633,7 @@ a.remove-asset {
     margin: 0;
     padding: 10px;
     visibility: hidden;
+    border-radius: 3px;
   }
     .asset-library-item .meta dd {
       margin: 0 0 0.5em 0;

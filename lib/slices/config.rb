@@ -101,7 +101,7 @@ module Slices
 
     private
     def self.admin_asset_styles
-      { admin: '180x180#' }
+      { admin: '256x256>' }
     end
 
     # Addition Paperclip convert options which are applied to all styles.
