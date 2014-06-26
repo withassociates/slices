@@ -17,7 +17,7 @@ describe "Password reset for /admin", type: :request, js: true do
 
     email = ActionMailer::Base.deliveries.last
     url = email.body.to_s[/example\.com(.*)\"/, 1]
-    sleep 0.2
+    wait_for_ajax
     visit url
 
     fill_in 'New password', with: 'hello12'

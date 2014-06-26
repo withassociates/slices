@@ -1,6 +1,7 @@
 module RequestHelpers
   def click_on_save_changes
     click_on 'Save changes'
+    wait_for_ajax
     expect(page).to have_stopped_communicating
   end
 

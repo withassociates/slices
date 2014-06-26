@@ -35,10 +35,12 @@ describe "Deleting assets from the Library", type: :request, js: true do
       visit admin_assets_path
 
       page.find('.asset-library-item:first-child').click
-      js_click_on ".asset-library-item:nth-child(2)", shift_key: true
+      js_click_on('.asset-library-item:nth-child(2)', shift_key: true)
 
       auto_confirm_with true
       js_keydown 8
+
+      wait_for_ajax
     end
 
     it "updates the count correctly" do
@@ -46,7 +48,7 @@ describe "Deleting assets from the Library", type: :request, js: true do
     end
 
     it "removes the asset from view" do
-      expect(page).not_to have_css ".asset-library-item"
+      expect(page).to have_no_css ".asset-library-item"
     end
   end
 

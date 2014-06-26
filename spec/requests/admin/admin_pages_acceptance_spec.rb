@@ -42,7 +42,7 @@ describe "Add/Edit/Delete slices on a page", type: :request, js: true do
 
       expect(page).to have_no_css('#container-slices .field-with-errors')
 
-      sleep 0.5
+      wait_for_ajax
 
       visit "/admin/pages/#{@page.id}"
 
@@ -107,7 +107,7 @@ describe 'Edit slices on all entries in a set', type: :request, js: true do
 
       click_on_save_changes
       visit set_entries_page
-      sleep 0.2
+      wait_for_ajax
       expect(page).to have_css(first_slice_selector + ' textarea', text: new_copy)
     end
   end

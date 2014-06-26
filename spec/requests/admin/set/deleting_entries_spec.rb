@@ -17,6 +17,7 @@ describe "A set with entries", type: :request, js: true do
   context "when an article is deleted" do
     before do
       js_click_on 'tbody tr:first-child td a.delete'
+      wait_for_ajax
     end
 
     it "is removed from the page" do

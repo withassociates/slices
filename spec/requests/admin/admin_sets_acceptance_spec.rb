@@ -28,9 +28,10 @@ describe "The set entries view", type: :request, js: true do
     expect(page).to have_css 'tbody tr', count: 3
   end
 
-  it "links to the page editor", ci: false do
+  it "links to the page editor" do
     article = articles.second
     click_on article.name
+    wait_for_ajax
 
     expect(page).to have_css '#meta-name' # Stop next spec randomly failing
     expect(page).to have_field 'Page Name', with: article.name
@@ -50,6 +51,7 @@ describe "Deleting an article from the entries view", type: :request, js: true d
     within('tbody tr:first-child') { click_on 'Delete' }
 
     expect(page).to have_no_css 'tbody tr'
+    wait_for_ajax
     expect(page).to have_stopped_communicating
     expect(Article.count).to eq(0)
   end

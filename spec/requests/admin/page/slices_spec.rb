@@ -18,14 +18,14 @@ describe "Add/Edit/Delete slices on a page", type: :request, js: true do
     end
 
     it "1 slice" do
-      click_on 'Save'
+      click_on_save_changes
 
       within new_slice_id do
         expect(page).to have_css ".field-with-errors"
         fill_in 'Title', with: 'New slice title'
       end
 
-      click_on 'Save'
+      click_on_save_changes
 
       expect(page).to have_no_css '#container-slices .field-with-errors'
     end
