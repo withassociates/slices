@@ -1,4 +1,6 @@
 class Admin::AssetsController < Admin::AdminController
+  require 'zip'
+
   layout 'admin'
   respond_to :json, :html
 
@@ -11,6 +13,28 @@ class Admin::AssetsController < Admin::AdminController
         render json: @assets.as_json
       end
     end
+  end
+
+  def download
+    @assets = Asset.search_for(params[:search])
+    timestamp = Time.now.strftime("%d%m%y-%H%M%S")
+    tmp_zip = Tempfile.new("assets-#{timestamp}.zip")
+
+    Zip::OutputStream.open(tmp_zip) { }
+
+    Zip::File.open(tmp_zip.path, Zip::File::CREATE) do |zipfile|
+      @assets.each do |asset|
+        zipfile.add(asset.file_file_name,
+                    asset.file.path(:original))
+      end
+    end
+
+    send_file(
+      tmp_zip.path, type: 'application/zip', filename: 'assets.zip'
+    )
+
+  ensure
+    tmp_zip.close
   end
 
   def create

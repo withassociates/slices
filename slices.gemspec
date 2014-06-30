@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'rails'             , '~> 3.2.18'
   s.add_dependency 'redcarpet'         , '~> 3.0.0'
   s.add_dependency 'RedCloth'          , '~> 4.2.9'
+  s.add_dependency 'rubyzip'           , '~> 1.1.4'
   s.add_dependency 'stringex'          , '~> 1.4.0'
   s.add_dependency 'will_paginate'     , '3.0.pre4'
 

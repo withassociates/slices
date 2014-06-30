@@ -1343,6 +1343,16 @@ a.remove-asset {
 /* Attachments */
 
 .attachment-composer {}
+
+.attachment-composer li .remove {
+  position: absolute;
+  background: url(<%= asset_path('slices/trash.png') %>) no-repeat 50% 50%;
+  text-indent: -1000px;
+  overflow: hidden;
+  width: 15px; height: 15px;
+  cursor: hand; cursor: pointer;
+}
+
 #page-extra-main .attachment-composer {
   border: 1px solid #d7d7d7;
   padding: 15px;
@@ -1714,8 +1724,7 @@ a.remove-asset {
     position: absolute;
     top: 0;
     left: 0;
-    box-shadow:
-      0px 1px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: none;
   }
   .asset-editor .overview .thumb img {
     display: block;

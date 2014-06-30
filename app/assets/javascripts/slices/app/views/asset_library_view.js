@@ -1,5 +1,3 @@
-// The asset library is dedicated to browsing, searching and managing of
-// assets. It can be rendered in-place, or to a specific element using the
 // helper method.
 //
 // To render the library inline in html:
@@ -21,6 +19,7 @@ slices.AssetLibraryView = Backbone.View.extend({
     'click [type="search"]'          : 'search',
     'click [data-action="close"]'    : 'close',
     'click [data-action="show-all"]' : 'showAll',
+    'click [data-action="download"]' : 'download',
     'mousedown .library-container'   : 'backgroundPress',
     'mousedown .resize-handle'       : 'startResize'
   },
@@ -116,6 +115,20 @@ slices.AssetLibraryView = Backbone.View.extend({
     this.fetch();
   }, 300),
 
+  // Downloads all assets or assets within search results
+  download: function() {
+    var search = this.searchTerm(),
+        host = location.hostname;
+
+    if (search == null) {
+      var download_path = '/admin/assets/download';
+    } else {
+      var download_path = '/admin/assets/download?search=' + search;
+    }
+
+    location.href = download_path;
+  },
+
   // Assuming we’re in upload-view, take us back to normal.
   showAll: function() {
     if (this.uploader.files.length > 0) {
@@ -163,6 +176,7 @@ slices.AssetLibraryView = Backbone.View.extend({
   actions: function() {
     var actions = [];
 
+    actions.push('<li><a class="button" data-action="download">Download all Assets</a></li>');
     actions.push('<li><a class="button" data-action="upload">Upload</a></li>');
 
     if (this.options.mode === 'drawer') {
@@ -316,6 +330,12 @@ slices.AssetLibraryView = Backbone.View.extend({
       all: Handlebars.compile(
         'Showing all {{count}} maching assets, latest first'
       )
+    },
+    download: {
+      none: Handlebars.compile('No assets to download'),
+      one: Handlebars.compile('Download 1 asset'),
+      some: Handlebars.compile('Download {{count}} assets'),
+      all: Handlebars.compile('Download all assets')
     }
   },
 

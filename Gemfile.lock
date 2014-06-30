@@ -13,6 +13,7 @@ PATH
       paperclip (~> 3.1.4)
       rails (~> 3.2.18)
       redcarpet (~> 3.0.0)
+      rubyzip (~> 1.1.4)
       stringex (~> 1.4.0)
       will_paginate (= 3.0.pre4)
 
@@ -190,6 +191,7 @@ GEM
       rspec-expectations (~> 2.99.0)
       rspec-mocks (~> 2.99.0)
     ruby-hmac (0.4.0)
+    rubyzip (1.1.4)
     sass (3.2.13)
     sass-rails (3.2.6)
       railties (~> 3.2.0)

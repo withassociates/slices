@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     match 'site_maps' => 'site_maps#index'
     match 'site_maps/update' => 'site_maps#update'
     match 'pages/search' => 'page_search#show'
+    match 'assets/download' => 'assets#download'
     resources :pages, :except => [:index, :edit] do
       resources :entries, :only => [:index]
     end
