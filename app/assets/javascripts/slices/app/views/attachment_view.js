@@ -11,7 +11,7 @@ slices.AttachmentView = Backbone.View.extend({
   template: Handlebars.compile(
     '<div class="attachment-thumb"></div>' +
     '<div class="attachment-fields"></div>' +
-    '<span data-action="remove" class="remove">Remove</span>'
+    '<span data-action="remove" class="remove">&times;</span>'
   ),
 
   // Initialize the view.

@@ -319,21 +319,17 @@ slices.AttachmentComposerView = Backbone.View.extend({
   //     findPlacementPoint(0, 0) //-> { attachment: a, view: v, :index: i }
   //
   findPlacementPoint: function(x, y) {
-    var views = this.views;
+    if (this.collection.length === 0) return;
 
-    if (views.length === 0) return;
+    var views = this.views,
+        list  = this.attachmentList(),
+        item  = list.find('> li'),
+        w     = item.outerWidth(true),
+        h     = item.outerHeight(true),
+        ox    = list.offset().left,
+        oy    = list.offset().top;
 
-    var list = this.$('.attachment-list'),
-        sampleItem = this.$('.attachment-list > li'),
-        w = sampleItem.outerWidth(true),
-        h = sampleItem.outerHeight(true),
-        ox = list.offset().left,
-        oy = list.offset().top,
-        row,
-        col,
-        i,
-        a,
-        v;
+    var col, row, i, a;
 
     x = x - ox;
     y = y - oy;
@@ -345,9 +341,11 @@ slices.AttachmentComposerView = Backbone.View.extend({
     a = this.collection.at(i);
 
     if (a) {
-      v = views[a.cid];
-
-      return { attachment: a, view: v, index: i };
+      return {
+        attachment: a,
+        view: views[a.cid],
+        index: i
+      };
     }
   },
 
