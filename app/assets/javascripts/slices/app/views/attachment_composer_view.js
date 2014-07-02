@@ -319,21 +319,36 @@ slices.AttachmentComposerView = Backbone.View.extend({
   //     findPlacementPoint(0, 0) //-> { attachment: a, view: v, :index: i }
   //
   findPlacementPoint: function(x, y) {
-    var result = null,
-        views = this.views;
+    var views = this.views;
 
-    this.collection.find(function(a, i) {
-      var v = views[a.cid];
+    if (views.length === 0) return;
 
-      if (v.midPoint().y > y) {
-        result = { attachment: a, view: v, index: i };
-        return true;
-      }
+    var list = this.$('.attachment-list'),
+        sampleItem = this.$('.attachment-list > li'),
+        w = sampleItem.outerWidth(true),
+        h = sampleItem.outerHeight(true),
+        ox = list.offset().left,
+        oy = list.offset().top,
+        row,
+        col,
+        i,
+        a,
+        v;
 
-      return false;
-    });
+    x = x - ox;
+    y = y - oy;
 
-    return result;
+    col = Math.floor(x / w);
+    row = Math.floor(y / h);
+    i = (row * this.columns) + col;
+
+    a = this.collection.at(i);
+
+    if (a) {
+      v = views[a.cid];
+
+      return { attachment: a, view: v, index: i };
+    }
   },
 
   // Returns true if the given asset is already in our collection.
