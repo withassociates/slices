@@ -5,7 +5,6 @@ require 'action_mailer/railtie'
 require 'sprockets/railtie'
 
 Bundler.require(*Rails.groups)
-#require "slices"
 
 module Dummy
   class Application < Rails::Application
