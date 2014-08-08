@@ -1,7 +1,5 @@
-require 'rails'
-require 'bson'
 require 'devise'
-require 'mongo'
+require 'devise/orm/mongoid'
 require 'mongoid'
 require 'mongoid_paperclip'
 require 'RedCloth'
@@ -44,13 +42,9 @@ module Slices
     end
   end
 
-  def self.test_environment?
-    Rails.env.test? && Rails.root.to_s == Slices.gem_path
-  end
-
 end
 
-require 'slices/slices_engine' if defined?(Rails)
+require 'slices/engine' if defined?(Rails)
 require 'slices/i18n'
 require 'slices/will_paginate_mongoid'
 require 'slices/will_paginate'

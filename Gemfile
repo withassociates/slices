@@ -1,4 +1,4 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
 gemspec
 gem 'fog'
@@ -11,11 +11,6 @@ group :development, :test do
   gem 'pry-rails'          , '~> 0.2.2'
   gem 'rspec-rails'        , '~> 2.99'
   gem 'poltergeist'
-end
-
-group :development do
-  gem 'foreman' , '~> 0.60.2'
-  gem 'unicorn' , '~> 4.4.0'
 end
 
 group :test do
