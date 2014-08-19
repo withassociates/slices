@@ -53,6 +53,13 @@ module RequestHelpers
     JS
   end
 
+  def capture_js_confirm
+    page.evaluate_script 'window.confirmation = null'
+    page.evaluate_script 'window.confirm = function(message) { window.confirmation = message; return true; }'
+    yield
+    page.evaluate_script 'window.confirmation'
+  end
+
   def js_keydown keycode
     page.execute_script <<-JS
       $(window).trigger($.Event('keydown', { which: #{keycode} }));

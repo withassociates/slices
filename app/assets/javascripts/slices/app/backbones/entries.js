@@ -25,11 +25,15 @@ var EntriesBackbone = $.extend(true, {}, GenericBackbone, {
 
   view_prototype: {
      events: {
-      "click a.delete": "clear"
+      "click a.delete": "clear_with_confirmation"
     },
 
     tagName: 'tr',
 
+    clear_with_confirmation: function() {
+      var confirmed = confirm('Are you sure?');
+      if (confirmed) this.model.clear();
+    }
   },
 
   app_view_prototype: {
