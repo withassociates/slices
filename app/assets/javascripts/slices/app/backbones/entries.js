@@ -31,8 +31,7 @@ var EntriesBackbone = $.extend(true, {}, GenericBackbone, {
     tagName: 'tr',
 
     clear_with_confirmation: function() {
-      var confirmed = confirm('Are you sure?');
-      if (confirmed) this.model.clear();
+      if (confirm('Are you sure?')) this.model.clear();
     }
   },
 

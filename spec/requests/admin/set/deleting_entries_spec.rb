@@ -33,7 +33,7 @@ describe "A set with entries", type: :request, js: true do
       expect(page).to have_no_css 'tbody tr'
     end
 
-    it "asks me what i'm deleting" do
+    it "asks for confirmation" do
       @message.should == 'Are you sure?'
     end
   end
