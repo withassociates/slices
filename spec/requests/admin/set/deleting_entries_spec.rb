@@ -16,7 +16,10 @@ describe "A set with entries", type: :request, js: true do
 
   context "when an article is deleted" do
     before do
-      js_click_on 'tbody tr:first-child td a.delete'
+      @message = capture_js_confirm do
+        js_click_on 'tbody tr:first-child td a.delete'
+      end
+
       wait_for_ajax
     end
 
@@ -30,5 +33,8 @@ describe "A set with entries", type: :request, js: true do
       expect(page).to have_no_css 'tbody tr'
     end
 
+    it "asks for confirmation" do
+      @message.should == 'Are you sure?'
+    end
   end
 end
