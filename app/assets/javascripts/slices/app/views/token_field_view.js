@@ -24,7 +24,8 @@ slices.TokenFieldView = Backbone.View.extend({
     'keydown'       : 'onKey',
     'keypress'      : 'onKey',
     'click .del'    : 'onClickDel',
-    'click .option' : 'onClickOption'
+    'click .option' : 'onClickOption',
+    'click'         : 'onClick'
   },
 
   className: 'token-field',
@@ -101,7 +102,7 @@ slices.TokenFieldView = Backbone.View.extend({
 
   delayedCapture: _.debounce(function() {
     this.capture();
-  }, 750),
+  }, 1500),
 
   focusOrRemoveLastToken: function(e) {
     var focusedToken = this.$el.find('.token.focus');
@@ -196,6 +197,11 @@ slices.TokenFieldView = Backbone.View.extend({
       e.preventDefault();
       this.focusOrRemoveLastToken();
     }
+  },
+
+  onClick: function(e) {
+    this.render();
+    this.focus();
   },
 
   onClickDel: function(e) {
