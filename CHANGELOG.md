@@ -1,3 +1,9 @@
+# 1.0.5 / 2014-08-21
+
+* Add confirmation when deleting set entries
+* Fix admin last-login date
+* Fix token field in page meta
+
 # 1.0.4 / 2014-06-06
 
 * Remove omniauth
