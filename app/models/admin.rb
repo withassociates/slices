@@ -38,6 +38,8 @@ class Admin
 
   def as_json(options)
     super(options).tap do |json|
+      json[:last_sign_in_at] = last_sign_in_at
+
       if current_admin = options[:current_admin]
         json[:current_admin] = current_admin.id == id
       end
