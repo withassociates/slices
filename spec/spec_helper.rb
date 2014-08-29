@@ -6,7 +6,6 @@ Bundler.setup
 require File.expand_path('../dummy/config/environment.rb',  __FILE__)
 require 'rspec/rails'
 require 'capybara/rails'
-require 'capybara/poltergeist'
 require 'rack_utf8_fix'
 
 Paperclip.options[:logger] = Rails.logger
@@ -24,7 +23,6 @@ Slices::Config.use_snippets!
 Capybara.default_selector = :css
 Capybara.default_wait_time = ENV['CI'] ? 60 : 5
 Capybara.default_driver = :rack_test
-Capybara.javascript_driver = :poltergeist
 
 RSpec.configure do |config|
   config.mock_with :rspec
@@ -64,21 +62,3 @@ RSpec.configure do |config|
 
 end
 
-Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, {
-    debug: false,
-    inspector: true
-  })
-end
-
-module Capybara::Node::Matchers
-
-  def enabled?
-    self[:disabled].nil?
-  end
-
-  def disabled?
-    !enabled?
-  end
-
-end
