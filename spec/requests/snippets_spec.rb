@@ -8,17 +8,17 @@ describe "A site with snippets", type: :request do
   end
 
   it "renders snippets with plain text" do
-    Snippet.create(key: 'en.address', value: '100 de Beauvoir Road')
+    Snippet.create(key: 'address', value: '100 de Beauvoir Road')
     visit '/parent'
 
-    expect(page).to have_css 'footer p', '100 de Beauvoir Road'
+    expect(page).to have_css 'footer p.text', '100 de Beauvoir Road'
   end
 
   it "renders snippets with html" do
-    Snippet.create(key: 'en.address.html', value: '100 de Beauvoir Road<br />London')
+    Snippet.create(key: 'address.html', value: '100 de Beauvoir Road<br />London')
     visit '/parent'
 
-    expect(page).to have_css 'footer p br'
+    expect(page).to have_css 'footer p.html br'
   end
 
   it "renders snippets with symbols" do

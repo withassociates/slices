@@ -7,8 +7,17 @@ class Snippet
 
   scope :by_key, ascending(:key)
 
-  def self.find_value_by_key(key)
-    where(key: key).first.try(:value)
+  # Finds the value of a snippet as a html_safe string
+  #
+  #   Snippet.find_for_key 'address'
+  #   # => "54B Downham Road"
+  #
+  # @param  [String]     key                         Snippet key to lookup
+  # @return [String]
+  #
+  def self.find_for_key(key)
+    find_by(key: key).value.html_safe
+  rescue Mongoid::Errors::DocumentNotFound
   end
 
   def as_json(*args)

@@ -1,3 +1,7 @@
+# 2.0.0
+
+* Refactor snippets to not piggy back on I18n
+
 # 1.0.5 / 2014-08-21
 
 * Add confirmation when deleting set entries
