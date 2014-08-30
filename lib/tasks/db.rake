@@ -1,16 +1,12 @@
 module Slices
   module Tasks
     def self.create_indexes
-      [
-        Slices.gem_path + '/app/models/**/*.rb',
-        Rails.root.join('app/slices/**/*.rb')
-      ].each do |pattern|
-        Dir.glob(pattern).each do |file|
-          model = determine_model(file)
-          if model
-            model.create_indexes
-            Logger.new($stdout).info("Generated indexes for #{model}")
-          end
+      pattern = Rails.root.join('app/slices/**/*.rb')
+      Dir.glob(pattern).each do |file|
+        model = determine_model(file)
+        if model
+          model.create_indexes
+          Logger.new($stdout).info("Generated indexes for #{model}")
         end
       end
     end
