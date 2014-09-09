@@ -5,8 +5,8 @@ describe Page, type: :model do
   context "tree building" do
 
     before do
-      home = Page.create(name: 'Home')
-      parent = Page.create(name: 'Parent')
+      home = Page.create!(name: 'Home', path: '/')
+      parent = Page.create!(name: 'Parent', path: '/parent')
 
       parent.parent = home
       parent.save
