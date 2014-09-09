@@ -1,6 +1,7 @@
 # 2.0.0
 
 * Refactor snippets to not piggy back on I18n
+* Upgrade to mongoid v3.1
 
 # 1.0.5 / 2014-08-21
 
