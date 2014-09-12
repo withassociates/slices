@@ -1,6 +1,10 @@
 module Slices
   class Engine < Rails::Engine
 
+    initializer 'action_pack.page_caching.set_config', before: 'action_controller.set_configs' do |app|
+      app.config.action_controller.page_cache_directory = "#{Rails.root.to_s}/public"
+    end
+
     initializer :autoload_slices, before: :set_autoload_paths do |app|
       Slices.autoload_slices(app, Rails.root)
     end

@@ -13,6 +13,7 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version     = '>= 2.0.0'
 
+  s.add_dependency 'actionpack-page_caching', '~> 1.0'
   s.add_dependency 'devise'            , '~> 3.5'
   s.add_dependency 'highline'          , '~> 1.6.0'
   s.add_dependency 'mongoid'           , '~> 4.0'

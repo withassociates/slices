@@ -3,6 +3,7 @@ PATH
   specs:
     slices (3.0.0.beta)
       RedCloth (~> 4.2.9)
+      actionpack-page_caching (~> 1.0)
       devise (~> 3.5)
       highline (~> 1.6.0)
       mongoid (~> 4.0)
@@ -30,6 +31,8 @@ GEM
       rack-test (~> 0.6.2)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
+    actionpack-page_caching (1.0.2)
+      actionpack (>= 4.0.0, < 5)
     actionview (4.2.5.1)
       activesupport (= 4.2.5.1)
       builder (~> 3.1)

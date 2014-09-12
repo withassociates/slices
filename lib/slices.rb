@@ -1,3 +1,4 @@
+require 'action_controller/page_caching'
 require 'devise'
 require 'devise/orm/mongoid'
 require 'mongoid'
