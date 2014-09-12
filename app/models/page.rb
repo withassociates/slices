@@ -24,7 +24,7 @@ class Page
 
   text_search_in :introduction, :extended, :name
 
-  scope :entries, all
+  scope :entries, ->{ all }
 
   def self.available_layouts
     Layout.all.map do |human_name, machine_name|
@@ -32,7 +32,7 @@ class Page
     end
   end
 
-  scope :virtual, where(:role.ne => nil).asc(:name)
+  scope :virtual, ->{ where(:role.ne => nil).asc(:name) }
   validates_presence_of :name
 
   before_save :update_has_content

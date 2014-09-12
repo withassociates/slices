@@ -5,7 +5,7 @@ class Snippet
   field :value
   index({ key: 1 })
 
-  scope :by_key, ascending(:key)
+  scope :by_key, ->{ ascending(:key) }
 
   # Finds the value of a snippet as a html_safe string
   #
