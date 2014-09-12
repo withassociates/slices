@@ -13,13 +13,11 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version     = '>= 2.0.0'
 
-  s.add_dependency 'cocaine'           , '~> 0.3.2'
-  s.add_dependency 'devise'            , '~> 2.2.8'
+  s.add_dependency 'devise'            , '~> 3.5'
   s.add_dependency 'highline'          , '~> 1.6.0'
-  s.add_dependency 'mongoid'           , '~> 3.1.6'
-  s.add_dependency 'mongoid-paperclip' , '~> 0.0.8'
-  s.add_dependency 'paperclip'         , '~> 3.1.4'
-  s.add_dependency 'rails'             , '~> 3.2.18'
+  s.add_dependency 'mongoid'           , '~> 4.0'
+  s.add_dependency 'mongoid-paperclip' , '~> 0'
+  s.add_dependency 'rails'             , '~> 4.2'
   s.add_dependency 'redcarpet'         , '~> 3.0.0'
   s.add_dependency 'RedCloth'          , '~> 4.2.9'
   s.add_dependency 'stringex'          , '~> 1.4.0'
