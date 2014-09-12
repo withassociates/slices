@@ -1,7 +1,5 @@
 class PagesController < SlicesController
 
-  caches_page :virtual_error_pages
-
   def virtual_error_pages
     role = Page.role_for_status(params[:status])
     if role

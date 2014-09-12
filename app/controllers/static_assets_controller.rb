@@ -1,7 +1,4 @@
 class StaticAssetsController < SlicesController
-  caches_page :slices
-  caches_page :templates
-
   rescue_from ActionController::MissingFile, Errno::ENOENT, with: :render_not_found!
 
   helper 'pages'
