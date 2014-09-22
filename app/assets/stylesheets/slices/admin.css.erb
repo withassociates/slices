@@ -1505,27 +1505,39 @@ a.remove-asset {
   width: auto;
 }
 
-.attachment-composer.columns-1 li, .attachment-composer.columns-1 .cursor {
+.attachment-composer.columns-1 li,
+.attachment-composer.columns-1 .cursor,
+.attachment-composer.columns-1 .loading-indicator {
   width: calc(100% - 10px);
 }
 
-.attachment-composer.columns-2 li, .attachment-composer.columns-2 .cursor {
+.attachment-composer.columns-2 li,
+.attachment-composer.columns-2 .cursor,
+.attachment-composer.columns-2 .loading-indicator {
   width: calc(50% - 10px);
 }
 
-.attachment-composer.columns-3 li, .attachment-composer.columns-3 .cursor {
+.attachment-composer.columns-3 li,
+.attachment-composer.columns-3 .cursor,
+.attachment-composer.columns-3 .loading-indicator {
   width: calc(33.3333% - 10px);
 }
 
-.attachment-composer.columns-4 li, .attachment-composer.columns-4 .cursor {
+.attachment-composer.columns-4 li,
+.attachment-composer.columns-4 .cursor,
+.attachment-composer.columns-4 .loading-indicator {
   width: calc(25% - 10px);
 }
 
-.attachment-composer.columns-5 li, .attachment-composer.columns-5 .cursor {
+.attachment-composer.columns-5 li,
+.attachment-composer.columns-5 .cursor,
+.attachment-composer.columns-5 .loading-indicator {
   width: calc(20% - 10px);
 }
 
-.attachment-composer.columns-6 li, .attachment-composer.columns-6 .cursor {
+.attachment-composer.columns-6 li,
+.attachment-composer.columns-6 .cursor,
+.attachment-composer.columns-6 .loading-indicator {
   width: calc(16.66666% - 10px);
 }
 
@@ -1713,7 +1725,6 @@ a.remove-asset {
   margin: 5px;
   float: left;
   position: relative;
-  width: 180px;
   height: 180px;
   background: url(<%= asset_path('slices/asset-spinner.gif') %>) 50% 50% no-repeat;
   box-shadow: none;
