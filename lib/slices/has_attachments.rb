@@ -44,7 +44,6 @@ module Slices
     end
 
     module PageInstanceMethods
-
       def attachment_assets
         attachment_asset_ids.inject([]) do |memo, asset_id|
           begin
@@ -68,6 +67,13 @@ module Slices
       end
       alias :attachment_asset_ids :slice_attachment_asset_ids
 
+      def remove_asset(asset)
+        remove_asset_from_slices(asset)
+      end
+
+      def remove_asset_from_slices(asset)
+        slices.each { |slice| slice.remove_asset(asset) }
+      end
     end
 
     def as_json options = nil
@@ -105,7 +111,16 @@ module Slices
       end.flat_map {|i| i }
     end
 
+    def remove_asset(asset)
+      super if defined?(super)
+
+      asset_id = asset.id
+
+      self.class.attachment_fields.each do |field_name|
+        attachments = send(field_name)
+        attachments.reject! { |x| x.asset_id == asset_id }
+        write_attribute(field_name, attachments)
+      end
+    end
   end
-
 end
-
