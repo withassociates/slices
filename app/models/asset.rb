@@ -34,7 +34,7 @@ class Asset
   after_file_post_process :store_dimensions, if: :is_image?
   before_save :reset_file_dimensions!, if: :file_fingerprint_changed?
   before_save :rename_file
-  after_destroy :clean_up
+  after_destroy :remove_asset_from_pages
 
   has_and_belongs_to_many :pages
 
@@ -137,10 +137,10 @@ class Asset
 
   def soft_destroy!
     update_attributes!(destroyed_at: Time.now)
-    clean_up
+    remove_asset_from_pages
   end
 
-  def clean_up
+  def remove_asset_from_pages
     pages.each { |p| p.remove_asset(self) && p.save }
   end
 
