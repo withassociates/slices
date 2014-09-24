@@ -80,7 +80,7 @@ slices.FileView = Backbone.View.extend({
   drawProgress: function(progress) {
     var ctx = this.canvas[0].getContext('2d'),
         t   = -Math.PI / 2,
-        w   = 180,
+        w   = 140,
         h   = 180,
         x   = 90,
         y   = 75,
@@ -120,7 +120,7 @@ slices.FileView = Backbone.View.extend({
     img.onload = function() {
       ctx.fillStyle = '#ddd';
       ctx.moveTo(0, 0);
-      ctx.fillRect(0, 0, 180, 180);
+      ctx.fillRect(0, 0, 140, 180);
       ctx.moveTo(0, 0);
       ctx.drawImage(img, 0, 0);
     };
