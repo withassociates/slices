@@ -153,7 +153,7 @@ $(function () {
       var id = $(this).attr('href').substring(1);
       return $.inArray(id, ids) >= 0;
     }).each(function() {
-      toggleChildren.call(this, false, 0);
+      toggleChildren(this, false, true);
     });
   }
 
@@ -162,19 +162,31 @@ $(function () {
       return $(this).attr('id');
     }).toArray();
 
-    localStorage.setItem('sitemap.hidden', JSON.stringify(ids));
+    localStorage['sitemap.hidden'] = JSON.stringify(ids);
   }
 
-  function toggleChildren(value, duration) {
-    var toggle   = $(this),
+  function toggleChildren(target, value, instant) {
+    var toggle   = $(target),
         selector = toggle.attr('href'),
         element  = $(selector);
 
     if (value) {
-      element.slideDown(duration).removeClass('hidden');
+      if (instant) {
+        element.show();
+      } else {
+        element.slideDown('fast');
+      }
+
+      element.removeClass('hidden');
       toggle.removeClass('active');
     } else {
-      element.slideUp(duration).addClass('hidden');
+      if (instant) {
+        element.hide();
+      } else {
+        element.slideUp('fast');
+      }
+
+      element.addClass('hidden');
       toggle.addClass('active');
     }
 
@@ -182,11 +194,11 @@ $(function () {
   }
 
   function showChildren() {
-    toggleChildren.call(this, true, 'fast');
+    toggleChildren(this, true);
   }
 
   function hideChildren() {
-    toggleChildren.call(this, false, 'fast');
+    toggleChildren(this, false);
   }
 
   $('.hide-all-children').click(function() {
