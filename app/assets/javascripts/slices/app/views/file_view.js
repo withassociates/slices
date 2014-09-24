@@ -21,7 +21,7 @@ slices.FileView = Backbone.View.extend({
   // Create and append canvas and text then bind up the model.
   initialize: function() {
     _.bindAll(this);
-    this.canvas = $('<canvas class="canvas" width="180" height="180" />');
+    this.canvas = $('<canvas class="canvas" width="140" height="180" />');
     this.text = $('<div class="text" />');
     $(this.el).append(this.canvas, this.text);
     this.model.bind('change', this.render);
