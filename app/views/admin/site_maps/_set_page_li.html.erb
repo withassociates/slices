@@ -1,5 +1,5 @@
 <li class="set-page" rel="<%= page.id %>">
-  <div>
+  <div class="page-item">
     <h2><%= link_to page.name, admin_page_entries_path(page) %></h2>
 
     <span class="item-actions primary">
@@ -16,7 +16,7 @@
   </div>
 
   <% if page.page_children.any? %>
-    <ol>
+    <ol class="page-children">
       <%= list_pages page.page_children %>
     </ol>
   <% end %>
