@@ -222,6 +222,10 @@ $(function () {
     updateLocalStorage();
   });
 
+  if ($('.page-children .page-children').size() == 0) {
+    $('.toggle-actions').hide();
+  }
+
   loadLocalStorage();
 });
 
