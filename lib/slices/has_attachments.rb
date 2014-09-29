@@ -72,7 +72,11 @@ module Slices
       end
 
       def remove_asset_from_slices(asset)
-        slices.each { |slice| slice.remove_asset(asset) }
+        slices.each { |slice|
+          if slice.respond_to?(:remove_asset)
+            slice.remove_asset(asset)
+          end
+        }
       end
     end
 
