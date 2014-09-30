@@ -59,14 +59,4 @@ module Admin::AdminHelper
   def cms_title
     @page.try(:name) || "Slices CMS"
   end
-
-  # Return HTMl class names for a page
-  #
-  # @!visibility private
-  def page_classes(page)
-    classes = []
-    classes << 'home' if page.home?
-    classes << page._type.underscore.dasherize
-    classes.join ' '
-  end
 end
