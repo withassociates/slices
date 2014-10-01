@@ -71,6 +71,34 @@ module Slices
       @google_apps_domain = domain
     end
 
+    # Page fields template path.
+    #
+    # @return [String] the path
+    def self.page_fields_template
+      @page_fields_template || 'admin/pages/fields'
+    end
+
+    # Set page fields template path.
+    #
+    # @param [String] the path
+    def self.page_fields_template=(path)
+      @page_fields_template = path
+    end
+
+    # Page actions template path.
+    #
+    # @return [String] the path
+    def self.page_actions_template
+      @page_actions_template || 'admin/site_maps/page_actions'
+    end
+
+    # Set page actions template path.
+    #
+    # @param [String] the path
+    def self.page_actions_template=(path)
+      @page_actions_template = path
+    end
+
     private
     def self.admin_asset_styles
       { admin: '180x180#' }

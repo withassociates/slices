@@ -1,4 +1,4 @@
-<li class="set-page" rel="<%= page.id %>">
+<li class="<%= page_classes(page) %>" rel="<%= page.id %>">
   <div class="page-item">
     <h2><%= link_to page.name, admin_page_entries_path(page) %></h2>
 

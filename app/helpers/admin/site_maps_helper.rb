@@ -101,4 +101,14 @@ module Admin::SiteMapsHelper
     link_to 'View page on site', page.path,
             class: 'view-page', target: '_blank'
   end
+
+  # Return HTMl class names for a page
+  #
+  # @!visibility private
+  def page_classes(page)
+    classes = []
+    classes << 'home' if page.home?
+    classes << page._type.underscore.dasherize
+    classes.join ' '
+  end
 end

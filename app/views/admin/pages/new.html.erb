@@ -6,7 +6,11 @@
       <%= hidden_field_tag :type, params[:type] %>
     <% end %>
     <%= form.cms_text_field :name, required: false %>
-    <%= form.cms_select :layout, @layouts %>
+
+    <%= render(
+      partial: Slices::Config.page_fields_template,
+      locals: { form: form }
+    ) %>
   </ul>
   <div class="bottom-toolbar">
     <%= form.submit value: "Create Page" %>

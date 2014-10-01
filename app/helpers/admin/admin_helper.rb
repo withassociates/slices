@@ -59,5 +59,4 @@ module Admin::AdminHelper
   def cms_title
     @page.try(:name) || "Slices CMS"
   end
-
 end
