@@ -118,16 +118,26 @@ slices.TokenFieldView = Backbone.View.extend({
 
   updateLayout: function() {
     var tokens = this.$el.find('.tokens'),
-        input = this.$el.find('input');
+        input = this.$el.find('input'),
+        lastToken = tokens.children().last();
+
 
     if (!this.hasOwnProperty('_paddingLeft')) {
-      this._paddingLeft = input.css('paddingLeft');
+      this._paddingLeft = parseInt(input.css('paddingLeft'));
     }
 
     if (this.values.length) {
-      input.css({ paddingLeft: tokens.outerWidth() + 'px' });
+      var left = lastToken.position().left + lastToken.outerWidth();
+      input.css({ paddingLeft: left + this._paddingLeft });
     } else {
       input.css({ paddingLeft: this._paddingLeft });
+    }
+
+    if (tokens.outerHeight() > input.outerHeight()) {
+      input.css({
+        height: tokens.outerHeight(),
+        paddingTop: tokens.outerHeight() - lastToken.outerHeight()
+      });
     }
   },
 
