@@ -28,7 +28,7 @@ describe Slices::Config do
     end
 
     it "keeps the existing admin style" do
-      expect(asset_styles[:admin].geometry).to eq '180x180#'
+      expect(asset_styles[:admin].geometry).to eq '256x256>'
     end
 
     it "has the new extended style" do
