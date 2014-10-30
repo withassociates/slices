@@ -141,7 +141,10 @@ class Asset
   end
 
   def remove_asset_from_pages
-    pages.each { |p| p.remove_asset(self) && p.save }
+    pages.each do |page|
+      page.remove_asset(self)
+      page.save if page.changed?
+    end
   end
 
   def soft_destroyed?
