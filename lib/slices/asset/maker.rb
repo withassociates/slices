@@ -44,7 +44,6 @@ module Slices
 
         if matching_asset.present?
           new_asset.destroy
-          matching_asset.soft_restore!
           matching_asset
         else
           new_asset

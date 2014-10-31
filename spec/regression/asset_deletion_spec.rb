@@ -34,17 +34,6 @@ describe "Asset deletion" do
     )
   end
 
-  it "removes Assets from Pages and Slices with #soft_destroy" do
-    asset_1.reload.soft_destroy!
-
-    page_1.reload
-    page_2.reload
-
-    expect(page_1.images).to be_empty
-    expect(page_1.slices.first.images.length).to eq 1
-    expect(page_2.slices.first.images).to be_empty
-  end
-
   it "removes Assets from Pages and Slices with #destroy" do
     asset_1.reload.destroy
 
@@ -55,4 +44,5 @@ describe "Asset deletion" do
     expect(page_1.slices.first.images.length).to eq 1
     expect(page_2.slices.first.images).to be_empty
   end
+
 end

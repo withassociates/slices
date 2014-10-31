@@ -72,7 +72,7 @@ describe Admin::AssetsController, type: :controller do
 
     before do
       expect(Asset).to receive(:find).with(asset_id).and_return(asset)
-      expect(asset).to receive(:soft_destroy!)
+      expect(asset).to receive(:destroy)
 
       delete :destroy, id: asset_id, format: :json
     end
