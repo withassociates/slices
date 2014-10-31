@@ -15,7 +15,6 @@ class Asset
   field :file_fingerprint, type: String
   field :file_dimensions, type: Hash, default: {}
 
-  field :destroyed_at, type: Time
   field :tags, type: String
   field :page_cache, type: Array, default: []
 
@@ -38,7 +37,6 @@ class Asset
 
   has_and_belongs_to_many :pages
 
-  index({ destroyed_at: 1, created_at: -1 })
   index({ file_fingerprint: 1 })
   index({ _keywords: 1 }, { background: true })
 
@@ -55,7 +53,7 @@ class Asset
   end
 
   def self.ordered_active
-    where(destroyed_at: nil).desc(:created_at)
+    desc(:created_at)
   end
 
   def as_json(options = nil)
@@ -135,24 +133,11 @@ class Asset
     end
   end
 
-  def soft_destroy!
-    update_attributes!(destroyed_at: Time.now)
-    remove_asset_from_pages
-  end
-
   def remove_asset_from_pages
     pages.each do |page|
       page.remove_asset(self)
       page.save if page.changed?
     end
-  end
-
-  def soft_destroyed?
-    destroyed_at.present?
-  end
-
-  def soft_restore!
-    update_attributes!(destroyed_at: nil)
   end
 
   def name

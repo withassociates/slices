@@ -79,11 +79,6 @@ describe 'Slices::Asset::Maker' do
         expect(maker.run).to eq matching_asset
       end
 
-      it "makes sure the matching asset is soft restored" do
-        expect(matching_asset).to receive :soft_restore!
-        maker.run
-      end
-
       it "destroys the new asset" do
         expect(new_asset).to receive(:destroy)
         maker.run
