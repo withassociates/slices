@@ -6,6 +6,7 @@ Bundler.setup
 require File.expand_path('../dummy/config/environment.rb',  __FILE__)
 require 'rspec/rails'
 require 'capybara/rails'
+require 'support/standard_tree'
 
 Paperclip.options[:logger] = Rails.logger
 Paperclip.options[:log] = true
