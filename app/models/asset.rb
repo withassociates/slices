@@ -7,7 +7,6 @@ class Asset
   IMAGE_REGEX = /(jpg|jpeg|gif|png)/
   NORMALIZED_EXTENSIONS = { ".jpeg" => ".jpg" }
 
-  validates_with PaperclipValidator
 
   field :file_content_type, type: String
   field :file_file_name, type: String
@@ -28,6 +27,9 @@ class Asset
     only_process:    [:admin],
     styles:          Slices::Config.asset_styles,
     convert_options: Slices::Config.asset_convert_options
+
+  validates_attachment :file, presence: true
+  do_not_validate_attachment_file_type :file
 
   before_file_post_process :is_image?
   after_file_post_process :store_dimensions, if: :is_image?
