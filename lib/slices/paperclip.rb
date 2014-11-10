@@ -1,5 +1,4 @@
 Paperclip.options[:log] = true
-require 'paperclip_validator'
 
 Paperclip.interpolates :mon_year do |attachment, style|
   attachment.instance.id.generation_time.strftime("%m%Y")
