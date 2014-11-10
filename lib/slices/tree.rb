@@ -281,6 +281,13 @@ module Slices
       end
     end
 
+    # Don't store permalink
+    #
+    # @return nil
+    #
+    def permalink=(args)
+    end
+
     private
 
     # Make sure that a page's path is unique amoungst it's siblings, if there is
