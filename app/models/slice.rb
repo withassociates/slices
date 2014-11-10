@@ -1,5 +1,6 @@
 class Slice
   include Mongoid::Document
+  include Mongoid::Attributes::Dynamic
   include Slices::LocalizedFields
   include Slices::PositionHelper
 

@@ -1,5 +1,6 @@
 class Attachment
   include Mongoid::Document
+  include Mongoid::Attributes::Dynamic
   include Slices::LocalizedFields
 
   belongs_to :asset

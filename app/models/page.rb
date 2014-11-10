@@ -1,5 +1,6 @@
 class Page
   include Mongoid::Document
+  include Mongoid::Attributes::Dynamic
   include Mongoid::Timestamps
   include MongoSearch::Searchable
 
