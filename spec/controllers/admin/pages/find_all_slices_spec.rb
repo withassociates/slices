@@ -12,7 +12,7 @@ describe Admin::PagesController, type: :controller do
     end
 
     let :id do
-      Moped::BSON::ObjectId.new
+      BSON::ObjectId.new
     end
 
     let :page do

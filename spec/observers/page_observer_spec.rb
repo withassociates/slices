@@ -89,8 +89,8 @@ describe PageObserver do
     context "attachment_asset_ids and asset_ids differ" do
       let :page do
         double(
-          attachment_asset_ids: [Moped::BSON::ObjectId.new],
-          asset_ids: [Moped::BSON::ObjectId.new]
+          attachment_asset_ids: [BSON::ObjectId.new],
+          asset_ids: [BSON::ObjectId.new]
         )
       end
 
@@ -110,7 +110,7 @@ describe PageObserver do
 
     context "attachment_asset_ids and asset_ids are equal" do
       let :object_id do
-        Moped::BSON::ObjectId.new
+        BSON::ObjectId.new
       end
 
       let :page do
