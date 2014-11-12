@@ -29,7 +29,6 @@ RSpec.configure do |config|
   config.order = 'random'
 
   config.extend AssetMacros
-  config.include Mongoid::Matchers, type: :model
   config.include GeneratorHelpers
   config.include AssetHelpers
   config.include RequestHelpers, type: :request
