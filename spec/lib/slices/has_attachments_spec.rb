@@ -113,11 +113,11 @@ describe Slices::HasAttachments do
   describe "#attachment_asset_ids" do
 
     let :asset_id do
-      Moped::BSON::ObjectId.new
+      BSON::ObjectId.new
     end
 
     let :other_asset_id do
-      Moped::BSON::ObjectId.new
+      BSON::ObjectId.new
     end
 
     let :attachment do
@@ -173,7 +173,7 @@ describe Slices::HasAttachments do
     context "on a page with slices but no attachments" do
 
       let :asset_id do
-        Moped::BSON::ObjectId.new
+        BSON::ObjectId.new
       end
 
       let :attachment do
@@ -205,11 +205,11 @@ describe Slices::HasAttachments do
     context "on a page with attachments and slices" do
 
       let :slice_asset_id do
-        Moped::BSON::ObjectId.new
+        BSON::ObjectId.new
       end
 
       let :page_asset_id do
-        Moped::BSON::ObjectId.new
+        BSON::ObjectId.new
       end
 
       let :slice_attachment do
@@ -298,11 +298,11 @@ describe Slices::HasAttachments do
   context "#slice_attachment_ids" do
 
     let :slice_asset_id do
-      Moped::BSON::ObjectId.new
+      BSON::ObjectId.new
     end
 
     let :page_asset_id do
-      Moped::BSON::ObjectId.new
+      BSON::ObjectId.new
     end
 
     let :slice_attachment do
