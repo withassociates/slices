@@ -39,7 +39,7 @@ module Slices
       field :position, type: Integer
       field :show_in_nav, type: Boolean, default: false
 
-      scope :minimal, only(%w(page_id path external_url name has_content))
+      scope :minimal, only(%w(_type page_id path external_url name has_content))
       index({ path: 1 }, { unique: true })
 
       belongs_to :page
