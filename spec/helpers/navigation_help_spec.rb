@@ -430,6 +430,15 @@ describe NavigationHelper, type: :helper do
       StandardTree.add_article_set(Page.home)
     end
 
+    it_renders_for('/articles', :primary) do
+      <<-EOF
+        <ul id="primary_navigation"><li class="first nav-home"><a href="/">Home</a></li>
+          <li class="nav-parent"><a href="/parent">Parent</a></li>
+          <li class="active last nav-articles"><a href="/articles">Articles</a></li>
+        </ul>
+      EOF
+    end
+
     it_renders_for('/articles', :secondary) { '' }
   end
 
