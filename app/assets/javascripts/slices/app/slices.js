@@ -298,10 +298,12 @@ var slices = {
           $('#page-meta').slideDown('fast');
           $(this).html('<a href="#">hide advanced options</a>');
           $(this).addClass('open');
+          $(document).trigger('slices:didShowAdvancedOptions');
         }, function() {
           $('#page-meta').slideUp('fast');
           $(this).html('<a href="#">advanced options&hellip;</a>');
           $(this).removeClass('open');
+          $(document).trigger('slices:didHideAdvancedOptions');
         });
 
         if (slices.model.Page.seemsNew()) $('#show-meta').trigger('click');

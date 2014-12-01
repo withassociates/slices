@@ -70,6 +70,7 @@ slices.TokenFieldView = Backbone.View.extend({
     }
 
     $(document).on('slices:willSubmit', this.capture);
+    $(document).on('slices:didShowAdvancedOptions', this.render);
 
     if (this.options.autoAttach) _.defer(this.attach);
   },
