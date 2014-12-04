@@ -16,7 +16,7 @@ class Snippet
   # @return [String]
   #
   def self.find_for_key(key)
-    find_by(key: key).value.html_safe
+    find_by(key: key).value.try(:html_safe)
   rescue Mongoid::Errors::DocumentNotFound
   end
 

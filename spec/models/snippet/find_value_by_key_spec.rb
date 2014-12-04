@@ -13,6 +13,11 @@ describe Snippet, type: :model do
       expect(Snippet.find_for_key('foo')).to be_nil
     end
 
+    it "returns nil for missing values" do
+      Snippet.create(key: 'en.foo')
+      expect(Snippet.find_for_key('en.foo')).to be_nil
+    end
+
     it "translates with :" do
       Snippet.create(key: 'en.foo', value: 'bar:baz')
       expect(Snippet.find_for_key('en.foo')).to eq 'bar:baz'
