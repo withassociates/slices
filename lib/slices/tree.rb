@@ -39,7 +39,7 @@ module Slices
       field :position, type: Integer
       field :show_in_nav, type: Boolean, default: false
 
-      scope :minimal, only(%w(_type page_id path external_url name has_content))
+      scope :minimal, ->{ only(%w(_type page_id path external_url name has_content)) }
       index({ path: 1 }, { unique: true })
 
       belongs_to :page
@@ -279,6 +279,13 @@ module Slices
       else
         name.to_url
       end
+    end
+
+    # Don't store permalink
+    #
+    # @return nil
+    #
+    def permalink=(args)
     end
 
     private

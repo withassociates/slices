@@ -24,15 +24,9 @@ class Page
 
   text_search_in :introduction, :extended, :name
 
-  scope :entries, all
+  scope :entries, ->{ all }
+  scope :virtual, ->{ where(:role.ne => nil).asc(:name) }
 
-  def self.available_layouts
-    Layout.all.map do |human_name, machine_name|
-      { human_name: human_name, machine_name: machine_name }
-    end
-  end
-
-  scope :virtual, where(:role.ne => nil).asc(:name)
   validates_presence_of :name
 
   before_save :update_has_content
@@ -51,6 +45,12 @@ class Page
       CACHED_VIRTUAL_PAGES.detect { |k, v| v == status }[0]
     else
       nil
+    end
+  end
+
+  def self.available_layouts
+    Layout.all.map do |human_name, machine_name|
+      { human_name: human_name, machine_name: machine_name }
     end
   end
 
