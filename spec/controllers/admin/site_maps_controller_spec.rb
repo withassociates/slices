@@ -35,7 +35,6 @@ describe Admin::SiteMapsController, type: :controller do
 
     before do
       expect(SiteMap).to receive(:rebuild).with(sitemap)
-      expect(controller).to receive(:expire_fragment).with(/navigation/)
 
       put :update, sitemap: sitemap
     end

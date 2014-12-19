@@ -8,7 +8,6 @@ class Admin::SiteMapsController < Admin::AdminController
 
   def update
     SiteMap.rebuild(params[:sitemap])
-    expire_fragment(/navigation/)
     head status: :ok
   end
 end
