@@ -51,6 +51,20 @@ class Slice
     [_type, id].join(':')
   end
 
+  # Print out the cache key. This will use the updated_at time of the
+  # page which this document is embedded in.
+  #
+  # This is usually called inside a cache() block
+  #
+  # @example Returns the cache key
+  #   document.cache_key
+  #
+  # @return [ String ] the string with updated_at
+  def cache_key
+    time = normal_or_set_page.updated_at.to_time
+    "#{model_key}/#{id}-#{time.to_s(:number)}"
+  end
+
   def client_id?
     attributes.include?('client_id')
   end
@@ -77,4 +91,3 @@ class Slice
     text_fields.map { |field| self[field.name.to_sym] }.join(" ")
   end
 end
-
