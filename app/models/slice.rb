@@ -61,8 +61,11 @@ class Slice
   #
   # @return [ String ] the string with updated_at
   def cache_key
-    time = normal_or_set_page.updated_at.to_time
-    "#{model_key}/#{id}-#{time.to_s(:number)}"
+    if time = normal_or_set_page.try(:updated_at)
+      "#{model_key}/#{id}-#{time.to_s(:number)}"
+    else
+      super
+    end
   end
 
   def client_id?

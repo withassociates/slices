@@ -25,5 +25,11 @@ describe Slice, type: :model do
         slice.cache_key.should eq "slice/bson-20131211100908"
       end
     end
+
+    context "when the slice is not embeded in a page" do
+      it "should only have the slice id as the key name" do
+        slice.cache_key.should eq "slice/new"
+      end
+    end
   end
 end
