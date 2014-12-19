@@ -40,6 +40,12 @@ module Slices
       generate 'mongoid:config'
     end
 
+    def make_application_controller_subclass_slices_controller
+      gsub_file "#{Rails.root}/app/controllers/application_controller.rb",
+        "ActionController::Base",
+        "SlicesController"
+    end
+
     def delete_superfluous_files
       remove_file "public/index.html"
       remove_file "public/rails.png"

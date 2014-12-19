@@ -23,5 +23,9 @@ describe "slices:install" do
     expect(subject).to generate("app/views/admin/shared/_custom_navigation.html.erb")
     expect(subject).to generate("app/views/admin/shared/_custom_links.html.erb")
   end
+
+  it "should modify ApplicationController to inherit from SlicesController" do
+    expect(ApplicationController.superclass).to be(SlicesController)
+  end
 end
 
