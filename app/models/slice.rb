@@ -1,5 +1,6 @@
 class Slice
   include Mongoid::Document
+  include Slices::LocalizedFields
   include Slices::PositionHelper
 
   field :container
@@ -84,6 +85,10 @@ class Slice
     attributes.symbolize_keys.except(:_id, :_type).tap do |result|
       result.merge!(id: id, type: type)
       result.merge!(client_id: client_id) if client_id? && new_record?
+
+      localized_field_names.each do |name|
+        result.merge!(name => send(name))
+      end
     end
   end
 
