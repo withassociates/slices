@@ -8,7 +8,7 @@ class SlicesController < ActionController::Base
 
   append_view_path(File.join(Rails.root, *%w[app slices]))
 
-  define_callbacks :render_page, terminator: :response_body
+  define_callbacks :render_page, terminator: "response_body"
 
   def self.should_raise_exceptions?
     ! Rails.env.production?
