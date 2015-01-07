@@ -113,13 +113,23 @@ describe "PUT to pages#update" do
 
   include_context "signed in as admin"
 
+  before do
+    @_original_locale = I18n.locale
+  end
+
+  after do
+    I18n.locale = @_original_locale
+  end
+
   context "with vaild data" do
 
     before do
       home, @page = StandardTree.build_minimal_with_slices
+      I18n.locale = :de
       slices_data = content_slices_data(@page.slices)
       put_json admin_page_path(@page, format: :json),
         { page: page_data(slices_data) }
+      I18n.locale = @_original_locale
     end
 
     it "responds with success" do
@@ -128,7 +138,7 @@ describe "PUT to pages#update" do
 
     it_behaves_like "updates slices correctly"
 
-    it "updates page attributes" do
+    it "updates page attributes", i18n: true do
       expect(json_response).to include({'name' => 'Updated parent'})
       expect(json_response).to include({'active' => true})
       expect(json_response).to include({'show_in_nav' => false})
@@ -137,7 +147,7 @@ describe "PUT to pages#update" do
       expect(json_response).to include({'title' => 'Title'})
     end
 
-    it "updates slice attributes" do
+    it "updates slice attributes", i18n: true do
       updated_slice = json_slices.find { |slice| slice['id'] == @updated_slice_id }
       expect(updated_slice['title']).to eq 'Updated Title'
     end
@@ -149,6 +159,43 @@ describe "PUT to pages#update" do
       expect(new_slice['title']).to eq 'New content'
     end
 
+  end
+
+  context "i18n", i18n: true do
+    before do
+      home, @page = StandardTree.build_minimal_with_slices
+      @slice = @page.slices.first
+      @slice.title_translations = {
+        en: 'en Title',
+        de: 'de Title'
+      }
+      @page.save
+    end
+
+    let :page do
+      Page.find(@page.id)
+    end
+
+    it "has a title" do
+      expect(page.slices.first.attributes['title']).to eq({
+        'de' => 'de Title',
+        'en' => 'en Title',
+      })
+    end
+
+    it "does not alter other locales" do
+      slices_data = content_slices_data(@page.slices)
+      put_json admin_page_path(@page, locale: 'de', format: :json), { page: page_data(slices_data) }
+
+      updated_slice = json_slices.find { |slice| slice['id'] == @updated_slice_id }
+      expect(updated_slice['title']).to eq 'Updated Title'
+
+      slice = Page.find(page.id).slices.last
+      expect(slice.attributes['title']).to eq({
+        'en' => 'en Title',
+        'de' => 'Updated Title',
+      })
+    end
   end
 
   context "for a set's entries (with valid data)" do
