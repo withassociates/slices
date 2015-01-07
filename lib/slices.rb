@@ -18,6 +18,7 @@ module Slices
   autoload :GeneratorMacros,            'slices/generator_macros'
   autoload :HasSlices,                  'slices/has_slices'
   autoload :HasAttachments,             'slices/has_attachments'
+  autoload :LocalizedFields,            'slices/localized_fields'
   autoload :PageAsJSON,                 'slices/page_as_json'
   autoload :Renderer,                   'slices/renderer'
   autoload :PositionHelper,             'slices/position_helper'

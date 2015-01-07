@@ -1,5 +1,6 @@
 class Slice
   include Mongoid::Document
+  include Slices::LocalizedFields
   include Slices::PositionHelper
 
   field :container
@@ -107,6 +108,10 @@ class Slice
 
       self.embedded_relations.each do |field, metadata|
         result.merge!(field.to_sym => send(field).map(&:as_json))
+      end
+
+      localized_field_names.each do |name|
+        result.merge!(name => send(name))
       end
     end
   end

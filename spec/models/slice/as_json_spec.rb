@@ -4,10 +4,11 @@ describe Slice, type: :model do
   describe "#as_json" do
 
     let :slice do
-      Slice.new(title: 'Title',
-                container: 'container_one',
-                position: 0,
-                client_id: 'new1')
+      TextileSlice.new(title: 'Title',
+                       container: 'container_one',
+                       position: 0,
+                       client_id: 'new1',
+                       textile: 'Hello')
     end
 
     let :json_slice do
@@ -30,5 +31,8 @@ describe Slice, type: :model do
       expect(new_slice[:client_id]).to eq 'new_123'
     end
 
+    it "returns the one field", i18n: true do
+      expect(json_slice[:textile]).to eq('Hello')
+    end
   end
 end

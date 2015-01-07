@@ -1,6 +1,8 @@
 module Slices
   # We keep this method in here to facilate easier overriding when re-opening Page.
   module PageAsJSON
+    include Slices::LocalizedFields
+
     def as_json(options = {})
       options ||= {}
 
@@ -11,6 +13,10 @@ module Slices
         available_layouts: available_layouts,
         author: author
       )
+
+      localized_field_names.each do |name|
+        hash.merge!(name => send(name))
+      end
 
       keys = options[:only]
       keys ? hash.slice(keys) : hash
