@@ -8,6 +8,7 @@ class SlicesController < ActionController::Base
 
   append_view_path(File.join(Rails.root, *%w[app slices]))
 
+  around_filter :set_locale
   define_callbacks :render_page, terminator: "response_body"
 
   def self.should_raise_exceptions?
@@ -58,6 +59,16 @@ class SlicesController < ActionController::Base
 
   def page_layout(page)
     page.layout
+  end
+
+  def request_locale
+    params[:locale]
+  end
+
+  def set_locale
+    I18n.with_locale(request_locale || I18n.default_locale) do
+      yield
+    end
   end
 end
 
