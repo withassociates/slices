@@ -13,12 +13,16 @@ $(function() {
       metaExtraTemplate: '<%= @page.meta_extra_template %>',
 
       super_user: <%= current_admin.super? %>,
+      locale: '<%= I18n.locale %>',
+
+      loadPagePath: '/admin/pages/{{id}}.json?locale=<%= I18n.locale %>',
+      savePagePath: '/admin/pages/{{id}}.json?locale=<%= I18n.locale %>',
 
       <% if @page.editing_entry_content_slices?(params[:entries]) %>
         mainTemplate: 'set_page_entry_content_main',
         metaTemplate: 'set_page_entry_content_meta',
-        loadPagePath: '/admin/pages/{{id}}?entries=1',
-        savePagePath: '/admin/pages/{{id}}?entries=1'
+        loadPagePath: '/admin/pages/{{id}}?locale=<%= I18n.locale %>&entries=1',
+        savePagePath: '/admin/pages/{{id}}?locale=<%= I18n.locale %>&entries=1'
       <% end %>
     }
   );
