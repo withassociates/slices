@@ -10,11 +10,11 @@ class Page
 
   DESCRIPTION_DEPRECATION_WARNING = "Page#description is now meta_description. If you are upgrading, run 'rake slices:migrate:meta_description' to update."
 
-  field :name
+  field :name, localize: true
   field :role  # only relevant for virtual pages
   field :active, type: Boolean, default: false
   field :layout, type: String, default: 'default'
-  field :meta_description
+  field :meta_description, localize: true
   field :title
   field :has_content, type: Boolean, default: false
 
