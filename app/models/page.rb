@@ -54,10 +54,10 @@ class Page
     end
   end
 
-  # Virtual pages don't live in the and are not associated with a
-  # specific URL. Instead, they can be rendered at any path, depending
-  # on the circumstances (e.g. when a page isn't found, or when an error
-  # occurs). Consequently they aren't created with a :parent attribute.
+  # Virtual pages are not associated with a specific URL. Instead, they
+  # can be rendered at any path, depending on the circumstances (e.g.
+  # when a page isn't found, or when an error occurs). Consequently they
+  # aren't created with a :parent attribute.
   def self.make(attributes = {})
     attributes = attributes.symbolize_keys
     parent = parent_from_attributes(attributes)
