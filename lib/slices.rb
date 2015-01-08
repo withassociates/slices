@@ -6,6 +6,7 @@ require 'RedCloth'
 require 'redcarpet'
 require 'stringex'
 
+require 'slices/translations'
 require 'slices/paperclip'
 require 'slices/version'
 
