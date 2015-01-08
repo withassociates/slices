@@ -1,18 +1,34 @@
 <form id="slices-form">
-  <div id="container-actions" class="toolbar">
-    <nav>
-      <ul>
-        <li class="back"><%= link_to "Cancel editing (lose unsaved changes)", admin_site_maps_path %></li>
-      </ul>
-    </nav>
-    <div class="actions">
-      <ul>
-        <li><a id="minimise" class="button">Minimise all slices</a></li>
-        <li>
-          <%= link_to "View page on site", @page.source.path, id: 'page-view-on-site', target: 'site', class: 'button standard' %>
-        </li>
-        <li><input type="submit" value="Save changes" id="save-changes" disabled></li>
-      </ul>
+  <div id="container-actions">
+    <% if Slices::Translations.available? %>
+      <div class="toolbar translations">
+        <nav>
+          Edit in
+          <ul>
+            <% Slices::Translations.all.each do |locale, language| %>
+              <li>
+                <%= link_to language, admin_page_path(@page.source, locale: locale) %>
+              </li>
+            <% end %>
+          </ul>
+        </nav>
+      </div>
+    <% end %>
+    <div class="toolbar">
+      <nav>
+        <ul>
+          <li class="back"><%= link_to "Cancel editing (lose unsaved changes)", admin_site_maps_path %></li>
+        </ul>
+      </nav>
+      <div class="actions">
+        <ul>
+          <li><a id="minimise" class="button">Minimise all slices</a></li>
+          <li>
+            <%= link_to "View page on site", @page.source.path, id: 'page-view-on-site', target: 'site', class: 'button standard' %>
+          </li>
+          <li><input type="submit" value="Save changes" id="save-changes" disabled></li>
+        </ul>
+      </div>
     </div>
   </div>
 
