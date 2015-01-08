@@ -1,4 +1,6 @@
 en:
+  locales:
+    en: "English"
   mongoid:
     errors:
       message:
