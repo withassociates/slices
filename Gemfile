@@ -5,7 +5,7 @@ gem 'fog'
 
 group :development, :test do
   gem 'bundler'
-  gem 'byebug'
+  gem 'byebug'             , platforms: [:ruby_20, :ruby_21]
   gem 'capybara'           , '~> 2.3.0'
   gem 'database_cleaner'   , '~> 0.9.1'
   gem 'escape_utils'       , '~> 0.2.4'
