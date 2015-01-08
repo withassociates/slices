@@ -5,5 +5,9 @@ module Slices
     def self.all
       { en: 'English' }
     end
+
+    def self.available?
+      all.keys.size > 1
+    end
   end
 end

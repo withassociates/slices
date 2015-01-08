@@ -467,9 +467,7 @@ header ul li,
   float: right;
 }
 .toolbar .actions {
-  position: absolute;
-  right: 24px;
-  top: 0;
+  margin-right: 24px;
 }
 .toolbar .actions li {
   margin-left: 7px
@@ -645,6 +643,26 @@ header ul li,
 }
 
 /* Edit slices pages */
+#container-actions .translations nav {
+  float: none;
+  padding: 0;
+  text-align: center;
+  line-height: 38px;
+  font-family: "Lucida Grande", Tahoma, Arial, Helvetica, sans-serif;
+  font-size: 11px;
+}
+#container-actions .translations ul {
+  display: inline;
+}
+#container-actions .translations li:after {
+  content: '|';
+}
+#container-actions .translations li:last-child:after {
+  content: '';
+}
+#container-actions .translations li a {
+  color: #696969;
+}
 #page-meta {
   display: none;
   background-color: #E2E2E2;
