@@ -8,8 +8,6 @@ class SiteMap
     '{root}'
   end
 
-  private
-
   def self.set_children_for(parent_id, data)
     parent = Page.find(parent_id)
     data.each_with_index do |child_data, i|
@@ -21,4 +19,5 @@ class SiteMap
       set_children_for(child_data['id'], child_data['children']) if child_data['children']
     end
   end
+  private_class_method :set_children_for
 end
