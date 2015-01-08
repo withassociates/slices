@@ -176,23 +176,25 @@ class Page
     self.meta_description = value
   end
 
+  def self.parent_from_attributes(attributes)
+    if attributes.has_key?(:parent_path)
+      Page.find_by_path(attributes.delete(:parent_path))
+    elsif attributes.has_key?(:parent_id)
+      Page.find(attributes.delete(:parent_id))
+    else
+      attributes.delete(:parent)
+    end
+  end
+  private_class_method :parent_from_attributes
+
+  def self.page_exists?(path)
+    Page.find_by_path(path)
+  rescue NotFound
+    false
+  end
+  private_class_method :page_exists?
+
   private
-    def self.parent_from_attributes(attributes)
-      if attributes.has_key?(:parent_path)
-        Page.find_by_path(attributes.delete(:parent_path))
-      elsif attributes.has_key?(:parent_id)
-        Page.find(attributes.delete(:parent_id))
-      else
-        attributes.delete(:parent)
-      end
-    end
-
-    def self.page_exists?(path)
-      Page.find_by_path(path)
-    rescue NotFound
-      false
-    end
-
     def update_has_content
       self.has_content = slices.any?
       true # must be true otherwise save will fail
