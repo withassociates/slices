@@ -26,7 +26,7 @@ class PagesController < SlicesController
   def show
     page = nil
     benchmark 'Page.find_by_path' do
-      page = Page.find_by_path(request.path)
+      page = Page.find_by_localized_path(request.path)
       raise Page::NotFound unless page.active?
     end
     render_page(page)

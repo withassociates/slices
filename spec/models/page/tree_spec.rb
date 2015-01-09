@@ -165,4 +165,28 @@ describe Page, type: :model do
     end
   end
 
+  context "translated sites" do
+    before do
+      @home, @parent = StandardTree.build_minimal
+      allow(Slices::Translations).to receive(:all).and_return(
+        en: 'English',
+        de: 'German'
+      )
+      @_original_locale = I18n.locale
+    end
+
+    after do
+      I18n.locale = @_original_locale
+    end
+
+    it "finds pages from their localized paths" do
+      I18n.locale = :en
+      expect(Page.find_by_localized_path('/en')).to eq @home
+      expect(Page.find_by_localized_path('/en/parent')).to eq @parent
+      I18n.locale = :de
+      expect(Page.find_by_localized_path('/de')).to eq @home
+      expect(Page.find_by_localized_path('/de/parent')).to eq @parent
+    end
+  end
+
 end

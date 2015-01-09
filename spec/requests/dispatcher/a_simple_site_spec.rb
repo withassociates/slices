@@ -48,4 +48,31 @@ describe "A simple site", type: :request do
     expect(page).to have_title /not found/i
   end
 
+  describe "that has been translated", i18n: true do
+    before do
+      parent = Page.find_by_path('/parent')
+      allow(Slices::Translations).to receive(:all).and_return(
+        en: 'English',
+        de: 'German'
+      )
+    end
+
+    it "serves the home page from URL that just contains the locale" do
+      %w(de en).each do |locale|
+        visit "/#{locale}"
+        expect(page.status_code).to eq 200
+      end
+    end
+
+    it "serves the page from a URL prefixed with the locale" do
+      %w(de en).each do |locale|
+        visit "/#{locale}/parent"
+        expect(page.status_code).to eq 200
+      end
+    end
+
+    it "renders 404 for URLs that don't include the locale prefix" do
+      expect { visit '/parent' }.to raise_error(ActionController::RoutingError)
+    end
+  end
 end

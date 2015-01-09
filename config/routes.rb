@@ -4,6 +4,18 @@ class PageConstraints
   end
 end
 
+class TranslatedPageConstraints
+  def matches?(request)
+    Slices::Translations.locale_available?(request.params.fetch(:locale, ''))
+  end
+end
+
+class UntranslatedSiteConstraints
+  def matches?(request)
+    ! Slices::Translations.available?
+  end
+end
+
 Rails.application.routes.draw do
 
   devise_for :admin, path: 'admin', controllers: {
@@ -34,7 +46,16 @@ Rails.application.routes.draw do
 
   get ':status.html' => 'pages#virtual_error_pages'
   post '*path' => 'pages#create'
-  get '*path' => 'pages#show', as: :page, :constraints => PageConstraints.new
+
+  constraints PageConstraints.new do
+    constraints TranslatedPageConstraints.new do
+      get ':locale/*path' => 'pages#show', as: :page
+      get ':locale' => 'pages#show'
+    end
+    constraints UntranslatedSiteConstraints.new do
+      get '*path' => 'pages#show', as: :page
+    end
+  end
 
   root to: 'pages#show'
 end

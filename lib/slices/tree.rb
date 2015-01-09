@@ -72,6 +72,13 @@ module Slices
       end
       alias :f :find_by_path
 
+      def find_by_localized_path(path)
+        if Slices::Translations.available?
+          path = path.sub(Regexp.new("^/#{I18n.locale}/?"), '/')
+        end
+        find_by_path(path)
+      end
+
       # Generate a +path+ from attributes.
       #
       # @param [Hash]   attributes

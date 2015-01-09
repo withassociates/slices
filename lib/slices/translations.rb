@@ -9,5 +9,9 @@ module Slices
     def self.available?
       all.keys.size > 1
     end
+
+    def self.locale_available?(locale)
+      all.keys.include?(locale.to_sym)
+    end
   end
 end
