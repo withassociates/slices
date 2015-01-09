@@ -15,7 +15,7 @@ class Page
   field :active, type: Boolean, default: false
   field :layout, type: String, default: 'default'
   field :meta_description, localize: true
-  field :title
+  field :title, localize: true
   field :has_content, type: Boolean, default: false
 
   belongs_to :author, class_name: 'Admin'
