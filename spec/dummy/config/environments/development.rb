@@ -35,3 +35,14 @@ Dummy::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 end
+
+module Slices
+  class Translations
+    def self.all
+      {
+        en: 'English',
+        de: 'German'
+      }
+    end
+  end
+end
