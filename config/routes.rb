@@ -10,6 +10,12 @@ class TranslatedPageConstraints
   end
 end
 
+class TranslatedSiteConstraints
+  def matches?(request)
+    Slices::Translations.available?
+  end
+end
+
 class UntranslatedSiteConstraints
   def matches?(request)
     ! Slices::Translations.available?
@@ -51,6 +57,9 @@ Rails.application.routes.draw do
     constraints TranslatedPageConstraints.new do
       get ':locale/*path' => 'pages#show', as: :page
       get ':locale' => 'pages#show'
+    end
+    constraints TranslatedSiteConstraints.new do
+      get '/', to: redirect("/#{I18n.default_locale}")
     end
     constraints UntranslatedSiteConstraints.new do
       get '*path' => 'pages#show', as: :page

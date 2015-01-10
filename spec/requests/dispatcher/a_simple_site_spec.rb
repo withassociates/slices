@@ -57,6 +57,12 @@ describe "A simple site", type: :request do
       )
     end
 
+    it "redirects requests to the root page to home page for default locale" do
+      visit '/'
+      expect(page).to have_title 'Home'
+      expect(current_path).to eq '/en'
+    end
+
     it "serves the home page from URL that just contains the locale" do
       %w(de en).each do |locale|
         visit "/#{locale}"
