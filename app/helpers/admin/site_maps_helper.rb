@@ -98,7 +98,7 @@ module Admin::SiteMapsHelper
   # @!visibility private
   def link_to_view_page(page)
     return unless page.active?
-    link_to 'View page on site', page.path,
+    link_to 'View page on site', page.localized_path,
             class: 'view-page', target: '_blank'
   end
 

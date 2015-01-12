@@ -24,7 +24,7 @@
         <ul>
           <li><a id="minimise" class="button">Minimise all slices</a></li>
           <li>
-            <%= link_to "View page on site", @page.source.path, id: 'page-view-on-site', target: 'site', class: 'button standard' %>
+            <%= link_to "View page on site", @page.source.localized_path, id: 'page-view-on-site', target: 'site', class: 'button standard' %>
           </li>
           <li><input type="submit" value="Save changes" id="save-changes" disabled></li>
         </ul>
