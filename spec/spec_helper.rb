@@ -58,6 +58,13 @@ RSpec.configure do |config|
     end
     DatabaseCleaner.clean
   end
+end
 
+module LocaleHelpers
+  def with_locale(locale, &block)
+    original_locale, I18n.locale = I18n.locale, locale
+    yield
+    I18n.locale = original_locale
+  end
 end
 

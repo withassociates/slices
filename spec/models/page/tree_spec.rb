@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Page, type: :model do
+  include LocaleHelpers
 
   context "tree building" do
 
@@ -172,29 +173,28 @@ describe Page, type: :model do
         en: 'English',
         de: 'German'
       )
-      @_original_locale = I18n.locale
-    end
-
-    after do
-      I18n.locale = @_original_locale
     end
 
     it "finds pages from their localized paths" do
-      I18n.locale = :en
-      expect(Page.find_by_localized_path('/en')).to eq @home
-      expect(Page.find_by_localized_path('/en/parent')).to eq @parent
-      I18n.locale = :de
-      expect(Page.find_by_localized_path('/de')).to eq @home
-      expect(Page.find_by_localized_path('/de/parent')).to eq @parent
+      with_locale(:en) do
+        expect(Page.find_by_localized_path('/en')).to eq @home
+        expect(Page.find_by_localized_path('/en/parent')).to eq @parent
+      end
+      with_locale(:de) do
+        expect(Page.find_by_localized_path('/de')).to eq @home
+        expect(Page.find_by_localized_path('/de/parent')).to eq @parent
+      end
     end
 
     it "can generate paths that start with the locale" do
-      I18n.locale = :en
-      expect(@home.localized_path).to eq '/en'
-      expect(@parent.localized_path).to eq '/en/parent'
-      I18n.locale = :de
-      expect(@home.localized_path).to eq '/de'
-      expect(@parent.localized_path).to eq '/de/parent'
+      with_locale(:en) do
+        expect(@home.localized_path).to eq '/en'
+        expect(@parent.localized_path).to eq '/en/parent'
+      end
+      with_locale(:de) do
+        expect(@home.localized_path).to eq '/de'
+        expect(@parent.localized_path).to eq '/de/parent'
+      end
     end
   end
 

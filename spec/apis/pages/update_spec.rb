@@ -32,6 +32,7 @@ shared_examples "updates slices correctly" do
 end
 
 describe "PUT to pages#update" do
+  include LocaleHelpers
 
   def new_slice
     {
@@ -113,23 +114,16 @@ describe "PUT to pages#update" do
 
   include_context "signed in as admin"
 
-  before do
-    @_original_locale = I18n.locale
-  end
-
-  after do
-    I18n.locale = @_original_locale
-  end
-
   context "with vaild data" do
 
     before do
       home, @page = StandardTree.build_minimal_with_slices
       I18n.locale = :de
-      slices_data = content_slices_data(@page.slices)
-      put_json admin_page_path(@page, format: :json),
-        { page: page_data(slices_data) }
-      I18n.locale = @_original_locale
+      with_locale(:de) do
+        slices_data = content_slices_data(@page.slices)
+        put_json admin_page_path(@page, format: :json),
+          { page: page_data(slices_data) }
+      end
     end
 
     it "responds with success" do
