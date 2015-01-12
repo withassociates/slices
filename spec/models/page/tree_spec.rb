@@ -187,6 +187,15 @@ describe Page, type: :model do
       expect(Page.find_by_localized_path('/de')).to eq @home
       expect(Page.find_by_localized_path('/de/parent')).to eq @parent
     end
+
+    it "can generate paths that start with the locale" do
+      I18n.locale = :en
+      expect(@home.localized_path).to eq '/en'
+      expect(@parent.localized_path).to eq '/en/parent'
+      I18n.locale = :de
+      expect(@home.localized_path).to eq '/de'
+      expect(@parent.localized_path).to eq '/de/parent'
+    end
   end
 
 end

@@ -100,6 +100,14 @@ module Slices
       end
     end
 
+    def localized_path
+      if Slices::Translations.available?
+        "/#{I18n.locale}#{path}".sub(%r{/$}, '')
+      else
+        path
+      end
+    end
+
     # Get the parent page.
     #
     # @return [Page]
