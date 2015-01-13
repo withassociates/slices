@@ -42,6 +42,7 @@ RSpec::Matchers.define :be_html_equivalent do |expected|
 end
 
 describe NavigationHelper, type: :helper do
+  include LocaleHelpers
   extend NavigationMacros
 
   def logger
@@ -69,6 +70,32 @@ describe NavigationHelper, type: :helper do
       StandardTree.build_complex
       StandardTree.add_cousins(Page.find_by_path('/uncle'))
       StandardTree.add_slices_beneath(Page.home)
+    end
+
+    context "and a site is translated" do
+      before do
+        allow(Slices::Translations).to receive(:all).and_return(
+          en: 'English',
+          de: 'German'
+        )
+      end
+
+      it "links to the same translation as the current page" do
+        @page = Page.find_by_path('/')
+        parent = Page.find_by_path('/parent')
+
+        with_locale(:de) do
+          navigation_for_level(:primary, 1)
+          expect(output_buffer).to be_html_equivalent <<-EOF
+          <ul id="primary_navigation">
+            <li class="first active nav-home"><a href="/de">Home</a></li>
+            <li class="nav-parent"><a href="/de/parent">Parent</a></li>
+            <li class="nav-aunt"><a href="/de/aunt">Aunt</a></li>
+            <li class="last nav-uncle"><a href="/de/uncle">Uncle</a></li>
+          </ul>
+          EOF
+        end
+      end
     end
 
     context "#primary_navigation" do

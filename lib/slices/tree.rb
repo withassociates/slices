@@ -27,9 +27,6 @@ module Slices
     #
     # @return [Boolean]
 
-    # @!method minimal
-    # A scope with the minmial attributes needed to render navigaiton
-    #
     # @!scope class
     # @return [Mongoid::Criteria]
     #
@@ -39,7 +36,6 @@ module Slices
       field :position, type: Integer
       field :show_in_nav, type: Boolean, default: false
 
-      scope :minimal, ->{ only(%w(_type page_id path external_url name has_content)) }
       index({ path: 1 }, { unique: true })
 
       belongs_to :page
@@ -160,7 +156,7 @@ module Slices
       ancestors.include?(page)
     end
 
-    # The navigaiton path for a page, the navigation differers from +path+
+    # The navigation path for a page, the navigation differs from +path+
     # in a few important ways. If #external_url is set then it is returned. If
     # the page has no content and children then the path of it's first child is
     # returned
@@ -171,9 +167,11 @@ module Slices
       if external_url?
         external_url
       elsif home? || has_content?
-        path
+        localized_path
+      elsif navigable_children.first
+        navigable_children.first.localized_path
       else
-        navigable_children.first ? navigable_children.first.path : path
+        localized_path
       end
     end
 
@@ -184,7 +182,7 @@ module Slices
     # @return [Mongoid::Criteria]
     #
     def navigable_children
-      page_children.minimal.where(active: true, show_in_nav: true)
+      page_children.where(active: true, show_in_nav: true)
     end
 
     # The parent pages's navigable children, including this page
