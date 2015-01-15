@@ -10,8 +10,6 @@ require 'slices/paperclip'
 require 'slices/version'
 
 require 'mongo_search'
-require 'ext/file_store_cache'
-
 module Slices
   autoload :Config,                     'slices/config'
   autoload :CmsFormBuilder,             'slices/cms_form_builder'
