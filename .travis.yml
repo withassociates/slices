@@ -6,6 +6,7 @@ rvm:
 script: bundle exec rspec spec --tag ~ci:false --color
 services:
   - mongodb
+sudo: false
 notifications:
   webhooks:
     urls:
