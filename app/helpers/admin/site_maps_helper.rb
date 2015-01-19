@@ -108,7 +108,7 @@ module Admin::SiteMapsHelper
   def page_classes(page)
     classes = []
     classes << 'home' if page.home?
-    classes << page._type.underscore.dasherize
+    classes << page.class.name.underscore.dasherize
     classes.join ' '
   end
 end
