@@ -79,7 +79,7 @@ namespace :slices do
       Slices::Tasks.make_errors
     end
 
-    desc "With Associates admin user"
+    desc "Create admin user"
     task :admin => :environment do
       Slices::Tasks.make_admin
     end
