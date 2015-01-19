@@ -18,5 +18,10 @@ describe "slices:install" do
   it "should delete public/index.html" do
     expect(File).to_not be_exist('public/index.html')
   end
+
+  it "should create admin nav partials" do
+    expect(subject).to generate("app/views/admin/shared/_custom_navigation.html.erb")
+    expect(subject).to generate("app/views/admin/shared/_custom_links.html.erb")
+  end
 end
 
