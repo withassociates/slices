@@ -37,7 +37,7 @@ module Slices
     end
 
     def optionally_create_mongoid_yaml
-      copy_file "mongoid.yml", "config/mongoid.yml"
+      generate 'mongoid:config'
     end
 
     def delete_superfluous_files
