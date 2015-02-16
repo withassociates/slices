@@ -10,12 +10,12 @@
 
 <li>
   <label for="meta-title">HTML Title</label>
-  <input type="text" id="meta-title" value="{{title}}">
+  <input type="text" id="meta-title" class="{{#ifI18nEnabled}}i18n{{/ifI18nEnabled}}" value="{{title}}">
 </li>
 
 <li>
   <label for="meta-meta_description">Meta Description</label>
-  <textarea id="meta-meta_description" rows="5">{{meta_description}}</textarea>
+  <textarea id="meta-meta_description" class="{{#ifI18nEnabled}}i18n{{/ifI18nEnabled}}" rows="5">{{meta_description}}</textarea>
 </li>
 
 <li>
