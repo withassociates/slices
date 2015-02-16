@@ -2352,3 +2352,26 @@ Date Field
 .markdown-cheat-sheet .columns { height: 0 }
 .markdown-cheat-sheet.display h4 { color: #333 }
 .markdown-cheat-sheet.display .columns { height: auto }
+
+input.i18n,
+textarea.i18n {
+  padding-right: 24px;
+  background-image: url(<%= asset_path('slices/i18n.png') %>);
+  background-position: right top;
+  background-repeat: no-repeat;
+  background-size: 24px 24px;
+}
+
+.i18n:after,
+.i18n .attachment-actions:after {
+  content: '';
+
+  display: inline-block;
+  vertical-align: middle;
+
+  width: 18px;
+  height: 18px;
+
+  background: url(<%= asset_path('slices/i18n.png') %>) center center no-repeat;
+  background-size: 24px 24px;
+}
