@@ -80,7 +80,7 @@ $(function () {
       contentType: 'application/json',
       dataType: 'json',
       success: function (data, statusText, xhr) {
-        window.location = window.location;
+        location.reload();
       },
       error: function (xhr, textStatus, errorThrown) {
         // TODO:
