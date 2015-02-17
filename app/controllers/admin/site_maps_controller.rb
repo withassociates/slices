@@ -8,7 +8,7 @@ class Admin::SiteMapsController < Admin::AdminController
 
   def update
     SiteMap.rebuild(params[:sitemap])
-    head status: :ok
+    head :no_content
   end
 end
 

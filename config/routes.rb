@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   namespace :admin do
     get 'site_maps' => 'site_maps#index', as: :root # Devise redirects here after sign in
     get 'site_maps' => 'site_maps#index'
-    get 'site_maps/update' => 'site_maps#update'
+    put 'site_maps/update' => 'site_maps#update'
     get 'pages/search' => 'page_search#show'
     resources :pages, :except => [:index, :edit] do
       resources :entries, :only => [:index]
