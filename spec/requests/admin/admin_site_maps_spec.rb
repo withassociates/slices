@@ -18,4 +18,12 @@ describe "The site map", type: :request, js: true do
     expect(page).to have_no_css '#virtual-pages a.add-child'
   end
 
+  it "updates" do
+    visit '/admin/site_maps'
+
+    click_on 'Unlock structure?'
+    click_on 'Save'
+
+    expect(page).to have_content('Unlock structure?')
+  end
 end
