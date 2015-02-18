@@ -56,8 +56,8 @@ module PagesHelper
   def edit_in_cms
     if admin_signed_in?
       links = []
-      links << link_to("Edit #{@page.class.to_s.underscore.humanize} in CMS", admin_page_path(@page), target: '_blank')
-      links << link_to('Edit template in CMS', admin_page_path(@page.parent, entries: 1), target: '_blank') if @page.entry?
+      links << link_to("Edit #{@page.class.to_s.underscore.humanize} in CMS", admin_page_path(@page, locale: I18n.locale), target: '_blank')
+      links << link_to('Edit template in CMS', admin_page_path(@page.parent, entries: 1, locale: I18n.locale), target: '_blank') if @page.entry?
       content = links.collect {|l| content_tag(:p, l) }.join.html_safe
 
       content_tag(:div, content, id: 'edit_in_cms')
