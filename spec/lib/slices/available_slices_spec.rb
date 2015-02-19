@@ -56,7 +56,7 @@ describe Slices::AvailableSlices do
         expect(slice['restricted']).to be_falsey
       end
 
-      it "tells me the default for field 'slides'" do
+      it "tells me the default for attachment 'slides'" do
         expect(slice['slides']).to eq([])
       end
     end

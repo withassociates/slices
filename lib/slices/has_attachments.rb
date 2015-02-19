@@ -5,23 +5,8 @@ module Slices
     module ClassMethods
 
       def has_attachments(embed_name = :attachments, options = {})
-        klass = if options.has_key?(:class_name)
-                  options[:class_name].constantize
-                else
-                  Attachment
-                end
-
-        default = options[:default] || []
-
-        define_method embed_name do
-          (read_attribute(embed_name) || []).collect do |embed|
-            klass.new embed
-          end
-        end
-
         attachment_fields << embed_name
-
-        field embed_name, type: Array, default: default
+        embeds_many embed_name, {class_name: "Attachment", as: :object}.merge(options)
       end
 
       def attachment_fields
@@ -69,6 +54,25 @@ module Slices
           end
         }
       end
+    end
+
+    def write_attributes(attrs)
+      attrs = attrs.symbolize_keys
+      self.class.attachment_fields.each do |field|
+        next unless attrs.has_key?(field)
+
+        attrs[field] = (attrs[field] || []).map do |attachment_attrs|
+          if attachment_attrs[:_id].present?
+            attachment = send(field).find(attachment_attrs[:_id])
+            attachment.write_attributes(attachment_attrs)
+            attachment
+          else
+            self.class.relations[field.to_s].class_name.constantize.new(attachment_attrs)
+          end
+        end
+      end
+
+      super
     end
 
     def as_json options = nil

@@ -56,6 +56,53 @@ describe Slices::HasAttachments do
       expect(subject[:position]).to eq 1
     end
 
+    it "creates a new attachment" do
+      expect(subject).to be_new_record
+    end
+
+    context "when the attachment already exists" do
+      let :attachment do
+        Attachment.new(caption: "old")
+      end
+
+      let :slice do
+        DefaultSliceClass.new(attachments: [attachment])
+      end
+
+      let :attachment_attributes do
+        {
+          _id: attachment.id,
+          asset_id: asset.id,
+          position: 1,
+          caption:  caption
+        }
+      end
+
+      it "updates the attachment" do
+        expect(attachment.caption).to eq("Caption")
+      end
+
+      context "when attachment field is not present in attributes" do
+        let :slice_attributes do
+          {}
+        end
+
+        it "doesn't change attachment" do
+          expect(attachment.caption).to eq("old")
+        end
+      end
+
+      context "when attachment field is nil in attributes" do
+        let :slice_attributes do
+          { attachments: nil }
+        end
+
+        it "deletes attachments" do
+          expect(slice.attachments).to be_empty
+        end
+      end
+    end
+
   end
 
   context "#attachments" do
@@ -109,7 +156,7 @@ describe Slices::HasAttachments do
     end
 
     let :attachment do
-      double as_json: { "asset_url" => "/path/to/file.jpg" }
+      Attachment.new
     end
 
     let :slice do
@@ -118,7 +165,7 @@ describe Slices::HasAttachments do
 
     context "with attachments" do
       subject do
-        slice.stub(:attachments => [attachment])
+        slice.attachments = [attachment]
         slice.as_json
       end
 
