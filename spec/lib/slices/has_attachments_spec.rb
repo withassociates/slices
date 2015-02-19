@@ -9,16 +9,14 @@ describe Slices::HasAttachments do
       as_json: { "id" => 1 }
   end
 
-  let :default_slice do
-    Class.new do
-      include Mongoid::Document
-      include Slices::HasAttachments
-      has_attachments
-    end
+  class DefaultSliceClass
+    include Mongoid::Document
+    include Slices::HasAttachments
+    has_attachments
   end
 
   let :slice do
-    default_slice.new
+    DefaultSliceClass.new
   end
 
   context "#write_attributes" do
@@ -66,16 +64,14 @@ describe Slices::HasAttachments do
   context "#attachments" do
     context "with custom name and class" do
 
-      let :custom_slice do
-        Class.new do
-          include Mongoid::Document
-          include Slices::HasAttachments
-          has_attachments :slides, class_name: 'TestSlide'
-        end
+      class CustomSlice
+        include Mongoid::Document
+        include Slices::HasAttachments
+        has_attachments :slides, class_name: 'TestSlide'
       end
 
       subject do
-        custom_slice.new(
+        CustomSlice.new(
           slides: [{asset_id: asset.id}]
         )
       end
@@ -87,7 +83,7 @@ describe Slices::HasAttachments do
 
     context "with defaults" do
       subject do
-        default_slice.new(
+        DefaultSliceClass.new(
           attachments: [{asset_id: asset.id}]
         )
       end
@@ -100,23 +96,19 @@ describe Slices::HasAttachments do
 
   describe "#as_json" do
 
-    let :super_class do
-      Class.new do
-        include Mongoid::Document
+    class SuperClass
+      include Mongoid::Document
 
-        def as_json *args
-          super.merge("super" => true)
-        end
-
-        include Slices::HasAttachments
-
+      def as_json *args
+        super.merge("super" => true)
       end
+
+      include Slices::HasAttachments
+
     end
 
-    let :sub_class do
-      Class.new super_class do
-        has_attachments
-      end
+    class SubClass < SuperClass
+      has_attachments
     end
 
     let :attachment do
@@ -124,7 +116,7 @@ describe Slices::HasAttachments do
     end
 
     let :slice do
-      sub_class.new
+      SubClass.new
     end
 
     context "with attachments" do
