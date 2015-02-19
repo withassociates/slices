@@ -174,7 +174,7 @@ describe Slices::HasAttachments do
 
       context "with two attachments" do
         subject do
-          expect(slice).to receive(:attachments).and_return([attachment, other_attachment])
+          allow(slice).to receive(:attachments).and_return([attachment, other_attachment])
           slice.attachment_asset_ids
         end
 
@@ -190,7 +190,7 @@ describe Slices::HasAttachments do
         end
 
         subject do
-          expect(slice).to receive(:attachments).and_return([broken_attachment])
+          allow(slice).to receive(:attachments).and_return([broken_attachment])
           slice.attachment_asset_ids
         end
 
@@ -234,7 +234,7 @@ describe Slices::HasAttachments do
       end
 
       subject do
-        expect(slice).to receive(:attachments).and_return([attachment])
+        allow(slice).to receive(:attachments).and_return([attachment])
         page.attachment_asset_ids
       end
 
@@ -282,8 +282,8 @@ describe Slices::HasAttachments do
         end
 
         subject do
-          expect(page).to receive(:attachments).and_return([page_attachment])
-          expect(slice).to receive(:attachments).and_return([slice_attachment])
+          allow(page).to receive(:attachments).and_return([page_attachment])
+          allow(slice).to receive(:attachments).and_return([slice_attachment])
           page.attachment_asset_ids
         end
 
@@ -302,8 +302,8 @@ describe Slices::HasAttachments do
         end
 
         before do
-          expect(page).to receive(:attachments).and_return([page_attachment])
-          expect(slice).to receive(:attachments).and_return([page_attachment, slice_attachment])
+          allow(page).to receive(:attachments).and_return([page_attachment])
+          allow(slice).to receive(:attachments).and_return([page_attachment, slice_attachment])
         end
 
         subject do
@@ -375,7 +375,7 @@ describe Slices::HasAttachments do
       end
 
       subject do
-        expect(slice).to receive(:attachments).and_return([slice_attachment])
+        allow(slice).to receive(:attachments).and_return([slice_attachment])
         page.slice_attachment_asset_ids
       end
 
@@ -393,7 +393,7 @@ describe Slices::HasAttachments do
       end
 
       subject do
-        expect(slice).to receive(:attachments).and_return([slice_attachment])
+        allow(slice).to receive(:attachments).and_return([slice_attachment])
         page.slice_attachment_asset_ids
       end
 
