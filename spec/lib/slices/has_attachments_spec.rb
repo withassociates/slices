@@ -43,7 +43,7 @@ describe Slices::HasAttachments do
       end
 
       subject do
-        slice.attributes['attachments'][0]
+        slice.attachments[0]
       end
 
       it "stores the asset_id" do
