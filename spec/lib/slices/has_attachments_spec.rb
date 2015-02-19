@@ -36,27 +36,24 @@ describe Slices::HasAttachments do
       }
     end
 
-    context "creating a new slice" do
+    before do
+      slice.write_attributes(slice_attributes)
+    end
 
-      before do
-        slice.write_attributes(slice_attributes)
-      end
+    subject do
+      slice.attachments[0]
+    end
 
-      subject do
-        slice.attachments[0]
-      end
+    it "stores the asset_id" do
+      expect(subject[:asset_id]).to eq asset.id
+    end
 
-      it "stores the asset_id" do
-        expect(subject[:asset_id]).to eq asset.id
-      end
+    it "stores the caption" do
+      expect(subject[:caption]).to eq caption
+    end
 
-      it "stores the caption" do
-        expect(subject[:caption]).to eq caption
-      end
-
-      it "stores the position" do
-        expect(subject[:position]).to eq 1
-      end
+    it "stores the position" do
+      expect(subject[:position]).to eq 1
     end
 
   end
