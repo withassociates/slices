@@ -3,19 +3,6 @@ class PagePresenter < Presenter
     @source.id.to_s
   end
 
-  def available_slices
-    slices = {}
-    ObjectSpace.each_object do |object|
-      ActiveSupport::Deprecation.silence do
-        if object.class == Class && object.name =~ /\w+Slice$/
-          key = object.name.underscore.sub('_slice', '')
-          slices[key] = key.humanize
-        end
-      end
-    end
-    slices
-  end
-
   def name
     @source.name
   end
