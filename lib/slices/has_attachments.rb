@@ -11,26 +11,17 @@ module Slices
                   Attachment
                 end
 
-        default = options[:default] || options[:singular] ? nil : []
-        type = options[:singular] ? Hash : Array
+        default = options[:default] || []
 
-        if options[:singular]
-          define_method embed_name do
-            if embed = read_attribute(embed_name)
-              klass.new embed
-            end
-          end
-        else
-          define_method embed_name do
-            (read_attribute(embed_name) || []).collect do |embed|
-              klass.new embed
-            end
+        define_method embed_name do
+          (read_attribute(embed_name) || []).collect do |embed|
+            klass.new embed
           end
         end
 
         attachment_fields << embed_name
 
-        field embed_name, type: type, default: default
+        field embed_name, type: Array, default: default
       end
 
       def attachment_fields
@@ -86,14 +77,7 @@ module Slices
 
     def attachments_as_json
       self.class.attachment_fields.inject({}) do |hash, name|
-        value = send name
-
-        hash[name] = if value.respond_to?(:map)
-                       value.map &:as_json
-                     else
-                       value.as_json
-                     end
-
+        hash[name] = send(name).map(&:as_json)
         hash
       end
     end
