@@ -104,6 +104,10 @@ class Slice
     attributes.symbolize_keys.except(:_id, :_type).tap do |result|
       result.merge!(id: id, type: type)
       result.merge!(client_id: client_id) if client_id? && new_record?
+
+      self.embedded_relations.each do |field, metadata|
+        result.merge!(field.to_sym => send(field).map(&:as_json))
+      end
     end
   end
 
