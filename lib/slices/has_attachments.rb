@@ -56,25 +56,6 @@ module Slices
       end
     end
 
-    def write_attributes(attrs)
-      attrs = attrs.symbolize_keys
-      self.class.attachment_fields.each do |field|
-        next unless attrs.has_key?(field)
-
-        attrs[field] = (attrs[field] || []).map do |attachment_attrs|
-          if attachment_attrs[:_id].present?
-            attachment = send(field).find(attachment_attrs[:_id])
-            attachment.write_attributes(attachment_attrs)
-            attachment
-          else
-            self.class.relations[field.to_s].class_name.constantize.new(attachment_attrs)
-          end
-        end
-      end
-
-      super
-    end
-
     def as_json options = nil
       super.merge(attachments_as_json)
     end
