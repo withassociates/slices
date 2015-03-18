@@ -93,15 +93,6 @@ module Admin::SiteMapsHelper
     link_to 'Edit Entry Template', url, class: 'button'
   end
 
-  # Create a link to view the current page on the live site
-  #
-  # @!visibility private
-  def link_to_view_page(page)
-    return unless page.active?
-    link_to 'View page on site', page_url(page.path, locale: I18n.locale),
-            class: 'view-page', target: '_blank'
-  end
-
   # Return HTMl class names for a page
   #
   # @!visibility private
