@@ -9,6 +9,7 @@ class Page
   include Slices::HasAttachments::PageInstanceMethods
 
   DESCRIPTION_DEPRECATION_WARNING = "Page#description is now meta_description. If you are upgrading, run 'rake slices:migrate:meta_description' to update."
+  LAST_CHANGED_AT_CACHE_KEY = 'page-last-changed'
 
   field :name
   field :role  # only relevant for virtual pages
@@ -31,6 +32,7 @@ class Page
 
   before_save :update_has_content
   before_destroy :destroy_children
+  after_save :update_last_changed_at
   after_save :cache_virtual_page
 
   class NotFound < RuntimeError; end
@@ -88,6 +90,14 @@ class Page
 
   def self.find_virtual(role)
     find_by(role: role)
+  end
+
+  def update_last_changed_at
+    Rails.cache.write(LAST_CHANGED_AT_CACHE_KEY, Time.now.to_i)
+  end
+
+  def self.last_changed_at
+    Rails.cache.read(LAST_CHANGED_AT_CACHE_KEY) || 0
   end
 
   def cacheable_virtual_page?

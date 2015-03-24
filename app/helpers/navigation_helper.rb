@@ -23,7 +23,7 @@ module NavigationHelper
   # @return [String]
   #
   def primary_navigation(id = 'primary_navigation')
-    cache 'page/navigation/' + id + '/' + @page.id.to_s do
+    cache cache_key_for_navigation(id) do
       benchmark 'Rendered primary_navigation' do
         nav = navigation(page: Page.home, depth: 1, id: id)
         safe_concat nav
@@ -48,11 +48,12 @@ module NavigationHelper
   #
   # @param  [Hash]       options
   # @option options [Integer] :depth (1)                    Number of levels to render
-  # @option options [Integer] :id ('secondary_navigation')  Id of surrounding UL
+  # @option options [String] :id ('secondary_navigation')  Id of surrounding UL
   # @return [String]
   #
   def secondary_navigation(options = {})
-    cache 'page/navigation/secondary/' + @page.id.to_s do
+    name = options.fetch('id') { 'secondary_navigation' }
+    cache cache_key_for_navigation(name) do
       benchmark 'Rendered secondary_navigation' do
         secondary_ancestors = (@page.ancestors[-2] || @page).navigable_children
         nav = if secondary_ancestors.empty? || @page.home?
@@ -190,6 +191,10 @@ module NavigationHelper
 
   def nav_list_identifier(page)
     page.home? ? 'nav-home' : ('nav' + page.path.gsub('/', '-'))
+  end
+
+  def cache_key_for_navigation(name)
+    ['pages', @page.id, name, Page.last_changed_at]
   end
 end
 
