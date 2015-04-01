@@ -35,7 +35,7 @@ describe "Slices::CmsFormBuilder", type: :helper do
       expected = whole_form '/', 'new_page', 'new_page' do
         '<li>' +
           '<label for="page_name">Name</label>' +
-          '<input id="page_name" name="page[name]" size="30" type="text" />' +
+          '<input id="page_name" name="page[name]" type="text" />' +
         '</li>'
       end
 
@@ -48,8 +48,8 @@ describe "Slices::CmsFormBuilder", type: :helper do
       expected = whole_form '/', 'new_page', 'new_page' do
         '<li class="error">' +
           '<label for="page_name">Name</label>' +
-          '<input id="page_name" name="page[name]" size="30" type="text" />' +
-          '<p>can&#x27;t be blank</p>' +
+          '<input id="page_name" name="page[name]" type="text" />' +
+          '<p>can&#39;t be blank</p>' +
         '</li>'
       end
 
