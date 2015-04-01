@@ -105,12 +105,12 @@ describe AssetsHelper, type: :helper do
       end
 
       it "allow options on the link" do
-        expected_html = %Q{<a href="/foo/bar" class="baz"><img alt="Ladybird" height="180" src="#{image_url}" width="180" /></a>}
+        expected_html = %Q{<a class="baz" href="/foo/bar"><img alt="Ladybird" height="180" src="#{image_url}" width="180" /></a>}
         expect(link_image_if_linkable("/foo/bar", asset, :admin, class: "baz")).to eq expected_html
       end
 
       it "allows options on the image as well" do
-        expected_html = %Q{<a href="/foo/bar" class="arc"><img alt="Ladybird" class="otter" height="180" src="#{image_url}" width="180" /></a>}
+        expected_html = %Q{<a class="arc" href="/foo/bar"><img alt="Ladybird" class="otter" height="180" src="#{image_url}" width="180" /></a>}
         expect(link_image_if_linkable("/foo/bar", asset, :admin, class: "arc", image_options: {class: "otter"})).to eq expected_html
       end
     end

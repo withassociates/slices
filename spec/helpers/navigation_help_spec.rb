@@ -372,7 +372,7 @@ describe NavigationHelper, type: :helper do
         expect(navigation(
           page: @page, depth: 1, id: 'nav-id', class: 'nav-class'
         )).to be_html_equivalent <<-EOF
-        <ul class="nav-class" id="nav-id">
+        <ul id="nav-id" class="nav-class">
           <li class="first active nav-parent-child">
             <a href="/parent/child">Child</a>
           </li>
