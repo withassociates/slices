@@ -9,7 +9,7 @@ class SlicesController < ActionController::Base
   append_view_path(File.join(Rails.root, *%w[app slices]))
 
   around_filter :set_locale
-  define_callbacks :render_page, terminator: "response_body"
+  define_callbacks :render_page
 
   def self.should_raise_exceptions?
     Rails.application.config.consider_all_requests_local
