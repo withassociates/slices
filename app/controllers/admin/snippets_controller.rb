@@ -20,7 +20,7 @@ class Admin::SnippetsController < Admin::AdminController
 
   def update
     @snippet = Snippet.find(params[:id])
-    @snippet.update_attributes(params[:snippet])
+    @snippet.update_attributes(snippet_params)
     respond_to do |format|
       format.html {}
       format.json do
@@ -29,5 +29,10 @@ class Admin::SnippetsController < Admin::AdminController
     end
   end
 
+  private
+
+  def snippet_params
+    params.require(:snippet).permit(:key, :value)
+  end
 end
 

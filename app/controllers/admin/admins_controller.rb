@@ -25,7 +25,7 @@ class Admin::AdminsController < Admin::AdminController
   end
 
   def create
-    @admin = Admin.new(params[:admin])
+    @admin = Admin.new(admin_params)
     if @admin.save
       redirect_to admin_admins_path
     else
@@ -72,5 +72,9 @@ class Admin::AdminsController < Admin::AdminController
     paginated_admins.as_json.tap do |json|
       json[:items] = json[:items].as_json(current_admin: current_admin)
     end
+  end
+
+  def admin_params
+    params.require(:admin).permit(:name, :email, :password, :password_confirmation)
   end
 end
