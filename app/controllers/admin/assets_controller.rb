@@ -14,7 +14,7 @@ class Admin::AssetsController < Admin::AdminController
   end
 
   def create
-    @asset = Asset.make asset_attrs
+    @asset = Asset.make(asset_params)
 
     respond_with do |format|
       format.json { render json: @asset }
@@ -22,8 +22,8 @@ class Admin::AssetsController < Admin::AdminController
   end
 
   def update
-    @asset = Asset.find params[:id]
-    @asset.update_attributes asset_attrs
+    @asset = Asset.find(params[:id])
+    @asset.update_attributes(asset_params)
 
     respond_with @asset do |format|
       format.json { render json: @asset }
@@ -41,13 +41,14 @@ class Admin::AssetsController < Admin::AdminController
 
   private
 
-  def asset_attrs
-    attrs = params[:asset] || {}
-    if file = params[:file]
+  def asset_params
+    asset_params = params.permit([{asset: [:name, :tags]}, :file])
+    if asset_params.key?(:file)
+      file = asset_params[:file]
       file = URI(file.gsub(' ', '+')) if file.is_a?(String)
-      attrs[:file] = file
+      { file: file }
+    else
+      asset_params[:asset]
     end
-    attrs
   end
-
 end

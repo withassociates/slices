@@ -25,7 +25,7 @@ class Admin::AdminsController < Admin::AdminController
   end
 
   def create
-    @admin = Admin.new(params[:admin])
+    @admin = Admin.new(admin_params)
     if @admin.save
       redirect_to admin_admins_path
     else
@@ -39,11 +39,6 @@ class Admin::AdminsController < Admin::AdminController
   end
 
   def update
-    admin_params = params[:admin]
-    if admin_params[:password].blank?
-      admin_params.delete(:password)
-      admin_params.delete(:password_confirmation)
-    end
     @admin = Admin.find(params[:id])
     @admin.update_attributes(admin_params)
     if @admin.valid?
@@ -71,6 +66,15 @@ class Admin::AdminsController < Admin::AdminController
   def jsonify_with_current_admin(paginated_admins)
     paginated_admins.as_json.tap do |json|
       json[:items] = json[:items].as_json(current_admin: current_admin)
+    end
+  end
+
+  def admin_params
+    params.require(:admin).permit(:name, :email, :password, :password_confirmation).tap do |a_params|
+      if a_params[:password].blank?
+        a_params.delete(:password)
+        a_params.delete(:password_confirmation)
+      end
     end
   end
 end
