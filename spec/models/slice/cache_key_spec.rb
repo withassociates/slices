@@ -27,7 +27,7 @@ describe Slice, type: :model do
 
     context "when the slice is not embeded in a page" do
       it "should only have the slice id as the key name" do
-        expect(slice.cache_key).to eq "slice/new"
+        expect(slice.cache_key).to eq "slices/new"
       end
     end
   end
