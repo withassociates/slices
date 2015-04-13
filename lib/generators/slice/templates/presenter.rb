@@ -18,25 +18,24 @@ class <%= page_name.classify %>Presenter < PagePresenter
   end
 
 <%- if options.with_entry_templates? -%>
-  def main_extra_template
-    '<%= file_name %>/<%= page_name %>_main'
+  def main_extra_templates
+    super + ['<%= file_name %>/<%= page_name %>_main']
   end
 
-  def meta_extra_template
-    '<%= file_name %>/<%= page_name %>_meta'
+  def meta_extra_templates
+    super + ['<%= file_name %>/<%= page_name %>_meta']
   end
 <%- else -%>
-  # If you want to display extra information while editing or creating a
-  # page (i.e. in the admin UI's side bar) you'll need to define some
-  # .hbs files, and then tell the CMS to use them by uncommenting these
-  # methods.
+  # If you want to display extra information while editing a page you'll need
+  # to define some .hbs files, and then tell the CMS to use them by
+  # uncommenting these methods.
 
-  # def main_extra_template
-  #   '<%= file_name %>/<%= page_name %>_main'
+  # def main_extra_templates
+  #   super + ['<%= file_name %>/<%= page_name %>_main']
   # end
 
-  # def meta_extra_template
-  #   '<%= file_name %>/<%= page_name %>_meta'
+  # def meta_extra_templates
+  #   super + ['<%= file_name %>/<%= page_name %>_meta']
   # end
 <%- end -%>
 

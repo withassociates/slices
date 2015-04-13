@@ -299,12 +299,12 @@ describe "rails g slice example_set published_at:datetime --with-entry-templates
           attr_reader :columns
         end
 
-        def main_extra_template
-          'example_set/example_main'
+        def main_extra_templates
+          super + ['example_set/example_main']
         end
 
-        def meta_extra_template
-          'example_set/example_meta'
+        def meta_extra_templates
+          super + ['example_set/example_meta']
         end
 
         # The CMS needs to know how to present the data stored on a page;
