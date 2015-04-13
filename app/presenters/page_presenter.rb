@@ -44,6 +44,14 @@ class PagePresenter < Presenter
     'page_meta_extra'
   end
 
+  def main_extra_templates
+    [main_extra_template]
+  end
+
+  def meta_extra_templates
+    [meta_extra_template]
+  end
+
   def breadcrumbs
     [@source] + @source.ancestors
   end
