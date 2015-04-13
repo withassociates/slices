@@ -1,5 +1,6 @@
 /*
  *= require_self
+ *= require slices/vendor/jquery
  *= require slices/vendor/rails
  *= require slices/vendor/handlebars
  *= require slices/vendor/underscore
