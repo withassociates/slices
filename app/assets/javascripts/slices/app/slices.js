@@ -55,13 +55,13 @@ var slices = {
 
       addSliceOptions(slices.availableSlices);
 
-      templates = [
+      templates = _.flatten([
         'slice',
         settings.mainTemplate,
         settings.metaTemplate,
-        settings.mainExtraTemplate,
-        settings.metaExtraTemplate
-      ];
+        settings.mainExtraTemplates,
+        settings.metaExtraTemplates
+      ]);
 
       loadSliceTemplates(pageId);
       loadTemplates(templates, pageId, loadPageModel);
@@ -317,13 +317,13 @@ var slices = {
 
       $('#page-meta').html(renderMetaFields(settings.metaTemplate));
 
-      if (settings.metaExtraTemplate) {
-        $('#page-meta').append(renderMetaFields(settings.metaExtraTemplate));
-      }
+      $.each(settings.metaExtraTemplates, function(i, template) {
+        $('#page-meta').append(renderMetaFields(template));
+      });
 
-      if (settings.mainExtraTemplate) {
-        $('#page-extra-main').html(renderMetaFields(settings.mainExtraTemplate));
-      }
+      $.each(settings.mainExtraTemplates, function(i, template) {
+        $('#page-extra-main').append(renderMetaFields(template));
+      });
 
       $('#page-meta-fields').applyDataValues().initDataPlugins();
 
