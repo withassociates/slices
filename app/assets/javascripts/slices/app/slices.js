@@ -314,8 +314,8 @@ var slices = {
 
     function initMeta() {
       $('#page-main').html(renderMetaFields(settings.mainTemplate));
-
       $('#page-meta').html(renderMetaFields(settings.metaTemplate));
+      $('#page-extra-main').empty();
 
       $.each(settings.metaExtraTemplates, function(i, template) {
         $('#page-meta').append(renderMetaFields(template));
