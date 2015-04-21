@@ -5,6 +5,8 @@ slices.CalendarView = Backbone.View.extend({
 
   events: {
     'click [data-action="hide"]'       : 'hide',
+    'click [data-action="prev-year"]'  : 'prevYear',
+    'click [data-action="next-year"]'  : 'nextYear',
     'click [data-action="prev-month"]' : 'prevMonth',
     'click [data-action="next-month"]' : 'nextMonth',
     'mousedown time'                   : 'onClickDay'
@@ -17,6 +19,11 @@ slices.CalendarView = Backbone.View.extend({
     '<div class="calendar">' +
       '<table>' +
         '<thead>' +
+          '<tr>' +
+            '<td data-action="prev-year">&larr;</td>' +
+            '<th class="month" colspan="5">{{yearName}}</th>' +
+            '<td data-action="next-year">&rarr;</td>' +
+          '</tr>' +
           '<tr>' +
             '<td data-action="prev-month">&larr;</td>' +
             '<th class="month" colspan="5">{{monthName}}</th>' +
@@ -109,8 +116,12 @@ slices.CalendarView = Backbone.View.extend({
     return this.bodyTemplate(data);
   },
 
+  yearName: function() {
+    return this.month.format('YYYY');
+  },
+
   monthName: function() {
-    return this.month.format('MMMM YYYY');
+    return this.month.format('MMMM');
   },
 
   // -- Event Handlers --
@@ -153,6 +164,16 @@ slices.CalendarView = Backbone.View.extend({
     case 'showing':
       this.hide(); break;
     }
+  },
+
+  prevYear: function() {
+    this.month.subtract('years', 1);
+    this.render();
+  },
+
+  nextYear: function() {
+    this.month.add('years', 1);
+    this.render();
   },
 
   prevMonth: function() {
