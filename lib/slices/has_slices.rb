@@ -35,11 +35,13 @@ module Slices
           next if slice_attributes[:_destroy]
           slice_attributes.delete :_new
           slice_type = slice_attributes.delete :type
+          client_id = slice_attributes.delete :client_id
           (slice_type + '_slice').
             camelize.
             constantize.
             new(slice_attributes).tap do |s|
               s.id = slice_attributes[:id] if slice_attributes[:id].present?
+              s.client_id = client_id
             end
         }.compact
       end

@@ -5,12 +5,6 @@ shared_examples "updates slices correctly" do
     expect(json_slices.find { |slice| slice['id'] == @deleted_slice_id }).to be_nil
   end
 
-  it "keeps client_id on new slices" do
-    container_one_slices, new_slice = container_one_slices_and_new_slice
-
-    expect(new_slice['client_id']).to eq 'new_123'
-  end
-
   it "removes _new from new slices" do
     container_one_slices, new_slice = container_one_slices_and_new_slice
 
@@ -206,6 +200,10 @@ describe "PUT to pages#update" do
 
     it "has errors on page document" do
       expect(json_response).to include({'name' => ["can't be blank"]})
+    end
+
+    it "keeps client_id on new slices" do
+      expect(json_errors['new_123']).to be
     end
 
     it "has errors on slices" do

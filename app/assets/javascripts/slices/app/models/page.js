@@ -97,8 +97,6 @@ slices.model.Page = (
       });
 
       _.each(pageData.slices, function (slice) {
-        // Remove the client id which the backend returns even after a successfully created new slice
-        delete slice.client_id;
         delete slice._new;
 
         try {

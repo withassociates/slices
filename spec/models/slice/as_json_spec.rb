@@ -26,8 +26,9 @@ describe Slice, type: :model do
     end
 
     it "uses client_id if the slice is new" do
-      new_slice = Slice.new(client_id: 'new_123').as_json
-      expect(new_slice[:client_id]).to eq 'new_123'
+      new_slice = Slice.new
+      new_slice.client_id = 'new_123'
+      expect(new_slice.as_json[:client_id]).to eq 'new_123'
     end
 
   end

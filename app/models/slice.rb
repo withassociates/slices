@@ -9,7 +9,7 @@ class Slice
   embedded_in :normal_page, class_name: 'Page', inverse_of: :slices
   embedded_in :set_page, inverse_of: :set_slices
 
-  attr_accessor :renderer, :current_page
+  attr_accessor :renderer, :current_page, :client_id
   alias :page :current_page
 
   def self.restricted_slice
@@ -68,12 +68,8 @@ class Slice
     end
   end
 
-  def client_id?
-    attributes.include?('client_id')
-  end
-
   def id_or_client_id
-    client_id? ? client_id : id
+    client_id.presence || id
   end
 
   def to_delete?
@@ -103,7 +99,7 @@ class Slice
   def as_json(*args)
     attributes.symbolize_keys.except(:_id, :_type).tap do |result|
       result.merge!(id: id, type: type)
-      result.merge!(client_id: client_id) if client_id? && new_record?
+      result.merge!(client_id: client_id) if client_id && new_record?
 
       self.embedded_relations.each do |field, metadata|
         result.merge!(field.to_sym => send(field).map(&:as_json))
