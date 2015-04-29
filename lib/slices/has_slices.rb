@@ -34,7 +34,8 @@ module Slices
           slice_attributes = slice_attributes.symbolize_keys
           next if slice_attributes[:_destroy]
           slice_attributes.delete :_new
-          (slice_attributes[:type] + '_slice').
+          slice_type = slice_attributes.delete :type
+          (slice_type + '_slice').
             camelize.
             constantize.
             new(slice_attributes).tap do |s|
