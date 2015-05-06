@@ -36,9 +36,9 @@ slices.model.Page = (
           slice.client_id = slice.id;
           slice._new = 1;
           delete slice.id;
-          delete slice.template;
-          delete slice.name;
         }
+        delete slice.template;
+        delete slice.name;
       });
 
       /* Strip these out of the returned JSON object, only values
