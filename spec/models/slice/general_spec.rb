@@ -15,15 +15,5 @@ describe Slice, type: :model do
     end
   end
 
-  context "marked as deleted" do
-    let :slice do
-      Slice.new('_deleted' => true)
-    end
-
-    it "is deleteable" do
-      expect(slice).to be_to_delete
-    end
-  end
-
 end
 

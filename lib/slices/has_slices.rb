@@ -70,7 +70,7 @@ module Slices
     def slice_errors_for(embed_name)
       Hash.new.tap do |message|
         slices_for(embed_name).each do |slice|
-          if ! slice.valid? && ! slice.to_delete?
+          if ! slice.valid?
             message[slice.id_or_client_id] = messages_from_errors(slice.errors)
           end
         end

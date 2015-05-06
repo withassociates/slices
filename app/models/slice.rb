@@ -72,10 +72,6 @@ class Slice
     client_id.presence || id
   end
 
-  def to_delete?
-    attributes.include?('_deleted')
-  end
-
   def write_attributes(attrs)
     attrs = attrs.symbolize_keys
     self.embedded_relations.each do |field, metadata|
