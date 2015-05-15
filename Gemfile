@@ -7,6 +7,7 @@ group :development, :test do
   gem 'bundler'
   gem 'capybara'           , '~> 2.3.0'
   gem 'database_cleaner'   , '~> 0.9.1'
+  gem 'ember-cli-rails'    , '0.3.1'
   gem 'escape_utils'       , '~> 0.2.4'
   gem 'pry-rails'          , '~> 0.2.2'
   gem 'rspec-rails'        , '~> 2.99'

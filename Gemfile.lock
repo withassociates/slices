@@ -67,6 +67,9 @@ GEM
       railties (~> 3.1)
       warden (~> 1.2.1)
     diff-lcs (1.2.5)
+    ember-cli-rails (0.3.1)
+      railties (>= 3.1, < 5)
+      sprockets (>= 2.0)
     erubis (2.7.0)
     escape_utils (0.2.4)
     excon (0.31.0)
@@ -219,6 +222,7 @@ DEPENDENCIES
   bundler
   capybara (~> 2.3.0)
   database_cleaner (~> 0.9.1)
+  ember-cli-rails (= 0.3.1)
   escape_utils (~> 0.2.4)
   fog
   genspec
