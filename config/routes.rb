@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     resources :admins
   end
   get '/admin' => redirect('/admin/site_maps')
+  get '/admin-new' => 'admin_new#show'
 
   get 'slices/templates(/:slice)/:name.:format' => 'static_assets#templates'
   get ':action/:asset_type(/:folder)/*name.:format' => 'static_assets',
