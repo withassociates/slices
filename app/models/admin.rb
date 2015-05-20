@@ -36,7 +36,7 @@ class Admin
     self.super_user == true
   end
 
-  def as_json(options)
+  def as_json(options={})
     super(options).tap do |json|
       json[:last_sign_in_at] = last_sign_in_at
 

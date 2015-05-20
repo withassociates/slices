@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     get 'site_maps' => 'site_maps#index'
     put 'site_maps/update' => 'site_maps#update'
     get 'pages/search' => 'page_search#show'
-    resources :pages, :except => [:index, :edit] do
+    resources :pages, :except => [:edit] do
       resources :entries, :only => [:index]
     end
     resources :assets

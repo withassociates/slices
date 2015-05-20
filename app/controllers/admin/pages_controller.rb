@@ -71,6 +71,10 @@ class Admin::PagesController < Admin::AdminController
     end
   end
 
+  def index
+    render json: Page.all
+  end
+
   private
     def new_page_class
       params[:type].nil? ? Page : Object.const_get(params[:type].camelize)
