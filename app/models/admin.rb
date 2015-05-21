@@ -25,7 +25,7 @@ class Admin
 
   text_search_in :name, :email
 
-  validates_uniqueness_of :email, case_sensitive: false, scope: :site_id
+  validates_uniqueness_of :email, case_sensitive: false
   validates_presence_of :encrypted_password
 
   devise :database_authenticatable, :recoverable, :rememberable,
