@@ -1,3 +1,5 @@
+<% children = sitemap_children_for(page) %>
+
 <li class="<%= page_classes(page) %>" rel="<%= page.id %>">
   <div class="page-item">
     <h2><%= link_to(page.name, admin_page_path(page)) %></h2>
@@ -18,14 +20,14 @@
         <a class="hide-all-children button">Minimise all</a>
         <a class="show-all-children button">Expand all</a>
       </div>
-    <% elsif page.children.any? %>
+    <% elsif children.any? %>
       <a class="toggle-children" href="#page-<%= page.id %>-children"></a>
     <% end %>
   </div>
 
-  <% if page.children.any? %>
+  <% if children.any? %>
     <ol id="page-<%= page.id %>-children" class="page-children">
-      <%= list_pages(page.children) %>
+      <%= list_pages(children) %>
     </ol>
   <% end %>
 </li>

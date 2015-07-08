@@ -3,6 +3,14 @@
 module Admin::SiteMapsHelper
   include Admin::AdminHelper
 
+  def sitemap_pages
+    @sitemap_pages ||= Page.where(:_type.in => %w(Page SetPage)).to_a
+  end
+
+  def sitemap_children_for(page)
+    sitemap_pages.select { |p| p.page_id == page.id }.sort_by(&:position)
+  end
+
   # Render a list of pages
   #
   # @!visibility private
