@@ -3,12 +3,46 @@
 module Admin::SiteMapsHelper
   include Admin::AdminHelper
 
+  # Returns all pages that should appear in the sitemap
+  #
+  # @!visibility private
+  def sitemap_pages
+    @sitemap_pages ||= proper_pages.only(:id, :name, :page_id).group_by(&:page_id)
+  end
+
+  # Returns children for a given page
+  #
+  # @!visibility private
+  def sitemap_children_for(page)
+    sitemap_pages.fetch(page.id, []).sort_by(&:position)
+  end
+
+  # Returns criteria for pages that aren't entries
+  #
+  # @!visibility private
+  def proper_pages
+    Page.where(:_type.in => proper_types)
+  end
+
+  # Returns page types that aren't for entries
+  #
+  # @!visibility private
+  def proper_types
+    Page.distinct(:_type).reject { |type| type.constantize.new.entry? }
+  end
+
   # Render a list of pages
   #
   # @!visibility private
   def list_pages(pages)
     pages.inject(''.html_safe) do |html, page|
-      html << render(partial: page_partial(page), locals: {page: page} )
+      html << render(
+        partial: page_partial(page),
+        locals: {
+          page: page,
+          children: sitemap_children_for(page),
+        }
+      )
     end
   end
 

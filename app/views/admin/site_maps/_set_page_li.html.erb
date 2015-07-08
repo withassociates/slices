@@ -15,9 +15,9 @@
 
   </div>
 
-  <% if page.page_children.any? %>
+  <% if children.any? %>
     <ol class="page-children">
-      <%= list_pages page.page_children %>
+      <%= list_pages children %>
     </ol>
   <% end %>
 </li>
