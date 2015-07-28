@@ -103,7 +103,7 @@ class Slice
 
   def as_json(*args)
     attributes.symbolize_keys.except(:_id, :_type).tap do |result|
-      result.merge!(id: id, type: type)
+      result.merge!(id: id.to_s, type: type)
       result.merge!(client_id: client_id) if client_id? && new_record?
 
       self.embedded_relations.each do |field, metadata|

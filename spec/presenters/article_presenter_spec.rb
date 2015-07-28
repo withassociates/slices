@@ -56,7 +56,7 @@ describe ArticlePresenter do
     end
 
     it "know the article's _id" do
-      expect(presenter.as_json['_id']).to eq article.id
+      expect(presenter.as_json['_id']).to eq article.id.to_s
     end
   end
 

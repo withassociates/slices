@@ -49,7 +49,7 @@ class PagePresenter < Presenter
 
   def as_json(options={})
     json = {
-      '_id' => @source.id,
+      '_id' => @source.id.to_s,
       'url' => "/admin/pages/#{@source.id}"
     }
     self.class.columns.each do |key, val|

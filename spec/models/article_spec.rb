@@ -14,7 +14,7 @@ describe Article, type: :model do
     end
 
     it "has page attributes" do
-      expect(json_article[:id]).to eq article.id
+      expect(json_article[:id]).to eq article.id.to_s
       expect(json_article[:name]).to eq article.name
       expect(json_article[:permalink]).to eq article.permalink
     end
