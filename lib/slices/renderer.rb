@@ -27,8 +27,8 @@ module Slices
       render_slices slices.where(container: container)
     end
 
-    def render_to_string(*args)
-      @controller.render_to_string(*args)
+    def render_to_string(template, options)
+      @controller.render_to_string(template, { layout: nil }.merge(options))
     end
 
     def fragment_exist?(cache_key)
