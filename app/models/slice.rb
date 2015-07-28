@@ -74,7 +74,7 @@ class Slice
   end
 
   def id_or_client_id
-    client_id? ? client_id : id
+    client_id? ? client_id : id.to_s
   end
 
   def to_delete?
@@ -88,8 +88,8 @@ class Slice
       next unless attrs.has_key?(field)
 
       attrs[field] = (attrs[field] || []).map do |embedded_attrs|
-        if embedded_attrs[:_id].present?
-          embedded_doc = send(field).find(embedded_attrs[:_id])
+        if embedded_attrs['_id'].present?
+          embedded_doc = send(field).find(embedded_attrs['_id'])
           embedded_doc.write_attributes(embedded_attrs)
           embedded_doc
         else
@@ -103,7 +103,7 @@ class Slice
 
   def as_json(*args)
     attributes.symbolize_keys.except(:_id, :_type).tap do |result|
-      result.merge!(id: id, type: type)
+      result.merge!(id: id.to_s, type: type)
       result.merge!(client_id: client_id) if client_id? && new_record?
 
       self.embedded_relations.each do |field, metadata|

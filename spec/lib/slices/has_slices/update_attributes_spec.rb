@@ -100,7 +100,7 @@ describe Slices::HasSlices do
         end
 
         it "has error messages" do
-          expect(set_page.errors[:slices].first[slice.id][:title].first).to eq "can't be blank"
+          expect(set_page.errors[:slices].first[slice.id.to_s][:title].first).to eq "can't be blank"
           expect(set_page.slices.first.errors[:title].first).to eq "can't be blank"
         end
 

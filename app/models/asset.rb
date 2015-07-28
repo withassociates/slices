@@ -68,7 +68,7 @@ class Asset
       errors:            errors,
       created_at:        created_at,
       tags:              tags,
-      pages:             page_cache
+      pages:             page_cache.each { |pc| pc[:id] = pc[:id].to_s }
     }
   end
 

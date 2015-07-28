@@ -7,7 +7,7 @@ module Slices
       options ||= {}
 
       hash = attributes.symbolize_keys.except(:_id, :_type, :_keywords, :set_slices).merge(
-        id:        id,
+        id:        id.to_s,
         permalink: permalink,
         slices:    ordered_slices_for(options[:slice_embed]).map {|slice| slice.as_json },
         available_layouts: available_layouts,

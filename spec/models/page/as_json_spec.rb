@@ -22,7 +22,7 @@ describe Page, type: :model do
 
       it "has page attributes" do
         expect(page_json).to include({
-          id: page.id,
+          id: page.id.to_s,
           name: page.name,
           permalink: page.permalink
         })
@@ -61,7 +61,7 @@ describe Page, type: :model do
 
       it "has page attributes" do
         expect(page_json).to include({
-          id: page.id,
+          id: page.id.to_s,
           name: page.name,
           permalink: page.permalink
         })
