@@ -32,13 +32,16 @@ class Admin
     :trackable, :validatable
 
   def as_json(options = {})
-    super(options).tap do |json|
-      json[:last_sign_in_at] = last_sign_in_at
-
-      if current_admin = options[:current_admin]
-        json[:current_admin] = current_admin.id == id
-      end
-    end
+    current_admin_id = options[:current_admin].try(:id)
+    {
+      _id: id.to_s,
+      name: name,
+      email: email,
+      current_admin: (current_admin_id == id),
+      last_sign_in_at: last_sign_in_at,
+      super_user: super_user,
+    }
   end
+
 end
 
