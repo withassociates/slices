@@ -5,8 +5,11 @@ describe Admin, type: :model do
 
     let :admin do
       Admin.new(
+        name: 'Admin User',
         email: 'hello@withassociates.com',
-        password: '123456'
+        password: '123456',
+        super_user: false,
+        last_sign_in_at: Time.new(2000)
       )
     end
 
@@ -17,6 +20,17 @@ describe Admin, type: :model do
       )
     end
 
+    it "is serialized" do
+      expect(admin.as_json).to eq({
+        _id: admin.id.to_s,
+        name: 'Admin User',
+        email: "hello@withassociates.com",
+        current_admin: false,
+        last_sign_in_at: Time.new(2000),
+        super_user: false,
+      })
+    end
+
     context "when a current_admin is passed as an option" do
 
       it "sets the current_admin to true" do
@@ -25,13 +39,6 @@ describe Admin, type: :model do
 
       it "sets the current_admin to false" do
         expect(admin.as_json(current_admin: other_admin)).to include ({current_admin: false})
-      end
-    end
-
-    context "when no current_admin is passed" do
-
-      it "does not add a current_admin key" do
-        expect(admin.as_json({}).keys).not_to include :current_admin
       end
     end
 
