@@ -75,7 +75,7 @@ class Slice
   end
 
   def id_or_client_id
-    client_id? ? client_id : id
+    client_id? ? client_id : id.to_s
   end
 
   def to_delete?
