@@ -39,11 +39,6 @@ class Admin::AdminsController < Admin::AdminController
   end
 
   def update
-    admin_params = params[:admin]
-    if admin_params[:password].blank?
-      admin_params.delete(:password)
-      admin_params.delete(:password_confirmation)
-    end
     @admin = Admin.find(params[:id])
     @admin.update_attributes(admin_params)
     if @admin.valid?
@@ -75,6 +70,11 @@ class Admin::AdminsController < Admin::AdminController
   end
 
   def admin_params
-    params.require(:admin).permit(:name, :email, :password, :password_confirmation)
+    params.require(:admin).permit(:name, :email, :password, :password_confirmation).tap do |a_params|
+      if a_params[:password].blank?
+        a_params.delete(:password)
+        a_params.delete(:password_confirmation)
+      end
+    end
   end
 end
