@@ -109,7 +109,6 @@ describe Slices::HasSlices do
             {slice.id => { title: ["can't be blank"]}}
           ] }.to_json
 
-          #set_page.page_errors_with_slices_as_json.should eq error_json
           expect(set_page.errors.to_json).to eq error_json
         end
       end
