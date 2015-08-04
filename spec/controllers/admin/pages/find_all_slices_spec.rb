@@ -16,7 +16,7 @@ describe Admin::PagesController, type: :controller do
     end
 
     let :page do
-      double(:page).as_null_object
+      double(:page, as_json: {}).as_null_object
     end
 
     it "loads all slices before udpating a page" do
