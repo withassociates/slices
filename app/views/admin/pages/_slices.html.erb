@@ -12,7 +12,7 @@ $(function() {
       mainExtraTemplates: <%= raw @page.main_extra_templates.to_json %>,
       metaExtraTemplates: <%= raw @page.meta_extra_templates.to_json %>,
 
-      super_user: <%= current_admin.super? %>,
+      super_user: <%= current_admin.super_user? %>,
       i18n: <%= Slices::Config.i18n? %>,
 
       loadPagePath: '/admin/pages/{{id}}.json?locale=<%= I18n.locale %>',

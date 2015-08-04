@@ -31,10 +31,6 @@ class Admin
   devise :database_authenticatable, :recoverable, :rememberable,
     :trackable, :validatable
 
-  def super?
-    self.super_user == true
-  end
-
   def as_json(options = {})
     super(options).tap do |json|
       json[:last_sign_in_at] = last_sign_in_at
