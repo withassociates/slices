@@ -98,7 +98,6 @@ class Asset
   def reprocess_for(style)
     if file.styles.has_key?(style) && ! file_dimensions.has_key?(style.to_s)
       file.reprocess!(style)
-      save
     end
   rescue Errors::NotIdentifiedByImageMagickError, Errno::ENOENT
   end
