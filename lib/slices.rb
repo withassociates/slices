@@ -2,6 +2,7 @@ require 'devise'
 require 'devise/orm/mongoid'
 require 'mongoid'
 require 'mongoid_paperclip'
+require 'will_paginate_mongoid'
 require 'RedCloth'
 require 'redcarpet'
 require 'stringex'
@@ -43,9 +44,7 @@ module Slices
 end
 
 require 'slices/engine' if defined?(Rails)
-require 'slices/will_paginate_mongoid'
 require 'slices/will_paginate'
-require 'set_link_renderer'
 
 Slices::Config.use_snippets!
 

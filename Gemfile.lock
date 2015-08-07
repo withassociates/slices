@@ -12,7 +12,7 @@ PATH
       rails (~> 3.2.18)
       redcarpet (~> 3.0.0)
       stringex (~> 1.4.0)
-      will_paginate (= 3.0.pre4)
+      will_paginate_mongoid (~> 2.0)
 
 GEM
   remote: https://rubygems.org/
@@ -204,7 +204,10 @@ GEM
     warden (1.2.3)
       rack (>= 1.0)
     websocket-driver (0.3.3)
-    will_paginate (3.0.pre4)
+    will_paginate (3.0.7)
+    will_paginate_mongoid (2.0.1)
+      mongoid
+      will_paginate (~> 3.0)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
