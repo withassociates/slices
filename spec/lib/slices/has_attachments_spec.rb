@@ -361,6 +361,34 @@ describe Slices::HasAttachments do
 
     end
 
+    context "with the same assets on two different slices" do
+
+      let :other_slice do
+        DefaultSliceClass.new
+      end
+
+      let :page do
+        page_class.new.tap do |page|
+          page.slices << slice
+          page.slices << other_slice
+        end
+      end
+
+      before do
+        expect(slice).to receive(:attachments).and_return([slice_attachment])
+        expect(other_slice).to receive(:attachments).and_return([slice_attachment])
+      end
+
+      subject do
+        page.slice_attachment_asset_ids
+      end
+
+      it "is an array of asset_ids" do
+        expect(subject).to eq [slice_asset_id]
+      end
+
+    end
+
     context "on a page with no slices" do
       let :page do
         page_class.new
