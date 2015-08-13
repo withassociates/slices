@@ -4,6 +4,9 @@ class Asset
   include MongoSearch::Searchable
   include Mongoid::Paperclip
 
+  embeds_one :thumbnail, class_name: "Asset", cyclic: true
+  embedded_in :parent_asset, class_name: "Asset", cyclic: true
+
   IMAGE_REGEX = /(jpg|jpeg|gif|png)/
   NORMALIZED_EXTENSIONS = { ".jpeg" => ".jpg" }
 

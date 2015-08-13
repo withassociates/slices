@@ -8,6 +8,13 @@ describe Asset, type: :model do
       Asset.make file: file_fixture
     end
 
+    let :asset_with_thumbnail do
+      a = Asset.make(file: file_fixture)
+      a.thumbnail = Asset.make(file: file_fixture)
+      a.save
+      a
+    end
+
     let :pdf_asset do
       Asset.make file: file_fixture('test.pdf')
     end
@@ -36,6 +43,40 @@ describe Asset, type: :model do
 
       it "stores the admin dimensions" do
         expect(asset.file_dimensions).to include 'admin' => '180x180'
+      end
+
+    end
+
+    context "on creating an image asset with a separate thumbnail" do
+
+      it "stores the file type" do
+        expect(asset_with_thumbnail.file_content_type).to eq 'image/jpeg'
+        expect(asset_with_thumbnail.thumbnail.file_content_type).to eq 'image/jpeg'
+      end
+
+      it "stores the file size" do
+        expect(asset_with_thumbnail.file_file_size).to eq 5545
+        expect(asset_with_thumbnail.thumbnail.file_file_size).to eq 5545
+      end
+
+      it "stores the fingerprint" do
+        expect(asset_with_thumbnail.file_fingerprint).to eq 'ca05197526f33a39b871bd5eda640182'
+        expect(asset_with_thumbnail.thumbnail.file_fingerprint).to eq 'ca05197526f33a39b871bd5eda640182'
+      end
+
+      it "generates an admin thumbnail for the uploaded file" do
+        expect(asset_with_thumbnail.file).to be_exists(:admin)
+        expect(asset_with_thumbnail.thumbnail.file).to be_exists(:admin)
+      end
+
+      it "does not generate the extended style for the uploaded file" do
+        expect(asset_with_thumbnail.file).to_not be_exists(:extended)
+        expect(asset_with_thumbnail.thumbnail.file).to_not be_exists(:extended)
+      end
+
+      it "stores the admin dimensions" do
+        expect(asset_with_thumbnail.file_dimensions).to include 'admin' => '180x180'
+        expect(asset_with_thumbnail.thumbnail.file_dimensions).to include 'admin' => '180x180'
       end
 
     end
