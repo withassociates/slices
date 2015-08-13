@@ -5,7 +5,7 @@ module Slices
       Slices.autoload_slices(app, Rails.root)
     end
 
-    initializer :active_mongoid_observers do
+    initializer :active_mongoid_observers, before: 'mongoid.observer' do
       config.mongoid.observers.concat [:page_observer, :asset_observer]
     end
 
