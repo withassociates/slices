@@ -39,6 +39,7 @@ module Slices
               end
             end
           end
+          asset_ids.uniq!
         end
       end
       alias :attachment_asset_ids :slice_attachment_asset_ids
