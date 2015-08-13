@@ -16,6 +16,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'devise'            , '~> 2.2.8'
   s.add_dependency 'highline'          , '~> 1.6.0'
   s.add_dependency 'mongoid'           , '> 4.0.0', '< 5.0.0'
+  s.add_dependency 'mongoid-observers' , '~> 0'
   s.add_dependency 'mongoid-paperclip' , '~> 0'
   s.add_dependency 'rails'             , '~> 4.2'
   s.add_dependency 'redcarpet'         , '~> 3.0.0'
