@@ -11,7 +11,7 @@ class SlicesController < ActionController::Base
   define_callbacks :render_page, terminator: :response_body
 
   def self.should_raise_exceptions?
-    ! Rails.env.production?
+    Rails.application.config.consider_all_requests_local
   end
 
   protected
