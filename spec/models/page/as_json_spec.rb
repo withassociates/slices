@@ -3,13 +3,23 @@ require 'spec_helper'
 describe Page, type: :model do
   describe "#as_json" do
 
+    let :admin do
+      Admin.create!({
+        email: 'hello@withassociates.com',
+        password: '123456'
+      })
+    end
+
     let :slice_json do
       page_json[:slices].first
     end
 
     context "with no arguments" do
       let :page do
-        StandardTree.build_minimal_with_slices.last
+        StandardTree.build_minimal_with_slices.last.tap do |page|
+          page.author = admin
+          page.save
+        end
       end
 
       let :page_json do
@@ -24,8 +34,13 @@ describe Page, type: :model do
         expect(page_json).to include({
           id: page.id.to_s,
           name: page.name,
-          permalink: page.permalink
+          permalink: page.permalink,
+          author: { id: admin.id.to_s, name: admin.name }
         })
+      end
+
+      it "does not have all attributes" do
+        expect(page_json).to_not include(:_id, :_type, :_keywords, :author_id, :set_slices)
       end
 
       it "has slice attributes" do
@@ -33,6 +48,7 @@ describe Page, type: :model do
           title: slice.title
         })
       end
+
     end
 
     context "specifiying :slice_embed" do
