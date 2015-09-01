@@ -32,6 +32,13 @@ module Slices
           fields[name] = field.default_val
         end
 
+        if klass.respond_to?(:attachment_fields)
+          klass.attachment_fields.each do |name|
+            meta = klass.reflect_on_association(name)
+            fields[name.to_s] = meta.many? ? [] : nil
+          end
+        end
+
         slices << [basename, fields]
 
       end

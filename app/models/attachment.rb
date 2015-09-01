@@ -3,8 +3,10 @@ class Attachment
 
   belongs_to :asset
 
+  embedded_in :object, polymorphic: true
+
   def as_json *args
-    attributes.as_json.merge asset: asset.as_json
+    attributes.merge asset: asset.as_json
   end
 
 end

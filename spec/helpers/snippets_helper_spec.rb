@@ -25,21 +25,20 @@ describe SnippetsHelper, type: :helper do
   end
 
   context "#localized_snippet" do
-    before { @original_locale = I18n.locale }
-    after { I18n.locale = @original_locale }
-
     it "is the localized snippet" do
-      I18n.locale = :en
-      stub_snippet('en.address', '54B Downham Road')
+      I18n.with_locale(:en) do
+        stub_snippet('en.address', '54B Downham Road')
 
-      expect(localized_snippet('address')).to eq '54B Downham Road'
+        expect(localized_snippet('address')).to eq '54B Downham Road'
+      end
     end
 
     it "is the localized snippet for a different locale" do
-      I18n.locale = :de
-      stub_snippet('de.address', '54B Untenschinken Strasse')
+      I18n.with_locale(:de) do
+        stub_snippet('de.address', '54B Untenschinken Strasse')
 
-      expect(localized_snippet('address')).to eq '54B Untenschinken Strasse'
+        expect(localized_snippet('address')).to eq '54B Untenschinken Strasse'
+      end
     end
   end
 end

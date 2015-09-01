@@ -199,9 +199,7 @@ describe Slices::HasSlices do
       end
 
       it "has slices with 2 to 6" do
-        (2..6).each do |num|
-          has_slice_with_textile(home.slices, '6')
-        end
+        (2..6).each { |num| has_slice_with_textile(home.slices, num.to_s) }
       end
 
     end

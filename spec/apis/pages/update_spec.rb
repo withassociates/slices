@@ -259,5 +259,33 @@ describe "PUT to pages#update" do
 
   end
 
+  context "updating an asset slice" do
+    let(:slide) { SlideshowSlice::Slide.new(caption: "old") }
+    let(:slice) { SlideshowSlice.new(slides: [slide]) }
+    let(:page) do
+      page = StandardTree.build_minimal.last
+      page.slices = [slice]
+      page
+    end
+    let(:slices_data) do
+      [
+        slice.as_json.merge('slides' => [slide.as_json.merge('caption' => "new")])
+      ]
+    end
+
+    before do
+      put_json admin_page_path(page, format: :json),
+        { page: page_data(slices_data) }
+    end
+
+    it "responds with success" do
+      expect(response.code).to eq '200'
+    end
+
+    it "updates the slice" do
+      expect(page.reload.slices[0].slides[0].caption).to eq("new")
+    end
+  end
+
 end
 

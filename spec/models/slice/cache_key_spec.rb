@@ -12,8 +12,7 @@ describe Slice, type: :model do
 
     context "when the slice is embeded in a page" do
       before do
-        page = stub.as_null_object
-        page.stub(updated_at: timestamp)
+        page = double(updated_at: timestamp)
         slice.stub(
           id: 'bson',
           model_key: 'slice',

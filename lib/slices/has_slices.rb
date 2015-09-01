@@ -27,18 +27,18 @@ module Slices
     end
 
     def update_attributes(attributes)
-      [:slices, :set_slices].each do |type|
-        next if attributes[type].nil?
+      [:slices, :set_slices].each do |embed_name|
+        next if attributes[embed_name].nil?
 
-        attributes[type] = attributes[type].map { |slice|
-          slice = slice.symbolize_keys
-          next if slice[:_destroy]
-          slice.delete :_new
-          (slice[:type] + '_slice').
+        attributes[embed_name] = attributes[embed_name].map { |slice_attributes|
+          slice_attributes = slice_attributes.symbolize_keys
+          next if slice_attributes[:_destroy]
+          slice_attributes.delete :_new
+          (slice_attributes[:type] + '_slice').
             camelize.
             constantize.
-            new(slice).tap do |s|
-              s.id = slice[:id] if slice[:id].present?
+            new(slice_attributes).tap do |s|
+              s.id = slice_attributes[:id] if slice_attributes[:id].present?
             end
         }.compact
       end
