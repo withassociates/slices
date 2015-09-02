@@ -51,6 +51,7 @@ var slices = {
 
       slices.availableContainers = settings.availableContainers;
       slices.availableSlices = settings.availableSlices;
+      slices.i18n = settings.i18n;
 
 
       addSliceOptions(slices.availableSlices);
