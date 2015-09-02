@@ -35,6 +35,11 @@ module Slices
       @snippets || false
     end
 
+    def self.i18n?
+      I18n.available_locales.many? ||
+        Rails.application.config.i18n.available_locales.many?
+    end
+
     def self.s3_storage?
       Paperclip::Attachment.default_options[:storage].to_sym == :fog
     end
