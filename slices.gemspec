@@ -12,6 +12,7 @@ Gem::Specification.new do |s|
   s.description = 'A Rails 3 CMS that can be embedded within your own site.'
   s.license     = 'MIT'
 
+  s.required_ruby_version     = '>= 1.9.3'
   s.required_rubygems_version = '>= 1.3.6'
   s.rubyforge_project         = 'slices'
 
