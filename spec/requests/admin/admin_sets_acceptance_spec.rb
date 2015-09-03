@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 require 'spec_helper'
 
 describe "The set entries view", type: :request, js: true do
