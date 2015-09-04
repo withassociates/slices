@@ -32,7 +32,7 @@ describe Asset, type: :model do
     end
 
     before do
-      asset.stub(update_page_cache: true)
+      allow(asset).to receive_messages(update_page_cache: true)
       asset.page_cache = page_cache
       asset.save
     end

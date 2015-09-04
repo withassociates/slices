@@ -25,7 +25,7 @@ RSpec::Matchers.define :contain do |expected|
     end
   end
 
-  failure_message_for_should do |path|
+  failure_message do |path|
     if File.exists? path
       "#{path} did not contain the expected content"
     else

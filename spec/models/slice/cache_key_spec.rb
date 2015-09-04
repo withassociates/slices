@@ -13,7 +13,7 @@ describe Slice, type: :model do
     context "when the slice is embeded in a page" do
       before do
         page = double(updated_at: timestamp)
-        slice.stub(
+        allow(slice).to receive_messages(
           id: 'bson',
           model_key: 'slice',
           normal_or_set_page: page,
@@ -21,13 +21,13 @@ describe Slice, type: :model do
       end
 
       it "should have the slice id and page's updated at key name" do
-        slice.cache_key.should eq "slice/bson-20131211100908"
+        expect(slice.cache_key).to eq "slice/bson-20131211100908"
       end
     end
 
     context "when the slice is not embeded in a page" do
       it "should only have the slice id as the key name" do
-        slice.cache_key.should eq "slice/new"
+        expect(slice.cache_key).to eq "slice/new"
       end
     end
   end

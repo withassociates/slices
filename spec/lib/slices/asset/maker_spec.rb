@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'Slices::Asset::Maker' do
 
   before do
-    Slices::Config.stub(s3_storage?: false)
+    allow(Slices::Config).to receive_messages(s3_storage?: false)
   end
 
   let :args do
@@ -26,7 +26,7 @@ describe 'Slices::Asset::Maker' do
   describe ".find_matching_asset" do
     it "looks for a mathching asset" do
       new_asset = double(:new_asset).as_null_object
-      maker.stub(new_asset: new_asset)
+      allow(maker).to receive_messages(new_asset: new_asset)
       matching_asset = double(:matching_asset).as_null_object
 
       expect(Asset).to receive(:where).and_return(double(first:matching_asset))

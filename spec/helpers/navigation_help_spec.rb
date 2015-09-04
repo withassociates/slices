@@ -28,11 +28,11 @@ RSpec::Matchers.define :be_html_equivalent do |expected|
     stripped_html(actual) == stripped_html(expected)
   end
 
-  failure_message_for_should do |actual|
+  failure_message do |actual|
     "expected that\n#{actual}\nwould be equivalent to\n#{expected}"
   end
 
-  failure_message_for_should_not do |actual|
+  failure_message_when_negated do |actual|
     "expected that\n#{actual} would not be equivalent to\n#{expected}"
   end
 
