@@ -17,7 +17,7 @@ end
 
 group :test do
   gem 'launchy',          '~> 2.1.2'
-  gem 'genspec'
+  gem 'ammeter'
 end
 
 group :assets do

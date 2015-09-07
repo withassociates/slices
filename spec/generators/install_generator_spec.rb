@@ -1,27 +1,33 @@
-# -*- encoding: utf-8 -*-
-
 require 'spec_helper'
+require 'generators/slices/install_generator'
 
-describe "slices:install" do
+describe Slices::InstallGenerator do
+  destination Rails.root.join('tmp')
+
+  before do
+    prepare_destination
+    run_generator
+  end
+
   it "should create an app/slices directory" do
-    expect(subject).to generate("app/slices/")
+    expect(file("app/slices/")).to exist
   end
 
   it "should create a Slices initializer" do
-    expect(subject).to generate("config/initializers/slices.rb")
+    expect(file("config/initializers/slices.rb")).to exist
   end
 
   it "should create an application layout" do
-    expect(subject).to generate("app/views/layouts/default.html.erb")
+    expect(file("app/views/layouts/default.html.erb")).to exist
   end
 
   it "should delete public/index.html" do
-    expect(File).to_not be_exist('public/index.html')
+    expect(file('public/index.html')).not_to exist
   end
 
   it "should create admin nav partials" do
-    expect(subject).to generate("app/views/admin/shared/_custom_navigation.html.erb")
-    expect(subject).to generate("app/views/admin/shared/_custom_links.html.erb")
+    expect(file("app/views/admin/shared/_custom_navigation.html.erb")).to exist
+    expect(file("app/views/admin/shared/_custom_links.html.erb")).to exist
   end
 end
 

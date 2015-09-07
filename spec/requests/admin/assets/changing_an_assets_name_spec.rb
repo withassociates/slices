@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 require 'spec_helper'
 
 describe "Changing an asset's name in the asset editor", type: :request, js: true do

@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 require 'spec_helper'
 
 describe "Viewing page_paths on an asset", type: :request, js: true do
