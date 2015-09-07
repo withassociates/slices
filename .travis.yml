@@ -5,6 +5,9 @@ rvm:
   - 2.1.0
 before_install:
   - "rm Gemfile.lock"
+before_script:
+  - bundle update
+cache: bundler
 script: bundle exec rspec spec --tag ~ci:false --color
 services:
   - mongodb
