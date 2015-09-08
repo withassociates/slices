@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gemspec
-gem 'fog'
+gem 'fog-aws'
 
 group :development, :test do
   gem 'bundler'
