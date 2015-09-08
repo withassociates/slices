@@ -160,7 +160,7 @@ describe Asset, type: :model do
 
         it "processes the style" do
           asset = Asset.new(file_dimensions: {} )
-          asset.file.stub(exists?: true)
+          allow(asset.file).to receive_messages(exists?: true)
           expect(asset.file).to receive(:reprocess!)
           asset.reprocess_for(:extended)
         end

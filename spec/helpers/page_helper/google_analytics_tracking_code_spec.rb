@@ -6,7 +6,7 @@ describe PagesHelper, type: :helper do
 
     context "when tracking" do
       before do
-        helper.stub(add_tracking_code?: true)
+        allow(helper).to receive_messages(add_tracking_code?: true)
       end
 
       context "tracking one account" do
@@ -85,7 +85,7 @@ describe PagesHelper, type: :helper do
 
     context "in production" do
       before do
-        Rails.stub_chain(:env, :production?).and_return(true)
+        allow(Rails).to receive_messages(env: double(production?: true))
       end
 
       context "not signed in" do

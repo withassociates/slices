@@ -34,7 +34,7 @@ describe "A set with entries", type: :request, js: true do
     end
 
     it "asks for confirmation" do
-      @message.should == 'Are you sure?'
+      expect(@message).to eq 'Are you sure?'
     end
   end
 end
