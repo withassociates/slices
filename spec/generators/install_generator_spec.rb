@@ -6,6 +6,10 @@ describe Slices::InstallGenerator do
 
   before do
     prepare_destination
+
+    # avoid `/bin/ruby: No such file or directory -- script/rails (LoadError)` warnings
+    allow(generator).to receive(:optionally_create_mongoid_yaml)
+
     run_generator
   end
 
