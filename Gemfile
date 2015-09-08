@@ -14,9 +14,3 @@ group :development do
   gem 'pry-rails', '~> 0.2.2'
   gem 'launchy', '~> 2.1.2'
 end
-
-group :assets do
-  gem 'jquery-rails', '~> 2.1.4'
-  gem 'sass-rails', '~> 3.2.5'
-  gem 'uglifier', '~> 1.3.0'
-end
