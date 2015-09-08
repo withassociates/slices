@@ -4,7 +4,6 @@ gemspec
 gem 'fog-aws'
 
 group :development, :test do
-  gem 'bundler'
   gem 'byebug', platforms: [:ruby_20, :ruby_21]
   gem 'debugger', platforms: [:ruby_19]
   gem 'capybara', '~> 2.3.0'

@@ -230,7 +230,6 @@ PLATFORMS
 
 DEPENDENCIES
   ammeter
-  bundler
   byebug
   capybara (~> 2.3.0)
   database_cleaner (~> 0.9.1)
