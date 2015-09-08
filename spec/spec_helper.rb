@@ -6,7 +6,6 @@ Bundler.setup
 require File.expand_path('../dummy/config/environment.rb',  __FILE__)
 require 'rspec/rails'
 require 'capybara/rails'
-require 'rack_utf8_fix'
 
 Paperclip.options[:logger] = Rails.logger
 Paperclip.options[:log] = true

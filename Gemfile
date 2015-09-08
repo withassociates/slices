@@ -9,7 +9,6 @@ group :development, :test do
   gem 'debugger'           , platforms: [:ruby_19]
   gem 'capybara'           , '~> 2.3.0'
   gem 'database_cleaner'   , '~> 0.9.1'
-  gem 'escape_utils'       , '~> 0.2.4'
   gem 'pry-rails'          , '~> 0.2.2'
   gem 'rspec-rails'        , '~> 3.2.0'
   gem 'poltergeist'
