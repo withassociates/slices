@@ -82,7 +82,6 @@ GEM
       warden (~> 1.2.1)
     diff-lcs (1.2.5)
     erubis (2.7.0)
-    escape_utils (0.2.4)
     excon (0.31.0)
     execjs (2.0.2)
     fog (1.19.0)
@@ -228,7 +227,6 @@ DEPENDENCIES
   capybara (~> 2.3.0)
   database_cleaner (~> 0.9.1)
   debugger
-  escape_utils (~> 0.2.4)
   fog
   jquery-rails (~> 2.1.4)
   launchy (~> 2.1.2)
