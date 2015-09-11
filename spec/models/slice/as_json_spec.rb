@@ -4,7 +4,7 @@ describe Slice, type: :model do
   describe "#as_json" do
 
     let :slice do
-      Slice.new(title: 'Title',
+      TitleSlice.new(title: 'Title',
                 container: 'container_one',
                 position: 0,
                 client_id: 'new1')
