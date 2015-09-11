@@ -40,25 +40,18 @@ describe "PUT to pages#update" do
 
   def new_slideshow_slice
     slide = {
-      'position'    => 0,
       'asset_id'    => '4f0ead1cf622394081000004',
-      'asset_url'   => '/system/files/012012/4f0ead1cf622394081000004/admin/CIMG0565.JPG?1326361883'
+      'caption'     => '',
     }
 
     {
       'client_id'   => 'new_124',
       '_new'        => 1,
       'type'        => 'slideshow',
-      'name'        => 'Slideshow',
       'position'    => 0,
       'container'   => 'container_one',
 
       'slides'      => [ slide ],
-
-      'attachments' => '',
-      'asset_url'   => '',
-      'fileView'    => '',
-      'caption'     => '',
     }
   end
 
