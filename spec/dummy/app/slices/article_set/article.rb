@@ -47,5 +47,16 @@ class Article < Page
     )
   end
 
+  def update_attributes(attrs)
+    %w(
+      available_tags
+      available_categories
+      images
+    ).each do |key|
+      attrs.delete(key)
+    end
+    super
+  end
+
 end
 

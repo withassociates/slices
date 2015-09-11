@@ -144,6 +144,8 @@ class Page
   def update_attributes(attributes)
     attributes = attributes.symbolize_keys
 
+    attributes.delete(:available_layouts)
+
     unless home?
       if attributes.has_key?(:name) || attributes.has_key?(:permalink)
         new_path = self.class.path_from_attributes(attributes, parent)
