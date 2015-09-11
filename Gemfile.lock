@@ -228,6 +228,7 @@ DEPENDENCIES
   pry-rails (~> 0.2.2)
   rspec-rails (~> 3.2.0)
   slices!
+  test-unit
 
 BUNDLED WITH
    1.10.6
