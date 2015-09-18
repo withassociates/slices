@@ -28,7 +28,7 @@ describe "Asset deletion" do
   end
 
   let! :page_2 do
-    page_2 = Page.create!(
+    Page.create!(
       name: 'Test page with only slice attachments',
       slices: [MySlice.new(images: [{ asset_id: asset_1.id }])]
     )
