@@ -362,13 +362,13 @@ describe SliceGenerator do
 
     it "creates views/set.html.erb" do
       expect(file("app/slices/example_set/views/set.html.erb")).to contain <<-CONTENT
-        <%= will_paginate slice.page_entries, renderer: SetLinkRenderer, class: 'pagination above' %>
+        <%= will_paginate slice.page_entries, class: 'pagination above' %>
         <ul class="entries">
           <% slice.page_entries.each do |entry| -%>
             <li><%= link_to entry.name, entry.path %></li>
           <% end -%>
         </ul>
-        <%= will_paginate slice.page_entries, renderer: SetLinkRenderer, class: 'pagination below' %>
+        <%= will_paginate slice.page_entries, class: 'pagination below' %>
       CONTENT
     end
   end

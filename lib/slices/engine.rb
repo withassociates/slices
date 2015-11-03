@@ -9,10 +9,6 @@ module Slices
       config.mongoid.observers.concat [:page_observer, :asset_observer]
     end
 
-    initializer :slices_will_paginate_active_view, after:  'will_paginate.action_view' do
-      load Slices.gem_path + '/lib/set_link_renderer.rb'
-    end
-
     initializer :slices_precompile_hook do |app|
       app.config.assets.precompile += %w(slices/slices.css slices/slices.js)
     end
