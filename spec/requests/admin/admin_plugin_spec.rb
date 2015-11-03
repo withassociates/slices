@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 require 'spec_helper'
 
 describe "Extending a slice with javascript", type: :request, js: true do
