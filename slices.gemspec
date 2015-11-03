@@ -8,12 +8,10 @@ Gem::Specification.new do |s|
   s.email       = ['hello@withassociates.com']
   s.homepage    = 'http://slices.withassociates.com'
   s.summary     = 'Slices CMS, from With Associates'
-  s.description = 'A Rails 3 CMS that can be embedded within your own site.'
+  s.description = 'A Rails CMS that can be embedded within your own site.'
   s.license     = 'MIT'
 
-  s.required_ruby_version     = '>= 1.9.3'
-  s.required_rubygems_version = '>= 1.3.6'
-  s.rubyforge_project         = 'slices'
+  s.required_ruby_version     = '>= 2.0.0'
 
   s.add_dependency 'cocaine'           , '~> 0.3.2'
   s.add_dependency 'devise'            , '~> 2.2.8'
