@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 require 'spec_helper'
 
 describe "Clicking 'View page on site' after changing the permalink", type: :request, js: true do
