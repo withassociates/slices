@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.rubyforge_project         = 'slices'
 
   s.add_dependency 'cocaine'           , '~> 0.3.2'
-  s.add_dependency 'devise'            , '~> 2.2.8'
+  s.add_dependency 'devise'            , '~> 3.5.2'
   s.add_dependency 'highline'          , '~> 1.6.0'
   s.add_dependency 'mongoid'           , '~> 3.1.6'
   s.add_dependency 'mongoid-paperclip' , '~> 0.0.8'
