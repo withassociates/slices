@@ -15,6 +15,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = '>= 1.3.6'
   s.rubyforge_project         = 'slices'
 
+  s.add_dependency 'bcrypt-ruby'       , '~> 3.0.0'
   s.add_dependency 'cocaine'           , '~> 0.3.2'
   s.add_dependency 'devise'            , '~> 2.2.8'
   s.add_dependency 'highline'          , '~> 1.6.0'
