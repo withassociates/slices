@@ -6,13 +6,14 @@ end
 
 Rails.application.routes.draw do
 
-  devise_for :admin, path: 'admin', controllers: {
-    passwords:  'admin/auth/passwords',
-    sessions:   'admin/auth/sessions',
-  }
-
   namespace :admin do
-    get 'site_maps' => 'site_maps#index', as: :root # Devise redirects here after sign in
+    resources :sessions do
+      collection do
+        get 'sign_out' => 'sessions#destroy', as: 'destroy'
+      end
+    end
+
+    get 'site_maps' => 'site_maps#index', as: :root
     get 'site_maps' => 'site_maps#index'
     put 'site_maps/update' => 'site_maps#update'
     get 'pages/search' => 'page_search#show'

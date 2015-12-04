@@ -8,13 +8,12 @@ module DeviseHelpers
     options[:password_confirmation] = options[:password]
 
     Admin.create!(options).tap do |admin|
-      sign_in(admin)
+      controller.session[:admin_id] = admin.id
     end
   end
 end
 
 RSpec.configure do |config|
   config.include DeviseHelpers, type: :controller
-  config.include Devise::TestHelpers, type: :controller
 end
 

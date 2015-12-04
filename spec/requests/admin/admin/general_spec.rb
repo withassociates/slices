@@ -87,7 +87,6 @@ describe "Administering Admins", type: :request, js: true do
         fill_in 'Name', with: 'Courage Wolf'
         fill_in 'Email', with: 'courage@threewolves.com'
         fill_in 'Password', with: 'tusconmilk'
-        fill_in 'Password confirmation', with: 'tusconmilk'
         click_button 'Save'
       end
 

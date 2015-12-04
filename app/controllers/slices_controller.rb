@@ -3,8 +3,8 @@ class SlicesController < ActionController::Base
 
   protect_from_forgery
 
-  rescue_from Exception, with: :render_error
-  rescue_from Page::NotFound, with: :render_not_found
+  # rescue_from Exception, with: :render_error
+  # rescue_from Page::NotFound, with: :render_not_found
 
   append_view_path(File.join(Rails.root, *%w[app slices]))
 
@@ -31,6 +31,16 @@ class SlicesController < ActionController::Base
     logger.warn "500: #{request.path} :: #{request.params.inspect}"
     render_page(Page.find_virtual('error'), 500)
   end
+
+  def admin_signed_in?
+    current_admin.present?
+  end
+  helper_method :admin_signed_in?
+
+  def current_admin
+    @current_admin ||= session[:admin_id] && Admin.where(id: session[:admin_id]).first
+  end
+  helper_method :current_admin
 
   private
 

@@ -1,13 +1,14 @@
 class Admin
   include Mongoid::Document
   include MongoSearch::Searchable
+  include ActiveModel::SecurePassword
 
   field :name
   field :super_user,         type: Boolean, default: false
 
   ## Database authenticatable
   field :email,              type: String
-  field :encrypted_password, type: String
+  field :password_digest,    type: String
 
   ## Recoverable
   field :reset_password_token,   type: String
@@ -26,10 +27,9 @@ class Admin
   text_search_in :name, :email
 
   validates_uniqueness_of :email, case_sensitive: false
-  validates_presence_of :encrypted_password
+  validates_confirmation_of :password
 
-  devise :database_authenticatable, :recoverable, :rememberable,
-    :trackable, :validatable
+  has_secure_password
 
   def super?
     self.super_user == true
