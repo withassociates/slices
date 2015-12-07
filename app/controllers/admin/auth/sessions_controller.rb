@@ -1,4 +1,4 @@
-class Admin::Auth::SessionsController < ::Devise::SessionsController
+class Admin::Auth::SessionsController < Admin::SessionsController
   layout 'admin'
   helper 'admin/admin'
 end
