@@ -5,11 +5,7 @@ module Admin::AdminHelper
   #
   # @!visibility private
   def body_class_from_controller
-    [controller.controller_name.dasherize].tap do |classes|
-      if controller.respond_to?(:devise_controller?) && controller.devise_controller?
-        classes << 'devise'
-      end
-    end.join(' ')
+    controller.controller_name.dasherize
   end
 
   # The set type of the current page
