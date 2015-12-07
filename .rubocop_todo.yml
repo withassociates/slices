@@ -1,0 +1,7 @@
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+##################### Rails ##################################
+# These can be enabled after we upgrade to Rails 4
+Rails/ActionFilter:
+  Enabled: false
