@@ -1,5 +1,3 @@
-require 'devise'
-require 'devise/orm/mongoid'
 require 'mongoid'
 require 'mongoid_paperclip'
 require 'will_paginate_mongoid'

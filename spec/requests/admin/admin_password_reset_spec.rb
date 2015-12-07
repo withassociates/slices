@@ -5,7 +5,6 @@ describe "Password reset for /admin", type: :request, js: true do
   it "Reset admin users password" do
     pending
 
-    Devise::Mailer.default_url_options[:host] = "example.com"
     Admin.create!(email: 'hello@withassociates.com', password: '123456')
     StandardTree.build_minimal
 
