@@ -74,7 +74,7 @@ describe "The 'Save changes' button", type: :request, js: true do
   end
 
   context "when using a tag field" do
-    it "is enabled" do
+    it "is enabled", ci: false do
       within '#meta-tag' do
         click_on 'Will'
       end
