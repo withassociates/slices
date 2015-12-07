@@ -13,7 +13,7 @@ shared_context "signed in as admin" do
   end
 
   before type: :api do
-    post admin_session_path admin: { email: admin.email, password: admin.password }
+    post admin_sessions_path session: { email: admin.email, password: admin.password }
   end
 
 end
