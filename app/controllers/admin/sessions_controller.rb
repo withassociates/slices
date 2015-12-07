@@ -1,4 +1,8 @@
-class Admin::SessionsController < ActionController::Base
+class Admin::SessionsController < Admin::AdminController
+  layout 'admin'
+
+  skip_before_filter :authenticate_admin!
+
   def new
     @session = Session.new
   end
