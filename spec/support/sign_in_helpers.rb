@@ -1,4 +1,4 @@
-module DeviseHelpers
+module SignInHelpers
   def sign_in_as_admin(options = {})
     options = {
       email: 'hello@withassociates.com',
@@ -14,6 +14,6 @@ module DeviseHelpers
 end
 
 RSpec.configure do |config|
-  config.include DeviseHelpers, type: :controller
+  config.include SignInHelpers, type: :controller
 end
 
