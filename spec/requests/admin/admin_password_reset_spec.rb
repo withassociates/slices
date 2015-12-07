@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe "Password reset for /admin", type: :request, js: true do
+  pending
 
   it "Reset admin users password" do
     Devise::Mailer.default_url_options[:host] = "example.com"

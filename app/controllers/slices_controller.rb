@@ -3,8 +3,8 @@ class SlicesController < ActionController::Base
 
   protect_from_forgery
 
-  # rescue_from Exception, with: :render_error
-  # rescue_from Page::NotFound, with: :render_not_found
+  rescue_from Exception, with: :render_error
+  rescue_from Page::NotFound, with: :render_not_found
 
   append_view_path(File.join(Rails.root, *%w[app slices]))
 

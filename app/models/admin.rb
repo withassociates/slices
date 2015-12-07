@@ -27,7 +27,8 @@ class Admin
   text_search_in :name, :email
 
   validates_uniqueness_of :email, case_sensitive: false
-  validates_confirmation_of :password
+  validates_presence_of :email
+  validates_presence_of :password, on: :create
 
   has_secure_password
 
