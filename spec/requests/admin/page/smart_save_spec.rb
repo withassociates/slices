@@ -78,7 +78,7 @@ describe "The 'Save changes' button", type: :request, js: true do
       within '#meta-tag' do
         click_on 'Will'
       end
-      is_expected.to be_enabled
+      is_expected.not_to be_disabled
     end
   end
 
