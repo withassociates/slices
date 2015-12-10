@@ -1,4 +1,4 @@
-module MongoSearch
+module MongoBasicSearch
   class KeywordsExtractor
     def self.extract(text)
       if text.blank?
@@ -20,7 +20,7 @@ module MongoSearch
     end
 
     module ClassMethods
-      def text_search_in(*args)
+      def basic_text_search_in(*args)
         options = args.pop if args.last.has_key?(:match)
         self.match = options[:match]
       rescue NoMethodError
@@ -34,20 +34,11 @@ module MongoSearch
         before_save :set_keywords
       end
 
-      def search_in(*args)
-        warn('[DEPRECATION `search_in` is deprecated. Please use `text_search_in` instead.')
-        text_search_in(args)
-      end
-
-      def text_search(query)
+      def basic_text_search(query)
         words = KeywordsExtractor.extract(query).map { |word| /#{word}/ }
         self.send("#{self.match}_in", _keywords: words)
       end
 
-      def search(query)
-        warn("[DEPRECATION] `search` is deprecated. Please use `text_search` instead.")
-        text_search(query)
-      end
     end
 
     private

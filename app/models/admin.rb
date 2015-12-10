@@ -1,6 +1,6 @@
 class Admin
   include Mongoid::Document
-  include MongoSearch::Searchable
+  include MongoBasicSearch::Searchable
 
   field :name
   field :super_user,         type: Boolean, default: false
@@ -23,7 +23,7 @@ class Admin
   field :current_sign_in_ip, type: String
   field :last_sign_in_ip,    type: String
 
-  text_search_in :name, :email
+  basic_text_search_in :name, :email
 
   validates_uniqueness_of :email, case_sensitive: false
   validates_presence_of :encrypted_password
