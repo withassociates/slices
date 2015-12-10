@@ -1,7 +1,7 @@
 class Asset
   include Mongoid::Document
   include Mongoid::Timestamps
-  include MongoSearch::Searchable
+  include MongoBasicSearch::Searchable
   include Mongoid::Paperclip
 
   IMAGE_REGEX = /(jpg|jpeg|gif|png)/
@@ -17,7 +17,7 @@ class Asset
   field :tags, type: String
   field :page_cache, type: Array, default: []
 
-  text_search_in :file_file_name, :tags, :search_page_cache
+  basic_text_search_in :file_file_name, :tags, :search_page_cache
 
   has_mongoid_attached_file :file,
     default_style:   :admin,
@@ -48,7 +48,7 @@ class Asset
 
   def self.search_for(term = nil)
     if term.present?
-      all.ordered_active.text_search term
+      all.ordered_active.basic_text_search term
     else
       all.ordered_active
     end

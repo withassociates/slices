@@ -6,7 +6,7 @@ class Admin::AdminsController < Admin::AdminController
   def index
     admins = Admin.all
     if params.has_key?(:search) && params[:search].present?
-      admins = admins.text_search(params[:search])
+      admins = admins.basic_text_search(params[:search])
     end
 
     respond_to do |format|

@@ -2,7 +2,7 @@ class Page
   include Mongoid::Document
   include Mongoid::Attributes::Dynamic
   include Mongoid::Timestamps
-  include MongoSearch::Searchable
+  include MongoBasicSearch::Searchable
 
   include Slices::Tree
   include Slices::PageAsJSON
@@ -24,7 +24,7 @@ class Page
   has_slices :slices
   has_and_belongs_to_many :assets
 
-  text_search_in :introduction, :extended, :name
+  basic_text_search_in :introduction, :extended, :name
 
   scope :entries, ->{ all }
   scope :virtual, ->{ where(:role.ne => nil).asc(:name) }
@@ -166,7 +166,7 @@ class Page
   def set_keywords
     super
     slices.each do |slice|
-      self._keywords += MongoSearch::KeywordsExtractor.extract(slice.search_text)
+      self._keywords += MongoBasicSearch::KeywordsExtractor.extract(slice.search_text)
     end
     self._keywords.uniq!
   end

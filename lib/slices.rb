@@ -12,7 +12,7 @@ require 'stringex'
 require 'slices/paperclip'
 require 'slices/version'
 
-require 'mongo_search'
+require 'mongo_basic_search'
 module Slices
   autoload :Config,                     'slices/config'
   autoload :CmsFormBuilder,             'slices/cms_form_builder'

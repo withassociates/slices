@@ -48,7 +48,7 @@ class Admin::EntriesController < Admin::AdminController
 
   def searched entries
     if params[:search].present?
-      entries.text_search params[:search]
+      entries.basic_text_search params[:search]
     else
       entries
     end

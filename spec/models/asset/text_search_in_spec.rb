@@ -9,16 +9,20 @@ describe Asset, type: :model do
       Asset.make(name: 'dolphins & cuttlefish', file: file_fixture('test.pdf'))
     end
 
+    it 'returns a Mongoid::Criteria object' do
+      expect(Asset.basic_text_search('dolphins')).to be_a(Mongoid::Criteria)
+    end
+
     it 'returns two results when searching for dolphins' do
-      expect(Asset.text_search('dolphins').count).to eq 2
+      expect(Asset.basic_text_search('dolphins').count).to eq 2
     end
 
     it 'return two results when searching for otters' do
-      expect(Asset.text_search('otters').count).to eq 2
+      expect(Asset.basic_text_search('otters').count).to eq 2
     end
 
     it 'return one result when searching for cuttlefish' do
-      expect(Asset.text_search('cuttlefish').count).to eq 1
+      expect(Asset.basic_text_search('cuttlefish').count).to eq 1
     end
   end
 
@@ -47,11 +51,11 @@ describe Asset, type: :model do
     end
 
     it "return one result when searching for animals" do
-      expect(Asset.text_search('animals').count).to eq 1
+      expect(Asset.basic_text_search('animals').count).to eq 1
     end
 
     it "return one result when searching for creatures" do
-      expect(Asset.text_search('creatures').count).to eq 1
+      expect(Asset.basic_text_search('creatures').count).to eq 1
     end
   end
 end

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Slices::HasSlices do
-  describe ".text_search_in" do
+  describe ".basic_text_search_in" do
 
     class DummySlice < Slice
       field :title, type: String
@@ -17,13 +17,13 @@ describe Slices::HasSlices do
     end
 
     before do
-      # When calling MongoSearch::Searchable class methods in a test
+      # When calling MongoBasicSearch::Searchable class methods in a test
       # case we want to make sure that any changes that we make to the
       # class don't persist between test cases. Hence the creation of a
       # new class every time.
       #
       class DummyPage < Page
-        text_search_in :title
+        basic_text_search_in :title
       end
     end
 
@@ -33,18 +33,22 @@ describe Slices::HasSlices do
       end
     end
 
+    it "searches the contents of String fields" do
+      expect(DummyPage.basic_text_search("Hello")).to be_a(Mongoid::Criteria)
+    end
+
     context "and slice has no special search behaviour" do
       before do
         page.save!
       end
 
-      it "search contents of String fields" do
-        expect(DummyPage.text_search("Hello").first).to eq page
+      it "searches the contents of String fields" do
+        expect(DummyPage.basic_text_search("Hello").first).to eq page
       end
 
       it "not search on container or id fields" do
-        expect(DummyPage.text_search("container").first).to eq nil
-        expect(DummyPage.text_search("1234").first).to eq nil
+        expect(DummyPage.basic_text_search("container").first).to eq nil
+        expect(DummyPage.basic_text_search("1234").first).to eq nil
       end
     end
 
@@ -57,12 +61,12 @@ describe Slices::HasSlices do
         page.save!
       end
 
-      it "not search on String fields" do
-        expect(DummyPage.text_search("Hello").first).to eq nil
+      it "does not search on String fields" do
+        expect(DummyPage.basic_text_search("Hello").first).to eq nil
       end
 
-      it "search on search_text" do
-        expect(DummyPage.text_search("shoes").first).to eq page
+      it "searches on search_text" do
+        expect(DummyPage.basic_text_search("shoes").first).to eq page
       end
     end
   end
