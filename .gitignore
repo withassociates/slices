@@ -19,6 +19,9 @@ pkg
 public/*.html
 public/assets
 public/system/**/*
+spec/dummy/public/*.html
+spec/dummy/public/assets
+spec/dummy/public/system/**/*
 rdoc
 tmp/**/*
 zeus.json
