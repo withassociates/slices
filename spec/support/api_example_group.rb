@@ -24,6 +24,10 @@ module RSpec::Rails
       json_slices[0]
     end
 
+    def document_root_element
+      html_document.root
+    end
+
     included do
       metadata[:type] = :api
 
