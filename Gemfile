@@ -9,7 +9,7 @@ group :development, :test do
   gem 'byebug'
   gem 'capybara'           #, '~> 2.3.0'
   gem 'pry-rails'          #, '~> 0.2.2'
-  gem 'rspec-rails'        #, '~> 2.99'
+  gem 'rspec-rails'        , '~> 3.4'
   gem 'test-unit', platforms: [:ruby_22]
 end
 

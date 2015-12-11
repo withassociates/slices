@@ -37,6 +37,7 @@ RSpec.configure do |config|
   # Added for Rspec 3.0
   config.infer_spec_type_from_file_location!
   config.expose_current_running_example_as :example
+  config.example_status_persistence_file_path= 'tmp/example_status_persistence.txt'
 
   # Hook in database cleaner
   config.before do
