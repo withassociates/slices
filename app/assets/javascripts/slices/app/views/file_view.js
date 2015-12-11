@@ -8,8 +8,6 @@ slices.FileView = Backbone.View.extend({
     '<span class="upload-summary">{{summary}}</span>'
   ),
 
-  imagePath: Handlebars.compile('/assets/slices/icon_upload_{{name}}.png'),
-
   possibleStatusList: [
     'status-queued',
     'status-uploading',
@@ -125,7 +123,7 @@ slices.FileView = Backbone.View.extend({
       ctx.drawImage(img, 0, 0);
     };
 
-    img.src = this.imagePath({ name: name });
+    img.src = slices.UPLOAD_ICONS[name];
   },
 
   remove: function() {
