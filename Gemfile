@@ -7,7 +7,7 @@ gem 'ammeter'
 group :development, :test do
   gem 'bundler'
   gem 'byebug'
-  gem 'capybara', '~> 2.3.0'
+  gem 'capybara', '~> 2.5'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 3.4'
   gem 'test-unit', platforms: [:ruby_22]

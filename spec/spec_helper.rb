@@ -21,7 +21,7 @@ Dir[SLICES_GEM_ROOT.join('spec/support/**/*.rb')].each { |f| require f }
 Slices::Config.use_snippets!
 
 Capybara.default_selector = :css
-Capybara.default_wait_time = ENV['CI'] ? 60 : 5
+Capybara.default_max_wait_time = ENV['CI'] ? 60 : 5
 Capybara.default_driver = :rack_test
 
 RSpec.configure do |config|
