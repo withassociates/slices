@@ -150,6 +150,7 @@ class Asset
   end
 
   def update_page_cache
+    pages.exists?
     self.page_cache = pages.collect do |page|
       { id: page.id, name: page.name, path: page.path }
     end

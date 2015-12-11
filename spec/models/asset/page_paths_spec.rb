@@ -11,9 +11,11 @@ describe Asset, type: :model do
       before do
         page = double(:page, id: 1, name: '1', path: '/path')
         other_page = double(:page, id: 2, name: 'b', path: '/other-path')
+        pages = [page, other_page]
 
+        allow(pages).to receive(:exists?)
         allow(asset).to receive(:page_ids).and_return [:id]
-        allow(asset).to receive(:pages).and_return [page, other_page]
+        allow(asset).to receive(:pages).and_return(pages)
         asset.update_page_cache
       end
 
