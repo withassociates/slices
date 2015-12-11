@@ -3,15 +3,15 @@ require "spec_helper"
 describe "Slices::CmsFormBuilder", type: :helper do
 
   def snowman
-    txt =  %{<div style="margin:0;padding:0;display:inline">}
-    txt << %{<input name="utf8" type="hidden" value="&#x2713;" />}
-    txt << %{</div>}
+    txt = %{<input name="utf8" type="hidden" value="&#x2713;" />}
   end
 
   def form_text(action = "/", id = nil, html_class = nil)
-    txt =  %{<form accept-charset="UTF-8" action="#{action}"}
+    txt =  %{<form}
     txt << %{ class="#{html_class}"} if html_class
     txt << %{ id="#{id}"} if id
+    txt << %{ action="#{action}"}
+    txt << %{ accept-charset="UTF-8"}
     txt << %{ method="post">}
   end
 
