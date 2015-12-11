@@ -13,12 +13,12 @@ describe "Old function page controller tests", type: :api do
 
     it "does not set page type if not set" do
       get new_admin_page_path(parent_id: @page.to_param)
-      assert_select 'input[type=hidden][name=type]', count: 0
+      assert_select html_document.root, 'input[type=hidden][name=type]', count: 0
     end
 
     it "sets the page type if set" do
       get new_admin_page_path(parent_id: @page.to_param, type: 'article')
-      assert_select 'input[type=hidden][name=type][value=article]'
+      assert_select html_document.root, 'input[type=hidden][name=type][value=article]'
     end
   end
 
