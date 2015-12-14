@@ -36,8 +36,10 @@ module Slices
     end
 
     def self.i18n?
-      I18n.available_locales.many? ||
-        Rails.application.config.i18n.available_locales.many?
+      !!(
+        I18n.available_locales.many? ||
+          Rails.application.config.i18n.available_locales.try(:many?)
+      )
     end
 
     def self.s3_storage?
