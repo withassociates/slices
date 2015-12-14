@@ -16,8 +16,8 @@ class Page
   field :role  # only relevant for virtual pages
   field :active, type: Boolean, default: false
   field :layout, type: String, default: 'default'
-  field :meta_description, localize: Slices::Config.i18n?
-  field :title, localize: Slices::Config.i18n?
+  field :meta_description, localize: Slices::Config.i18n?, default: ''
+  field :title, localize: Slices::Config.i18n?, default: ''
   field :has_content, type: Boolean, default: false
 
   belongs_to :author, class_name: 'Admin'
