@@ -6,11 +6,13 @@ The first step is to read and follow the [Rails I18n Guide](http://guides.rubyon
 
 ## Localizing a slice
 
-Firstly add `localize: true` to all text fields which need localzing.
+Firstly add `localize: true` to all text fields which need localizing, make sure you add a
+default value as there is a [bug in Mongoid](https://jira.mongodb.org/browse/MONGOID-4054)
+which means the value may not be set correctly.
 
 ```ruby
 class TextSlice < Slice
-  field :text, type: String, localize: true
+  field :text, type: String, localize: true, default: ''
 end
 ```
 
