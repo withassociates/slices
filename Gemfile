@@ -16,7 +16,7 @@ end
 group :test do
   gem 'database_cleaner'   #, '~> 0.9.1'
   gem 'launchy'          #,'~> 2.1.2'
-  gem 'poltergeist'
+  gem 'poltergeist', '~> 1.7'
 end
 
 group :assets do

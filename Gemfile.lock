@@ -263,7 +263,7 @@ DEPENDENCIES
   fog-aws
   jquery-rails
   launchy
-  poltergeist
+  poltergeist (~> 1.7)
   pry-rails
   rspec-rails (~> 3.4)
   sass-rails
