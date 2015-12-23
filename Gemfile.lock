@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     slices (2.0.0.beta)
-      RedCloth (~> 4.2.9)
+      RedCloth (~> 4.2)
       devise (~> 3.5)
       highline (~> 1.6.0)
       mongoid (> 4.0.0, < 5.0.0)
