@@ -10,7 +10,7 @@ PATH
       mongoid-paperclip (~> 0)
       rails (~> 4.2)
       redcarpet (~> 3.3)
-      stringex (~> 1.4.0)
+      stringex (~> 2.5)
       will_paginate_mongoid (~> 2.0)
 
 GEM
@@ -228,7 +228,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    stringex (1.4.0)
+    stringex (2.5.2)
     test-unit (3.1.5)
       power_assert
     thor (0.19.1)
