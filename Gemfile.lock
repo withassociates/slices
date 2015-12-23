@@ -250,7 +250,7 @@ DEPENDENCIES
   database_cleaner (~> 0.9.1)
   fog-aws
   launchy
-  poltergeist
+  poltergeist (~> 1.7)
   pry-rails
   rspec-rails (~> 3.4)
   slices!
