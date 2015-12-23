@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'mongoid-observers' , '~> 0'
   s.add_dependency 'mongoid-paperclip' , '~> 0'
   s.add_dependency 'rails'             , '~> 4.2'
-  s.add_dependency 'redcarpet'         , '~> 3.0.0'
+  s.add_dependency 'redcarpet'         , '~> 3.3'
   s.add_dependency 'RedCloth'          , '~> 4.2.9'
   s.add_dependency 'stringex'          , '~> 1.4.0'
   s.add_dependency 'will_paginate_mongoid', '~> 2.0'
