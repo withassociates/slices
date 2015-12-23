@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     slices (3.0.0.beta)
-      RedCloth (~> 4.2.9)
+      RedCloth (~> 4.2)
       actionpack-page_caching (~> 1.0)
       devise (~> 3.5)
       highline (~> 1.6.0)
