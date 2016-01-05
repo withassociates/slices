@@ -2,26 +2,29 @@ require 'spec_helper'
 
 describe Slice, type: :model do
   describe "#cache_key" do
-    let :timestamp do
-      Time.new(2013, 12, 11, 10, 9, 8)
-    end
-
     let :slice do
       Slice.new
     end
 
-    context "when the slice is embeded in a page" do
+    context "when it is embedded as a slice" do
       before do
-        page = double(updated_at: timestamp)
-        allow(slice).to receive_messages(
-          id: 'bson',
-          model_key: 'slice',
-          normal_or_set_page: page,
-        )
+        allow(slice).to receive(:page) { double(cache_key: 'asdfghjkl') }
       end
 
-      it "should have the slice id and page's updated at key name" do
-        expect(slice.cache_key).to eq "slice/bson-20131211100908"
+      it "should include the page cache key" do
+        expect(slice.cache_key).to include 'asdfghjkl'
+      end
+    end
+
+    context "when it is embedded as a set slice" do
+      before do
+        allow(slice).to receive(:page) { double(cache_key: 'asdfghjkl') }
+        allow(slice).to receive(:set_page) { double(cache_key: '123456789') }
+      end
+
+      it "should include both the page and set page cache keys" do
+        expect(slice.cache_key).to include 'asdfghjkl'
+        expect(slice.cache_key).to include '123456789'
       end
     end
 
