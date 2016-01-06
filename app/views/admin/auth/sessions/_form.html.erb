@@ -1,7 +1,7 @@
 <div class="login">
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <% if flash[:alert].present? %>
-      <%= flash[:alert] %>
+      <p class="flash-message"><%= flash[:alert] %></p>
     <% end %>
 
     <p>
