@@ -1,5 +1,8 @@
 <div class="login">
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <% if flash[:alert].present? %>
+      <%= flash[:alert] %>
+    <% end %>
 
     <p>
       <%= f.label :email %><br />
