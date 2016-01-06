@@ -3,7 +3,31 @@ require 'spec_helper'
 describe Attachment, type: :model do
   describe "#as_json" do
 
+    it "has attachment attributes" do
+      attachment = Attachment.new
+
+      expect(attachment.as_json).to include({
+        id: attachment.id.to_s,
+      })
+    end
+
+    context "when attachment has an asset" do
+      let :asset do
+        Asset.new
+      end
+
+      it "has asset attributes" do
+        attachment = Attachment.new(asset: asset)
+
+        expect(attachment.as_json).to include({
+          asset_id: asset.id.to_s,
+          asset: asset.as_json,
+        })
+      end
+    end
+
     context "when attachment has a localised field" do
+
       let :klass do
         Class.new(Attachment) do
           field :foo, localize: true
