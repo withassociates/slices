@@ -85,6 +85,26 @@ module Slices
       @page_actions_template = path
     end
 
+    # Options for devise_for.
+    #
+    # @return [Hash] the options
+    def self.devise_for_options
+      @devise_options ||= {
+        path: 'admin',
+        controllers: {
+          passwords:  'admin/auth/passwords',
+          sessions:   'admin/auth/sessions',
+        }
+      }
+    end
+
+    # Set options for devise_for.
+    #
+    # @param [Hash] the options
+    def self.devise_for_options=(options = {})
+      @devise_options = options
+    end
+
     private
     def self.admin_asset_styles
       { admin: '180x180#' }
