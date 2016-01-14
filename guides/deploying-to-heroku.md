@@ -153,9 +153,3 @@ $ heroku run rake slices:seed
 
 Awesome! Run `heroku open` to see your website in all its glory, and visit
 `/admin` to start adding content.
-
-## Creating slices/styling your app
-
-Slices are created locally, committed to Github then deployed to Heroku before
-they can be used on your live site. The same goes for CSS changes.
-See the [Creating Slices guide](creating-slices.md) guide for more.
