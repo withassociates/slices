@@ -87,14 +87,12 @@ module Slices
     def remove_asset(asset)
       super if defined?(super)
 
-      asset_id = asset.id.to_s
+      asset_id = asset.id
 
       self.class.attachment_fields.each do |field_name|
-        attachments = attributes[field_name.to_s]
-        # Reset field_name so Moped will realise that the field has changed
-        self.write_attribute(field_name, [])
-        attachments.reject! { |x| x['asset_id'].to_s == asset_id }
-        self.write_attribute(field_name, attachments)
+        send(field_name).each do |attachment|
+          attachment.destroy if attachment.asset_id == asset_id
+        end
       end
     end
   end

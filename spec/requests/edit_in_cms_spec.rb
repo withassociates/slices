@@ -25,7 +25,7 @@ describe "'Edit in CMS' button", type: :request do
     end
 
     it "is a link to the CMS" do
-      expect(page).to have_link 'Edit Page in CMS', href: "/admin/pages/#{Page.home.id}"
+      expect(page).to have_link 'Edit Page in CMS', href: "/admin/pages/#{Page.home.id}?locale=#{I18n.locale}"
     end
   end
 

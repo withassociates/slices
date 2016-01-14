@@ -7,7 +7,7 @@ module Admin::SiteMapsHelper
   #
   # @!visibility private
   def sitemap_pages
-    @sitemap_pages ||= proper_pages.only(:id, :name, :page_id).group_by(&:page_id)
+    @sitemap_pages ||= proper_pages.only(:id, :name, :page_id, :path).group_by(&:page_id)
   end
 
   # Returns children for a given page
@@ -125,15 +125,6 @@ module Admin::SiteMapsHelper
   def link_to_edit_entry_template(page)
     url = admin_page_path page, entries: 1
     link_to 'Edit Entry Template', url, class: 'button'
-  end
-
-  # Create a link to view the current page on the live site
-  #
-  # @!visibility private
-  def link_to_view_page(page)
-    return unless page.active?
-    link_to 'View page on site', page.path,
-            class: 'view-page', target: '_blank'
   end
 
   # Return HTMl class names for a page

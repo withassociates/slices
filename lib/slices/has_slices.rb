@@ -34,12 +34,15 @@ module Slices
           slice_attributes = slice_attributes.symbolize_keys
           next if slice_attributes[:_destroy]
           slice_attributes.delete :_new
-          (slice_attributes[:type] + '_slice').
-            camelize.
-            constantize.
-            new(slice_attributes).tap do |s|
-              s.id = slice_attributes[:id] if slice_attributes[:id].present?
-            end
+
+          if slice_attributes[:id].present?
+            slice = slices_for(embed_name).find(slice_attributes[:id])
+            slice.write_attributes(slice_attributes)
+          else
+            class_name = slice_attributes[:type].to_s.camelize + 'Slice'
+            slice = class_name.constantize.new(slice_attributes)
+          end
+          slice
         }.compact
       end
 
