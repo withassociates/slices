@@ -2,35 +2,103 @@
 
 In-house CMS of [With Associates](http://withassociates.com/).
 
-## Starting a new Slices project
+[![Travis CI](https://api.travis-ci.org/withassociates/slices.png)](https://travis-ci.org/withassociates/slices)
+[![Code Climate](https://codeclimate.com/github/withassociates/slices.png)](https://codeclimate.com/github/withassociates/slices)
+[![Gemnasium](https://gemnasium.com/withassociates/slices.png)](https://gemnasium.com/withassociates/slices)
 
-Slices requires Ruby, MongoDB and ImageMagick. If you don't have them installed, follow this [guide](https://github.com/withassociates/slices/wiki/Installation.md) before beginning.
+## Getting Started
 
-Now we're ready to create the Slices project:
+### Prerequisites
 
-    $ cd ~/Projects
-    $ rails _3.2.16_ new mywebsite -O
-    $ cd ~/Projects/mywebsite
+Slices requires [Ruby](https://ruby-lang.org), [MongoDB](http://mongodb.org),
+and [ImageMagick](http://imagemagick.org).
 
-Add 'slices' to the Gemfile of your new project:
+We suggest installing Ruby using [ruby-install](https://github.com/postmodern/ruby-install):
 
-    gem 'slices'
+```sh
+$ ruby-install --latest ruby
+```
 
-Run `rails generate slices:install` in the terminal and follow the instructions.
+Install MongoDB and ImageMagick with [Homebrew](http://brew.sh):
 
-If you intend to deploy your Slices app to Heroku, run `rails generate slices:install --heroku` to make life easier.
+```sh
+$ brew install mongodb ImageMagick  # this can take a while
+```
 
-You're ready to go! Run `rails server` and visit http://localhost:3000/admin to begin using Slices.
+### Generating a Slices Project
 
-The next step is to create some [slices](https://github.com/withassociates/slices/wiki/Creating-Slices) - there are more guides in the [Wiki](https://github.com/withassociates/slices/wiki).
+We'll need to create a Rails project:
 
-## Code Status
+```sh
+$ gem install rails -v 3.2.22
+$ rails _3.2.22_ new mywebsite -JOT
+$ cd mywebsite
+```
 
-[![Travis CI   ](https://api.travis-ci.org/withassociates/slices.png)       ](https://travis-ci.org/withassociates/slices)
-[![Code Climate](https://codeclimate.com/github/withassociates/slices.png)  ](https://codeclimate.com/github/withassociates/slices)
-[![Gemnasium   ](https://gemnasium.com/withassociates/slices.png)           ](https://gemnasium.com/withassociates/slices)
+Add Slices to the project’s Gemfile:
+
+```ruby
+gem 'slices', '~> 2.0.0'
+```
+
+Run bundler:
+
+```sh
+$ bundle install
+```
+
+Run the generator and follow the instructions to configure Slices for the first time:
+
+```sh
+$ rails generate slices:install
+```
+
+At the end of this process we should have a new Slices project with a git
+repository created, gems installed, database seeded and ready to run:
+
+```sh
+$ rails server
+```
+
+Visit `http://localhost:3000/admin` to begin using Slices.
+
+### Generating Slices
+
+The quickest way to create a Slice is to use the generator. In this example
+we're going to create a Slice called `title_body` with title and body fields.
+
+```shell
+$ rails generate slice title_body title:string body:text
+```
+
+The syntax is `field_name:field_type`.
+
+This command will create a new folder called `title_body` within `apps/slices`,
+containing the required Ruby file, the Handlebars templates for the Admin view,
+and the HTML for the front-end.
+
+#### Slice Field Types
+
+```
+Field Type   | Best for               | HTML Control
+-------------+------------------------+--------------------
+string       | Single lines of text   | Text input
+text         | Multiple lines of text | Textarea
+boolean      | Settings               | Checkbox input
+date         | Dates                  | Date input
+datetime     | Times                  | Datetime input
+attachments  | Files and images       | Attachment composer
+page         | Links to other pages   | Internal link field
+```
+
+An example of a complicated Slice:
+
+```shell
+$ rails generate slice carousel title:string gallery:attachments link:page
+```
 
 ## License
 
-Slices is released under the [MIT license](http://www.opensource.org/licenses/MIT). Copyright (c) 2014 With Associates.
+Slices is released under the [MIT license](http://www.opensource.org/licenses/MIT).
 
+Copyright (c) 2016 With Associates.
