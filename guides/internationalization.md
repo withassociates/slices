@@ -29,3 +29,8 @@ Then render the field as normal.
   <%= slice.text %>
 </div>
 ```
+
+## Localizing an existing site
+
+Here is [Gist](https://gist.github.com/erino/eb4e1766f3203c58d0d3) with code to migrate page and slice data.
+
