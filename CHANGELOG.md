@@ -1,8 +1,10 @@
-# 2.0.0
+# 2.0.0 / 2016-01-15
 
+* Rails I18n support
 * Refactor snippets to not piggy back on I18n
 * Upgrade to mongoid v3.1
 * Ensure (soft-)destroying an asset removes it from all pages/slices [#39](https://github.com/withassociates/slices/pull/39)
+* Drop support for ruby 1.9
 
 # 1.0.5 / 2014-08-21
 

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    slices (2.0.0.beta)
+    slices (2.0.0)
       RedCloth (~> 4.2.9)
       cocaine (~> 0.3.2)
       devise (~> 2.2.8)
@@ -223,4 +223,4 @@ DEPENDENCIES
   test-unit
 
 BUNDLED WITH
-   1.10.6
+   1.11.2
