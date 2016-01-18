@@ -45,8 +45,6 @@ class Page
   def self.role_for_status(status)
     if CACHED_VIRTUAL_PAGES.has_value?(status)
       CACHED_VIRTUAL_PAGES.detect { |k, v| v == status }[0]
-    else
-      nil
     end
   end
 

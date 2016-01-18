@@ -289,14 +289,6 @@ Style/EachWithObject:
   Exclude:
     - 'lib/slices/has_attachments.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: empty, nil, both
-Style/EmptyElse:
-  Exclude:
-    - 'app/models/page.rb'
-
 # Offense count: 7
 # Cop supports --auto-correct.
 Style/EmptyLines:
