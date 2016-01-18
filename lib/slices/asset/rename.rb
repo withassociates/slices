@@ -10,7 +10,7 @@ module Slices
         klass.new(file, new_file_name).run
       rescue NameError
         raise UnsupportedStorage,
-        "Renaming files with '#{file.options[:storage]}' is not supported"
+          "Renaming files with '#{file.options[:storage]}' is not supported"
       end
 
       class Base

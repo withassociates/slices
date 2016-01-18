@@ -190,16 +190,6 @@ Style/AlignHash:
     - 'spec/lib/slices/has_attachments_spec.rb'
     - 'spec/support/contexts.rb'
 
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: with_first_parameter, with_fixed_indentation
-Style/AlignParameters:
-  Exclude:
-    - 'lib/slices/asset/rename.rb'
-    - 'spec/helpers/assets_helper_spec.rb'
-    - 'spec/lib/slices/asset/maker_spec.rb'
-
 # Offense count: 10
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.

@@ -5,7 +5,7 @@ describe AssetsHelper, type: :helper do
 
   let :asset do
     double(:asset,
-        present?: true,
+      present?: true,
         ).as_null_object
   end
 
@@ -62,7 +62,7 @@ describe AssetsHelper, type: :helper do
     context "with an attachement" do
       let :attachement do
         double(:attachement,
-             asset: asset
+          asset: asset
             )
       end
 

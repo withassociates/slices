@@ -67,7 +67,7 @@ describe 'Slices::Asset::Maker' do
     context "when a matching asset is found" do
       let :matching_asset do
         double(:matching_asset,
-             present?: true
+          present?: true
             ).as_null_object
       end
 
