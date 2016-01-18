@@ -33,7 +33,7 @@ describe 'Slices::Asset::Rename' do
 
   context "Fog#rename" do
     before do
-      Paperclip::Attachment.default_options.merge!( {
+      Paperclip::Attachment.default_options.merge!({
         storage: :fog,
         fog_directory: 'directory',
         fog_credentials: {

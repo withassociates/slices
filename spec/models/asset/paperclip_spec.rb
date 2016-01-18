@@ -80,7 +80,7 @@ describe Asset, type: :model do
     context "#dimensions_for" do
 
       let :asset_with_dimensions do
-        Asset.new(file_dimensions: { 'extended' => '1x1' } )
+        Asset.new(file_dimensions: { 'extended' => '1x1' })
       end
 
       it "returns the dimensions of the asset" do
@@ -149,7 +149,7 @@ describe Asset, type: :model do
       context "with an already processed style" do
 
         it "does not processes the style" do
-          asset = Asset.new(file_dimensions: { 'extended' => '1x1'} )
+          asset = Asset.new(file_dimensions: { 'extended' => '1x1'})
           expect(asset.file).not_to receive(:reprocess!)
           asset.reprocess_for(:extended)
         end
@@ -159,7 +159,7 @@ describe Asset, type: :model do
       context "with an existing file" do
 
         it "processes the style" do
-          asset = Asset.new(file_dimensions: {} )
+          asset = Asset.new(file_dimensions: {})
           allow(asset.file).to receive_messages(exists?: true)
           expect(asset.file).to receive(:reprocess!)
           asset.reprocess_for(:extended)

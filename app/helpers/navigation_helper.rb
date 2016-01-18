@@ -121,7 +121,7 @@ module NavigationHelper
   # @return [String]
   #
   def navigation(options = {})
-    options.reverse_merge!( page: @page, depth: 1 )
+    options.reverse_merge!(page: @page, depth: 1)
     page = options[:page]
     children = page.home? ? page.navigable_children : page.parent.navigable_children
     html = (is_home_and_shown_in_nav?(page) ? nav_link(Page.home) : '').html_safe
