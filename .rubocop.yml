@@ -6,6 +6,7 @@ AllCops:
   DisplayStyleGuide: true
   Exclude:
     - 'lib/generators/**/*'
+    - 'vendor/**/*'
 
 Rails:
   Enabled: true
