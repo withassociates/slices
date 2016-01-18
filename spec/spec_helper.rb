@@ -52,9 +52,9 @@ RSpec.configure do |config|
     # Delete uploaded assets
     case Paperclip::Attachment.default_options[:storage].to_sym
     when :filesystem
-      FileUtils.rm_rf Rails::root.join *%w[public system spec]
+      FileUtils.rm_rf Rails::root.join(*%w[public system spec])
     when :fog
-      Asset.all.map &:destroy
+      Asset.all.map(&:destroy)
     end
     DatabaseCleaner.clean
   end

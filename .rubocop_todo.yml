@@ -6,13 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 4
-Lint/AmbiguousOperator:
-  Exclude:
-    - 'spec/lib/slices/available_slices_spec.rb'
-    - 'spec/requests/admin/set/editing_spec.rb'
-    - 'spec/spec_helper.rb'
-
 # Offense count: 6
 Lint/AmbiguousRegexpLiteral:
   Exclude:

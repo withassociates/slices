@@ -48,7 +48,7 @@ describe "Viewing the sets entries page", type: :request, js: true do
       home, @page = StandardTree.build_minimal_with_slices
       sign_in_as_admin
       @set_page, articles = StandardTree.add_article_set(@page)
-      @set_page.children.map &:destroy
+      @set_page.children.map(&:destroy)
 
       visit admin_page_entries_path page_id: @set_page.id
     end

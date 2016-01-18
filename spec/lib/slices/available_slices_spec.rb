@@ -29,7 +29,7 @@ describe Slices::AvailableSlices do
     it "has slices in alphabetical order" do
       names = all.values.map { |hash| hash['name'] }
       (names.size - 1).times do |i|
-        expect(names[i] <=> names[i + 1]).to eq -1
+        expect(names[i] <=> names[i + 1]).to eq(-1)
       end
     end
 
