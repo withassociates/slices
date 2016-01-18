@@ -8,6 +8,7 @@ gem 'rspec-rails', '~> 3.2.0'
 gem 'poltergeist'
 gem 'ammeter'
 gem 'test-unit', platforms: [:ruby_22]
+gem 'rubocop', '~> 0.36.0', require: false
 
 group :development do
   gem 'byebug'
