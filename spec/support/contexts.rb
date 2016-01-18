@@ -2,7 +2,7 @@ shared_context "signed in as admin" do
 
   let! :admin do
     Admin.create! email: 'hello@withassociates.com',
-      password: '123456'
+                  password: '123456'
   end
 
   before type: :request do

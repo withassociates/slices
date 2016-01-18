@@ -24,7 +24,7 @@ Rails.application.routes.draw do
 
   get 'slices/templates(/:slice)/:name.:format' => 'static_assets#templates'
   get ':action/:asset_type(/:folder)/*name.:format' => 'static_assets',
-    :constraints => {
+      :constraints => {
     :asset_type => /(stylesheets|javascripts|images)/,
     :action => /(slices|sites)/
   }, :as => :static_assets

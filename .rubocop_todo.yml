@@ -180,16 +180,6 @@ Style/Alias:
     - 'lib/slices/has_attachments.rb'
     - 'lib/slices/tree.rb'
 
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedHashRocketStyle, EnforcedColonStyle, EnforcedLastArgumentHashStyle, SupportedLastArgumentHashStyles.
-# SupportedLastArgumentHashStyles: always_inspect, always_ignore, ignore_implicit, ignore_explicit
-Style/AlignHash:
-  Exclude:
-    - 'config/routes.rb'
-    - 'spec/lib/slices/has_attachments_spec.rb'
-    - 'spec/support/contexts.rb'
-
 # Offense count: 10
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.

@@ -6,7 +6,7 @@ describe Slices::HasAttachments do
 
   let :asset do
     double id: 1,
-      as_json: { "id" => 1 }
+           as_json: { "id" => 1 }
   end
 
   class DefaultSliceClass
