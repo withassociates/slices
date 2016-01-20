@@ -2,6 +2,9 @@
 
 ## master (unreleased)
 
+### Changes
+- [#150](https://github.com/withassociates/slices/pull/150): Add CircleCI configuration
+
 ### Breaking changes
 - [#101](https://github.com/withassociates/slices/pull/101): Remove `PagesHelper#google_analytics_tracking_code` and `PagesHelper#add_tracking_code`
     * You should include the GA Javascript yourself.
