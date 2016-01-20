@@ -3,7 +3,7 @@
 ## master (unreleased)
 
 ### Changes
-- [#150](https://github.com/withassociates/slices/pull/150): Add CircleCI configuration
+- [#150](https://github.com/withassociates/slices/pull/150): Switch out Travis for CircleCI
 
 ### Breaking changes
 - [#101](https://github.com/withassociates/slices/pull/101): Remove `PagesHelper#google_analytics_tracking_code` and `PagesHelper#add_tracking_code`
