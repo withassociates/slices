@@ -2,7 +2,7 @@
 
 In-house CMS of [With Associates](http://withassociates.com/).
 
-[![Travis CI](https://api.travis-ci.org/withassociates/slices.png)](https://travis-ci.org/withassociates/slices)
+[![Circle CI](https://circleci.com/gh/withassociates/slices/tree/master.svg?style=svg)](https://circleci.com/gh/withassociates/slices/tree/master)
 [![Code Climate](https://codeclimate.com/github/withassociates/slices.png)](https://codeclimate.com/github/withassociates/slices)
 [![Gemnasium](https://gemnasium.com/withassociates/slices.png)](https://gemnasium.com/withassociates/slices)
 
