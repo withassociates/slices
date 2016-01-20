@@ -1,6 +1,5 @@
 module Slices
   class CmsFormBuilder < ActionView::Helpers::FormBuilder
-
     FIELD_ERROR_PROC = proc do |html_tag, instance_tag|
       html_tag
     end

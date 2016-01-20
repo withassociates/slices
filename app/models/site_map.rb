@@ -1,5 +1,4 @@
 class SiteMap
-
   def self.rebuild(tree)
     set_children_for(tree.first['id'], tree.first['children'])
   end

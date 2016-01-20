@@ -30,7 +30,6 @@ module Slices
           file.flush
         end
       end
-
     end
 
     def self.validate(local, remote)

@@ -49,5 +49,4 @@ class Admin::AssetsController < Admin::AdminController
     end
     attrs
   end
-
 end

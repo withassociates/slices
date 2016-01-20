@@ -1,5 +1,4 @@
 class PagesController < SlicesController
-
   caches_page :virtual_error_pages
 
   def virtual_error_pages

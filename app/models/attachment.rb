@@ -15,6 +15,5 @@ class Attachment
 
     result
   end
-
 end
 

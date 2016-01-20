@@ -62,7 +62,6 @@ describe Slices::HasAttachments do
       end
 
       include Slices::HasAttachments
-
     end
 
     class SubClass < SuperClass

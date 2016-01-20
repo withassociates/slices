@@ -35,5 +35,4 @@ class Layout
     parser = Slices::ContainerParser.new(path)
     parser.parse
   end
-
 end

@@ -211,5 +211,4 @@ class Page
     def destroy_children
       children.each { |child| child.destroy }
     end
-
 end

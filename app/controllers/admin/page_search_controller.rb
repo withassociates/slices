@@ -8,5 +8,4 @@ class Admin::PageSearchController < Admin::AdminController
     @pages = Page.where(name: Regexp.new(@query, true), role: nil).limit(5)
     render json: @pages.uniq.as_json
   end
-
 end

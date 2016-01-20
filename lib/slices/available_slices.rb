@@ -1,6 +1,5 @@
 module Slices
   class AvailableSlices
-
     def self.all
       # We've memoized the slices so that we never try and load them all
       # twice. If we iterate over ObjectSpace twice (see find_all_slices)

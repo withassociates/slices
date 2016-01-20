@@ -128,7 +128,6 @@ module Slices
         end
       end
     end
-
   end
 
 end

@@ -31,5 +31,4 @@ class ArticlePresenter < PagePresenter
   def published_at
     @source.published_at || '-'
   end
-
 end

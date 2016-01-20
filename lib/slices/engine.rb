@@ -1,6 +1,5 @@
 module Slices
   class Engine < Rails::Engine
-
     initializer :autoload_slices, before: :set_autoload_paths do |app|
       Slices.autoload_slices(app, Rails.root)
     end
@@ -16,7 +15,6 @@ module Slices
     config.after_initialize do
       Slices.load_slice_classes_into_object_space(Rails.root)
     end
-
   end
 
   def self.autoload_slices(app, root)

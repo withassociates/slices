@@ -1,7 +1,6 @@
 module Slices
   module Asset
     class Maker
-
       attr_accessor :args, :new_asset
 
       def self.run(args)

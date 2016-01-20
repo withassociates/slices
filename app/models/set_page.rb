@@ -1,5 +1,4 @@
 class SetPage < Page
-
   has_slices :set_slices
 
   def entry_types

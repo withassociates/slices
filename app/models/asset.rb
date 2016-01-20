@@ -196,5 +196,4 @@ class Asset
     extname = File.extname(file.original_filename).downcase
     NORMALIZED_EXTENSIONS.fetch(extname, extname)
   end
-
 end

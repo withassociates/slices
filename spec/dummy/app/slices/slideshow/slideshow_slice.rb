@@ -6,6 +6,5 @@ class SlideshowSlice < Slice
     field :link
   end
   has_attachments :slides, class_name: 'SlideshowSlice::Slide'
-
 end
 

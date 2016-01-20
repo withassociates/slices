@@ -1,5 +1,4 @@
 class StandardTree
-
   def self.build_virtual
     not_found = Page.make(
       role:    'not_found',
@@ -189,5 +188,4 @@ class StandardTree
       page.save!
     end
   end
-
 end

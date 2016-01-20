@@ -57,6 +57,5 @@ class PagePresenter < Presenter
     end
     json
   end
-
 end
 

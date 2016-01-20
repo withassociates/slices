@@ -28,6 +28,5 @@ class Admin::SnippetsController < Admin::AdminController
       end
     end
   end
-
 end
 

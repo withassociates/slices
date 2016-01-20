@@ -46,6 +46,5 @@ class Article < Page
       images: images
     )
   end
-
 end
 
