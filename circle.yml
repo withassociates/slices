@@ -1,4 +1,6 @@
 dependencies:
+  pre:
+    - 'rm Gemfile.lock'
   override:
     - case $CIRCLE_NODE_INDEX in 0) rvm-exec 2.0.0 bundle install ;; 1) rvm-exec 2.1.7 bundle install ;; 2) rvm-exec 2.2.3 bundle install ;; esac:
         parallel: true
