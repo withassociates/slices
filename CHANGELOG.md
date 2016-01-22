@@ -3,6 +3,8 @@
 ## master (unreleased)
 
 ### Breaking changes
+- [#116](https://github.com/withassociates/slices/pull/116): Upgrade to Rails 4.2.5
+    * See the upgrade guide for more information
 - [#101](https://github.com/withassociates/slices/pull/101): Remove `PagesHelper#google_analytics_tracking_code` and `PagesHelper#add_tracking_code`
     * You should include the GA Javascript yourself.
 
