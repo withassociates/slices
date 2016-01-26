@@ -9,73 +9,27 @@ describe Slices::HasAttachments do
       as_json: { "id" => 1 }
   end
 
-  let :default_slice do
-    Class.new do
-      include Mongoid::Document
-      include Slices::HasAttachments
-      has_attachments
-    end
+  class DefaultSliceClass
+    include Mongoid::Document
+    include Slices::HasAttachments
+    has_attachments
   end
 
   let :slice do
-    default_slice.new
-  end
-
-  context "#write_attributes" do
-    let(:caption) { 'Caption' }
-
-    let :attachment_attributes do
-      {
-        asset_id: asset.id,
-        position: 1,
-        caption:  caption
-      }
-    end
-
-    let :slice_attributes do
-      {
-        attachments: [ attachment_attributes ]
-      }
-    end
-
-    context "creating a new slice" do
-
-      before do
-        slice.write_attributes(slice_attributes)
-      end
-
-      subject do
-        slice.attributes['attachments'][0]
-      end
-
-      it "stores the asset_id" do
-        expect(subject[:asset_id]).to eq asset.id
-      end
-
-      it "stores the caption" do
-        expect(subject[:caption]).to eq caption
-      end
-
-      it "stores the position" do
-        expect(subject[:position]).to eq 1
-      end
-    end
-
+    DefaultSliceClass.new
   end
 
   context "#attachments" do
     context "with custom name and class" do
 
-      let :custom_slice do
-        Class.new do
-          include Mongoid::Document
-          include Slices::HasAttachments
-          has_attachments :slides, class_name: 'TestSlide'
-        end
+      class CustomSlice
+        include Mongoid::Document
+        include Slices::HasAttachments
+        has_attachments :slides, class_name: 'TestSlide'
       end
 
       subject do
-        custom_slice.new(
+        CustomSlice.new(
           slides: [{asset_id: asset.id}]
         )
       end
@@ -87,7 +41,7 @@ describe Slices::HasAttachments do
 
     context "with defaults" do
       subject do
-        default_slice.new(
+        DefaultSliceClass.new(
           attachments: [{asset_id: asset.id}]
         )
       end
@@ -100,36 +54,32 @@ describe Slices::HasAttachments do
 
   describe "#as_json" do
 
-    let :super_class do
-      Class.new do
-        include Mongoid::Document
+    class SuperClass
+      include Mongoid::Document
 
-        def as_json *args
-          super.merge("super" => true)
-        end
-
-        include Slices::HasAttachments
-
+      def as_json *args
+        super.merge("super" => true)
       end
+
+      include Slices::HasAttachments
+
     end
 
-    let :sub_class do
-      Class.new super_class do
-        has_attachments
-      end
+    class SubClass < SuperClass
+      has_attachments
     end
 
     let :attachment do
-      double as_json: { "asset_url" => "/path/to/file.jpg" }
+      Attachment.new
     end
 
     let :slice do
-      sub_class.new
+      SubClass.new
     end
 
     context "with attachments" do
       subject do
-        slice.stub(:attachments => [attachment])
+        slice.attachments = [attachment]
         slice.as_json
       end
 
@@ -163,11 +113,11 @@ describe Slices::HasAttachments do
   describe "#attachment_asset_ids" do
 
     let :asset_id do
-      BSON::ObjectId.new
+      Moped::BSON::ObjectId.new
     end
 
     let :other_asset_id do
-      BSON::ObjectId.new
+      Moped::BSON::ObjectId.new
     end
 
     let :attachment do
@@ -182,7 +132,7 @@ describe Slices::HasAttachments do
 
       context "with two attachments" do
         subject do
-          expect(slice).to receive(:attachments).and_return([attachment, other_attachment])
+          allow(slice).to receive(:attachments).and_return([attachment, other_attachment])
           slice.attachment_asset_ids
         end
 
@@ -198,7 +148,7 @@ describe Slices::HasAttachments do
         end
 
         subject do
-          expect(slice).to receive(:attachments).and_return([broken_attachment])
+          allow(slice).to receive(:attachments).and_return([broken_attachment])
           slice.attachment_asset_ids
         end
 
@@ -223,7 +173,7 @@ describe Slices::HasAttachments do
     context "on a page with slices but no attachments" do
 
       let :asset_id do
-        BSON::ObjectId.new
+        Moped::BSON::ObjectId.new
       end
 
       let :attachment do
@@ -242,7 +192,7 @@ describe Slices::HasAttachments do
       end
 
       subject do
-        expect(slice).to receive(:attachments).and_return([attachment])
+        allow(slice).to receive(:attachments).and_return([attachment])
         page.attachment_asset_ids
       end
 
@@ -255,11 +205,11 @@ describe Slices::HasAttachments do
     context "on a page with attachments and slices" do
 
       let :slice_asset_id do
-        BSON::ObjectId.new
+        Moped::BSON::ObjectId.new
       end
 
       let :page_asset_id do
-        BSON::ObjectId.new
+        Moped::BSON::ObjectId.new
       end
 
       let :slice_attachment do
@@ -290,8 +240,8 @@ describe Slices::HasAttachments do
         end
 
         subject do
-          expect(page).to receive(:attachments).and_return([page_attachment])
-          expect(slice).to receive(:attachments).and_return([slice_attachment])
+          allow(page).to receive(:attachments).and_return([page_attachment])
+          allow(slice).to receive(:attachments).and_return([slice_attachment])
           page.attachment_asset_ids
         end
 
@@ -310,8 +260,8 @@ describe Slices::HasAttachments do
         end
 
         before do
-          expect(page).to receive(:attachments).and_return([page_attachment])
-          expect(slice).to receive(:attachments).and_return([page_attachment, slice_attachment])
+          allow(page).to receive(:attachments).and_return([page_attachment])
+          allow(slice).to receive(:attachments).and_return([page_attachment, slice_attachment])
         end
 
         subject do
@@ -348,11 +298,11 @@ describe Slices::HasAttachments do
   context "#slice_attachment_ids" do
 
     let :slice_asset_id do
-      BSON::ObjectId.new
+      Moped::BSON::ObjectId.new
     end
 
     let :page_asset_id do
-      BSON::ObjectId.new
+      Moped::BSON::ObjectId.new
     end
 
     let :slice_attachment do
@@ -383,7 +333,7 @@ describe Slices::HasAttachments do
       end
 
       subject do
-        expect(slice).to receive(:attachments).and_return([slice_attachment])
+        allow(slice).to receive(:attachments).and_return([slice_attachment])
         page.slice_attachment_asset_ids
       end
 
@@ -401,7 +351,7 @@ describe Slices::HasAttachments do
       end
 
       subject do
-        expect(slice).to receive(:attachments).and_return([slice_attachment])
+        allow(slice).to receive(:attachments).and_return([slice_attachment])
         page.slice_attachment_asset_ids
       end
 

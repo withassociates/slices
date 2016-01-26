@@ -35,8 +35,6 @@ module RSpec::Rails
 end
 
 RSpec.configure do |config|
-  config.include RSpec::Rails::ApiExampleGroup, type: :api, example_group: {
-    file_path: config.escaped_path(%w[spec apis])
-  }
+  config.include RSpec::Rails::ApiExampleGroup, type: :api, file_path: %r{spec/apis}
 end
 

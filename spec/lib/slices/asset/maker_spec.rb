@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'Slices::Asset::Maker' do
 
   before do
-    Slices::Config.stub(s3_storage?: false)
+    allow(Slices::Config).to receive_messages(s3_storage?: false)
   end
 
   let :args do
@@ -26,10 +26,10 @@ describe 'Slices::Asset::Maker' do
   describe ".find_matching_asset" do
     it "looks for a mathching asset" do
       new_asset = double(:new_asset).as_null_object
-      maker.stub(new_asset: new_asset)
+      allow(maker).to receive_messages(new_asset: new_asset)
       matching_asset = double(:matching_asset).as_null_object
-      expect(Asset).to receive(:first).and_return(matching_asset)
 
+      expect(Asset).to receive(:where).and_return(double(first:matching_asset))
       expect(maker.find_matching_asset(new_asset)).to eq matching_asset
     end
   end
@@ -59,7 +59,7 @@ describe 'Slices::Asset::Maker' do
 
     context "when a matching asset does not exist" do
       it "creates a new asset" do
-        expect(Asset).to receive(:first).and_return(nil)
+        expect(maker).to receive(:find_matching_asset).and_return(nil)
         expect(maker.run).to eq new_asset
       end
     end
@@ -72,16 +72,11 @@ describe 'Slices::Asset::Maker' do
       end
 
       before do
-        expect(Asset).to receive(:first).and_return(matching_asset)
+        expect(maker).to receive(:find_matching_asset).and_return(matching_asset)
       end
 
       it "creates a new asset" do
         expect(maker.run).to eq matching_asset
-      end
-
-      it "makes sure the matching asset is soft restored" do
-        expect(matching_asset).to receive :soft_restore!
-        maker.run
       end
 
       it "destroys the new asset" do

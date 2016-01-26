@@ -89,8 +89,8 @@ describe PageObserver do
     context "attachment_asset_ids and asset_ids differ" do
       let :page do
         double(
-          attachment_asset_ids: [BSON::ObjectId.new],
-          asset_ids: [BSON::ObjectId.new]
+          attachment_asset_ids: [Moped::BSON::ObjectId.new],
+          asset_ids: [Moped::BSON::ObjectId.new]
         )
       end
 
@@ -99,18 +99,18 @@ describe PageObserver do
       end
 
       it "is true" do
-        expect(subject.attachment_assets_changed?).to be_truthy
+        expect(subject).to be_attachment_assets_changed
       end
 
       it "memoizes the value in did_attachment_assets_change?" do
         subject.attachment_assets_changed?
-        expect(subject.did_attachment_assets_change?).to be_truthy
+        expect(subject).to be_attachment_assets_changed
       end
     end
 
     context "attachment_asset_ids and asset_ids are equal" do
       let :object_id do
-        BSON::ObjectId.new
+        Moped::BSON::ObjectId.new
       end
 
       let :page do
@@ -125,11 +125,11 @@ describe PageObserver do
       end
 
       it "is true" do
-        expect(subject.attachment_assets_changed?).to be_falsey
+        expect(subject).to_not be_attachment_assets_changed
       end
 
       it "memoizes the value in did_attachment_assets_change?" do
-        expect(subject.did_attachment_assets_change?).to be_falsey
+        expect(subject).to_not be_attachment_assets_changed
       end
     end
   end
@@ -146,7 +146,7 @@ describe PageObserver do
       end
 
       it "is true" do
-        expect(subject.page_changed?).to be_truthy
+        expect(subject).to be_page_changed
       end
     end
   end

@@ -21,7 +21,7 @@ describe "Renaming an asset", type: :model do
     end
 
     it "moves the file on storage" do
-      expect(asset.file.exists?).to be_truthy
+      expect(asset.file).to be_exists
     end
   end
 
@@ -35,7 +35,7 @@ describe "Renaming an asset", type: :model do
     end
 
     it "manages to store the file" do
-      expect(asset.file.exists?).to be_truthy
+      expect(asset.file).to be_exists
     end
   end
 
@@ -55,7 +55,7 @@ describe "Renaming an asset", type: :model do
 
     it "actually moves the file" do
       expect(asset.file.path).to match /Ladybird.jpg$/
-      expect(asset.file.exists?).to be_truthy
+      expect(asset.file).to be_exists
     end
   end
 

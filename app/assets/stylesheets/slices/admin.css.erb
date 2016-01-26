@@ -3,7 +3,7 @@ html {
   overflow-y: scroll;
 }
 body {
-  font: 0.75em/1.2 Helvetica, Arial, sans-serif;
+  font: 0.75em/1.2 Arial, sans-serif;
   background-color: #fff;
   min-width: 860px;
   height: auto;
@@ -111,7 +111,7 @@ button,
 .button,
 .standard,
 .switcher li a {
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: Arial, sans-serif;
   font-size: 12px;
   margin: 0;
 }
@@ -280,6 +280,31 @@ button.delete {
   color: #222;
   text-decoration: none;
 }
+#sitemap .toggle-actions {
+  position: absolute;
+  top: 0;
+  right: 7px;
+}
+
+.toggle-children {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 100%;
+
+  width: 31px;
+  height: 31px;
+
+  background: url(<%= asset_path('slices/icon_collapse.png') %>) center 10px no-repeat;
+
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.toggle-children.active {
+  background-position: center -30px;
+}
 
 .toolbar {
   background: #DADADA;
@@ -366,7 +391,7 @@ header ul li {
   line-height: 39px;
   font-size: 11px;
   color: #6b6b6b;
-  font-family: "Lucida Grande", Tahoma, Arial, Helvetica, sans-serif;
+  font-family: "Lucida Grande", Tahoma, Arial, sans-serif;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 1);
 }
 header ul li a {
@@ -413,7 +438,7 @@ header nav ul li {
   margin: 0px;
   padding: 0px;
   margin-left: 0px;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, sans-serif;
 }
 header nav li a {
   display: inline-block;
@@ -442,9 +467,7 @@ header ul li,
   float: right;
 }
 .toolbar .actions {
-  position: absolute;
-  right: 24px;
-  top: 0;
+  margin-right: 24px;
 }
 .toolbar .actions li {
   margin-left: 7px
@@ -470,7 +493,7 @@ header ul li,
   color: #696969;
   font-weight: normal;
   font-size: 11px;
-  font-family: "Lucida Grande", Arial, Helvetica, sans-serif;
+  font-family: "Lucida Grande", Arial, sans-serif;
   line-height: 38px;
   letter-spacing: 0px;
 }
@@ -494,15 +517,17 @@ header ul li,
 #structure-unlocked p {
   background-position: 0 -18px
 }
+.page-item {
+  margin-bottom: 3px;
+}
 #sitemap ol,
 #virtual-pages ol {
-  margin: 0 0 0 30px
+  padding: 0 0 0 30px
 }
 #sitemap li,
 #virtual-pages li {
   list-style: none;
   text-align: left;
-  margin-top: 3px !important;
   position: relative;
 }
 #sitemap.unlocked li {
@@ -514,10 +539,6 @@ header ul li,
   top: 0;
   right: 5px;
   color: #860202;
-}
-#sitemap ol,
-#virtual-pages ol {
-  margin-top: 3px !important
 }
 #sitemap ol li:last-child,
 #virtual-pages ol li:last-child {
@@ -622,6 +643,26 @@ header ul li,
 }
 
 /* Edit slices pages */
+#container-actions .translations nav {
+  float: none;
+  padding: 0;
+  text-align: center;
+  line-height: 38px;
+  font-family: "Lucida Grande", Tahoma, Arial, Helvetica, sans-serif;
+  font-size: 11px;
+}
+#container-actions .translations ul {
+  display: inline;
+}
+#container-actions .translations li:after {
+  content: '|';
+}
+#container-actions .translations li:last-child:after {
+  content: '';
+}
+#container-actions .translations li a {
+  color: #696969;
+}
 #page-meta {
   display: none;
   background-color: #E2E2E2;
@@ -1009,7 +1050,7 @@ form ul li.field-with-errors select {
   font-weight: normal;
   background-color: #EFEFEF;
   padding: 5px 0;
-  font-family: "Lucida Grande", Tahoma, Arial, Helvetica, sans-serif;
+  font-family: "Lucida Grande", Tahoma, Arial, sans-serif;
   padding-left: 15px;
 }
 .elements-table tr td {
@@ -1181,7 +1222,7 @@ body.site-maps a.sort {
 a.collapse {
   display: inline-block;
   float: left !important;
-  background: url(<%= asset_path('slices/icon_collapse.png') %>) 0 2px no-repeat;
+  background: url(<%= asset_path('slices/icon_collapse.png') %>) 0 0 no-repeat;
   text-indent: -9999em;
   width: 10px;
   height: 10px;
@@ -1256,7 +1297,7 @@ a.remove-asset {
   border: 1px solid #D2D2D2;
   margin-bottom: 1em;
   padding: 0.5em;
-  font-family: "Lucida Grande", Tahoma, Arial, Helvetica, sans-serif;
+  font-family: "Lucida Grande", Tahoma, Arial, sans-serif;
   font-size: 11px;
   margin-top: 6px;
   width: 100%;
@@ -1266,7 +1307,7 @@ a.remove-asset {
   color: #696969;
   font-weight: normal;
   font-size: 11px;
-  font-family: "Lucida Grande", Arial, Helvetica, sans-serif;
+  font-family: "Lucida Grande", Arial, sans-serif;
 }
 .devise .login form p input[type='submit'] {
   width: 312px;
@@ -1280,7 +1321,11 @@ a.remove-asset {
   color: #696969;
   font-weight: normal;
   font-size: 11px;
-  font-family: "Lucida Grande", Arial, Helvetica, sans-serif;
+  font-family: "Lucida Grande", Arial, sans-serif;
+}
+.devise .login form p.flash-message {
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 /*SPECIFIC TO It's Nice That*/
@@ -1295,7 +1340,7 @@ a.remove-asset {
 .livefield-results,
 .livefield-result {
   color: #565656;
-  font: 13px/1 Helvetica, Arial, sans-serif;
+  font: 13px/1 Arial, sans-serif;
 }
 .livefield-input {
 
@@ -1845,14 +1890,22 @@ Token Field
 .token-field {
   position: relative;
 }
-.token-field input {}
+.token-field input {
+  position: relative;
+  z-index: 1;
+}
+.token-field a {
+  text-decoration: none;
+  cursor: pointer;
+}
 .token-field .tokens {
-  padding: 1px 7px 1px 2px;
+  padding: 1px 7px 3px 2px;
   position: absolute;
   top: 0; left: 0;
-  overflow: hidden;
 }
 .token-field .token {
+  position: relative;
+  z-index: 1;
   background: hsl(133, 53%, 79%);
   border-radius: 1px;
   border: 1px solid rgba(0, 0, 0, 0.25);
@@ -1860,14 +1913,15 @@ Token Field
   display: block;
   float: left;
   font-weight: bold;
-  margin: 2px 1px;
+  margin: 2px 1px 0;
   padding: 0.25em 1.75em 0.25em 0.5em;
   position: relative;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  cursor: default;
+  cursor: move;
+  white-space: nowrap;
 }
 .token-field .token.focus {
   background: hsl(133, 30%, 60%);
@@ -1907,6 +1961,9 @@ Token Field
   user-select: none;
 }
 .token-field .option {
+  display: inline;
+  white-space: normal;
+  padding-left: 0;
   color: hsl(133, 53%, 40%);
   cursor: pointer;
 }
@@ -2244,9 +2301,77 @@ Date Field
 .page-history {
   color: #888;
 }
-  .page-history li {
-    margin: 0 0 .5em 0;
-  }
-  .page-history time {
-    font-weight: normal;
-  }
+.page-history li {
+  margin: 0 0 .5em 0;
+}
+.page-history time {
+  font-weight: normal;
+}
+
+.markdown-cheat-sheet {
+  font-family: Courier, monospace;
+  font-size: 10px;
+  line-height: 1.5;
+  overflow: hidden;
+}
+.markdown-cheat-sheet h4 {
+  cursor: pointer;
+  font-weight: bold;
+}
+.markdown-cheat-sheet .columns {
+  display: block;
+  overflow: hidden;
+}
+.markdown-cheat-sheet .column {
+  box-sizing: border-box;
+  display: block;
+  float: left;
+  width: 50%;
+}
+.markdown-cheat-sheet .column:first-child {
+  padding-right: 4px;
+}
+.markdown-cheat-sheet .column:last-child {
+  padding-left: 4px;
+}
+.markdown-cheat-sheet code {
+  background: #f2f2f2;
+  color: #666;
+  display: block;
+  display: block;
+  font-family: inherit;
+  font-family: inherit;
+  line-height: 1;
+  line-height: inherit;
+  margin: 8px 0;
+  padding: 5px;
+  vertical-align: bottom;
+  white-space: pre;
+}
+.markdown-cheat-sheet h4 { color: #999 }
+.markdown-cheat-sheet .columns { height: 0 }
+.markdown-cheat-sheet.display h4 { color: #333 }
+.markdown-cheat-sheet.display .columns { height: auto }
+
+input.i18n,
+textarea.i18n {
+  padding-right: 24px;
+  background-image: url(<%= asset_path('slices/i18n.png') %>);
+  background-position: right top;
+  background-repeat: no-repeat;
+  background-size: 24px 24px;
+}
+
+.i18n:after,
+.i18n .attachment-actions:after {
+  content: '';
+
+  display: inline-block;
+  vertical-align: middle;
+
+  width: 18px;
+  height: 18px;
+
+  background: url(<%= asset_path('slices/i18n.png') %>) center center no-repeat;
+  background-size: 24px 24px;
+}

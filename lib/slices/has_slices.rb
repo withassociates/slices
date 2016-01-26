@@ -27,15 +27,22 @@ module Slices
     end
 
     def update_attributes(attributes)
-      [:slices, :set_slices].each do |type|
-        next if attributes[type].nil?
+      [:slices, :set_slices].each do |embed_name|
+        next if attributes[embed_name].nil?
 
-        attributes[type] = attributes[type].map { |slice|
-          slice = slice.symbolize_keys
-          next if slice[:_destroy]
-          slice.delete :_new
-          klass = (slice[:type] + '_slice').camelize.constantize
-          klass.new(slice)
+        attributes[embed_name] = attributes[embed_name].map { |slice_attributes|
+          slice_attributes = slice_attributes.symbolize_keys
+          next if slice_attributes[:_destroy]
+          slice_attributes.delete :_new
+
+          if slice_attributes[:id].present?
+            slice = slices_for(embed_name).find(slice_attributes[:id])
+            slice.write_attributes(slice_attributes)
+          else
+            class_name = slice_attributes[:type].to_s.camelize + 'Slice'
+            slice = class_name.constantize.new(slice_attributes)
+          end
+          slice
         }.compact
       end
 

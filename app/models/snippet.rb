@@ -3,12 +3,21 @@ class Snippet
 
   field :key
   field :value
-  index :key
+  index({ key: 1 })
 
-  scope :by_key, ascending(:key)
+  scope :by_key, ->{ ascending(:key) }
 
-  def self.find_value_by_key(key)
-    find(:first, conditions: { key: key }).try(:value)
+  # Finds the value of a snippet as a html_safe string
+  #
+  #   Snippet.find_for_key 'address'
+  #   # => "54B Downham Road"
+  #
+  # @param  [String]     key                         Snippet key to lookup
+  # @return [String]
+  #
+  def self.find_for_key(key)
+    find_by(key: key).value.try(:html_safe)
+  rescue Mongoid::Errors::DocumentNotFound
   end
 
   def as_json(*args)

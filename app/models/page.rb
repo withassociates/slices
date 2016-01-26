@@ -9,37 +9,30 @@ class Page
   include Slices::HasAttachments::PageInstanceMethods
 
   DESCRIPTION_DEPRECATION_WARNING = "Page#description is now meta_description. If you are upgrading, run 'rake slices:migrate:meta_description' to update."
+  LAST_CHANGED_AT_CACHE_KEY = 'page-last-changed'
 
-  field :name
+  field :name, localize: Slices::Config.i18n?
   field :role  # only relevant for virtual pages
   field :active, type: Boolean, default: false
   field :layout, type: String, default: 'default'
-  field :meta_description
-  field :title
+  field :meta_description, localize: Slices::Config.i18n?
+  field :title, localize: Slices::Config.i18n?
   field :has_content, type: Boolean, default: false
 
   belongs_to :author, class_name: 'Admin'
-
-  index :_keywords, background: true
-
   has_slices :slices
   has_and_belongs_to_many :assets
 
   text_search_in :introduction, :extended, :name
 
-  scope :entries, all
+  scope :entries, ->{ all }
+  scope :virtual, ->{ where(:role.ne => nil).asc(:name) }
 
-  def self.available_layouts
-    Layout.all.map do |human_name, machine_name|
-      { human_name: human_name, machine_name: machine_name }
-    end
-  end
-
-  scope :virtual, where(:role.ne => nil).asc(:name)
   validates_presence_of :name
 
   before_save :update_has_content
   before_destroy :destroy_children
+  after_save :update_last_changed_at
   after_save :cache_virtual_page
 
   class NotFound < RuntimeError; end
@@ -57,10 +50,16 @@ class Page
     end
   end
 
-  # Virtual pages don't live in the and are not associated with a
-  # specific URL. Instead, they can be rendered at any path, depending
-  # on the circumstances (e.g. when a page isn't found, or when an error
-  # occurs). Consequently they aren't created with a :parent attribute.
+  def self.available_layouts
+    Layout.all.map do |human_name, machine_name|
+      { human_name: human_name, machine_name: machine_name }
+    end
+  end
+
+  # Virtual pages are not associated with a specific URL. Instead, they
+  # can be rendered at any path, depending on the circumstances (e.g.
+  # when a page isn't found, or when an error occurs). Consequently they
+  # aren't created with a :parent attribute.
   def self.make(attributes = {})
     attributes = attributes.symbolize_keys
     parent = parent_from_attributes(attributes)
@@ -78,17 +77,27 @@ class Page
   end
 
   def self.find_by_id(id)
+    ActiveSupport::Deprecation::warn 'Page.find_by_id is depreciated, please use Page.find instead.'
     find(id)
-  rescue BSON::InvalidObjectId, Mongoid::Errors::DocumentNotFound
+  rescue Mongoid::Errors::DocumentNotFound
     nil
   end
 
   def self.find_by_id!(id)
+    ActiveSupport::Deprecation::warn 'Page.find_by_id is depreciated, please use Page.find instead.'
     find_by_id(id) || (raise NotFound)
   end
 
   def self.find_virtual(role)
-    first(conditions: { role: role })
+    find_by(role: role)
+  end
+
+  def update_last_changed_at
+    Rails.cache.write(LAST_CHANGED_AT_CACHE_KEY, Time.now.to_i)
+  end
+
+  def self.last_changed_at
+    Rails.cache.read(LAST_CHANGED_AT_CACHE_KEY) || 0
   end
 
   def cacheable_virtual_page?
@@ -177,23 +186,25 @@ class Page
     self.meta_description = value
   end
 
+  def self.parent_from_attributes(attributes)
+    if attributes.has_key?(:parent_path)
+      Page.find_by_path(attributes.delete(:parent_path))
+    elsif attributes.has_key?(:parent_id)
+      Page.find(attributes.delete(:parent_id))
+    else
+      attributes.delete(:parent)
+    end
+  end
+  private_class_method :parent_from_attributes
+
+  def self.page_exists?(path)
+    Page.find_by_path(path)
+  rescue NotFound
+    false
+  end
+  private_class_method :page_exists?
+
   private
-    def self.parent_from_attributes(attributes)
-      if attributes.has_key?(:parent_path)
-        Page.find_by_path(attributes.delete(:parent_path))
-      elsif attributes.has_key?(:parent_id)
-        Page.find_by_id(attributes.delete(:parent_id))
-      else
-        attributes.delete(:parent)
-      end
-    end
-
-    def self.page_exists?(path)
-      Page.find_by_path(path)
-    rescue NotFound
-      false
-    end
-
     def update_has_content
       self.has_content = slices.any?
       true # must be true otherwise save will fail

@@ -4,7 +4,7 @@ class Admin::EntriesController < Admin::AdminController
   respond_to :json, :html
 
   def index
-    @page = Page.find_by_id! params[:page_id]
+    @page = Page.find params[:page_id]
 
     respond_to do |format|
       format.html do

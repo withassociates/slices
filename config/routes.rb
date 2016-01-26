@@ -1,21 +1,18 @@
 class PageConstraints
   def matches?(request)
-    !request.path.start_with?("/admin/auth")
+    !request.path.start_with?('/admin/auth')
   end
 end
 
 Rails.application.routes.draw do
 
-  devise_for :admin, :path => "admin", :controllers => {
-    :passwords          => "admin/auth/passwords",
-    :sessions           => "admin/auth/sessions",
-  }
+  devise_for :admin, Slices::Config.devise_for_options
 
   namespace :admin do
-    match 'site_maps' => 'site_maps#index', :as => :root # Devise redirects here after sign in
-    match 'site_maps' => 'site_maps#index'
-    match 'site_maps/update' => 'site_maps#update'
-    match 'pages/search' => 'page_search#show'
+    get 'site_maps' => 'site_maps#index', as: :root # Devise redirects here after sign in
+    get 'site_maps' => 'site_maps#index'
+    put 'site_maps/update' => 'site_maps#update'
+    get 'pages/search' => 'page_search#show'
     resources :pages, :except => [:index, :edit] do
       resources :entries, :only => [:index]
     end
@@ -23,18 +20,18 @@ Rails.application.routes.draw do
     resources :snippets
     resources :admins
   end
-  match '/admin' => redirect('/admin/site_maps')
+  get '/admin' => redirect('/admin/site_maps')
 
-  match 'slices/templates(/:slice)/:name.:format' => 'static_assets#templates'
-  match ':action/:asset_type(/:folder)/*name.:format' => 'static_assets',
+  get 'slices/templates(/:slice)/:name.:format' => 'static_assets#templates'
+  get ':action/:asset_type(/:folder)/*name.:format' => 'static_assets',
     :constraints => {
     :asset_type => /(stylesheets|javascripts|images)/,
     :action => /(slices|sites)/
   }, :as => :static_assets
 
-  match ':status.html' => 'pages#virtual_error_pages'
-  match '*path' => 'pages#create', :via => :post
-  match '*path' => 'pages#show', :as => :page, :constraints => PageConstraints.new
+  get ':status.html' => 'pages#virtual_error_pages'
+  post '*path' => 'pages#create'
+  get '*path' => 'pages#show', as: :page, :constraints => PageConstraints.new
 
-  root :to => 'pages#show'
+  root to: 'pages#show'
 end

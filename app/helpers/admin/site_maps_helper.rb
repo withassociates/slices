@@ -3,12 +3,46 @@
 module Admin::SiteMapsHelper
   include Admin::AdminHelper
 
+  # Returns all pages that should appear in the sitemap
+  #
+  # @!visibility private
+  def sitemap_pages
+    @sitemap_pages ||= proper_pages.only(:id, :name, :page_id, :path).group_by(&:page_id)
+  end
+
+  # Returns children for a given page
+  #
+  # @!visibility private
+  def sitemap_children_for(page)
+    sitemap_pages.fetch(page.id, []).sort_by(&:position)
+  end
+
+  # Returns criteria for pages that aren't entries
+  #
+  # @!visibility private
+  def proper_pages
+    Page.where(:_type.in => proper_types)
+  end
+
+  # Returns page types that aren't for entries
+  #
+  # @!visibility private
+  def proper_types
+    Page.distinct(:_type).reject { |type| type.constantize.new.entry? }
+  end
+
   # Render a list of pages
   #
   # @!visibility private
   def list_pages(pages)
     pages.inject(''.html_safe) do |html, page|
-      html << render(partial: page_partial(page), locals: {page: page} )
+      html << render(
+        partial: page_partial(page),
+        locals: {
+          page: page,
+          children: sitemap_children_for(page),
+        }
+      )
     end
   end
 
@@ -93,12 +127,13 @@ module Admin::SiteMapsHelper
     link_to 'Edit Entry Template', url, class: 'button'
   end
 
-  # Create a link to view the current page on the live site
+  # Return HTMl class names for a page
   #
   # @!visibility private
-  def link_to_view_page(page)
-    return unless page.active?
-    link_to 'View page on site', page.path,
-            class: 'view-page', target: '_blank'
+  def page_classes(page)
+    classes = []
+    classes << 'home' if page.home?
+    classes << page.class.name.underscore.dasherize
+    classes.join ' '
   end
 end

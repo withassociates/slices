@@ -4,7 +4,7 @@ describe Slices::ContainerParser do
   describe ".parse" do
 
     let(:container_parser) do
-      path = Rails.root.join('spec/fixtures/views/layouts', layout + '.html.erb')
+      path = Rails.root.join('app/views/layouts', layout + '.html.erb')
       Slices::ContainerParser.new(path)
     end
 

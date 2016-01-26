@@ -6,7 +6,6 @@ class Admin::PagesController < Admin::AdminController
   respond_to :text, only: [:show]
 
   before_filter :find_all_slices, only: :update
-  after_filter :expire_fragments, only: [:update, :create, :destroy]
 
   def new
     @page = Page.new(parent_id: params[:parent_id]) # TODO: change parent_id to path
@@ -27,7 +26,7 @@ class Admin::PagesController < Admin::AdminController
   end
 
   def show
-    page = Page.find_by_id!(params[:id])
+    page = Page.find(params[:id])
     @page = presenter_class(page.class).new(page)
     @layout = Layout.new(page.layout)
 
@@ -44,12 +43,12 @@ class Admin::PagesController < Admin::AdminController
         render hbs_path
       end
     end
-  rescue Page::NotFound
+  rescue Mongoid::Errors::DocumentNotFound
     redirect_to admin_site_maps_path
   end
 
   def update
-    @page = Page.find_by_id!(params[:id])
+    @page = Page.find(params[:id])
     if entry_page?
       params[:page][:set_slices] = params[:page].delete(:slices)
     end
@@ -64,7 +63,7 @@ class Admin::PagesController < Admin::AdminController
   end
 
   def destroy
-    @page = Page.find_by_id!(params[:id])
+    @page = Page.find(params[:id])
     @page.destroy
     respond_to do |format|
       format.html { redirect_to admin_site_maps_path }
@@ -88,14 +87,6 @@ class Admin::PagesController < Admin::AdminController
 
     def entry_page?
       params.has_key?(:entries)
-    end
-
-    def expire_fragments
-      record = @page
-      type = record.class.to_s.underscore
-      id = record.id.to_s
-      expire_fragment(/.*#{type}.*/)
-      expire_fragment(/.*#{id}.*/)
     end
 
     def find_all_slices

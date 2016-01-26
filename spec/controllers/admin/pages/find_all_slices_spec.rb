@@ -8,11 +8,11 @@ describe Admin::PagesController, type: :controller do
 
   context "in development mode" do
     before do
-      allow(Page).to receive(:find_by_id!).and_return(page)
+      allow(Page).to receive(:find).and_return(page)
     end
 
     let :id do
-      BSON::ObjectId.new
+      Moped::BSON::ObjectId.new
     end
 
     let :page do

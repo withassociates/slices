@@ -36,76 +36,25 @@ describe Page, type: :model do
       end
     end
   end
+end
 
-  describe ".find_by_id" do
+describe Page, ".home" do
 
-    context "when pages exist" do
-      before do
-        @home, @parent = StandardTree.build_minimal
-      end
-
-      it "returns the home page" do
-        expect(Page.find_by_id(@home.id)).to eq @home
-      end
-
-      it "returns the parent page" do
-        expect(Page.find_by_id(@parent.id)).to eq @parent
-      end
+  context "when pages exist" do
+    before do
+      @home, @parent = StandardTree.build_minimal
     end
 
-    context "when pages do not exist" do
-      it "returns nil" do
-        expect(Page.find_by_id('no-such-id')).to be_nil
-      end
-    end
-
-  end
-
-  describe ".find_by_id!" do
-
-    context "when pages exist" do
-      before do
-        @home, @parent = StandardTree.build_minimal
-      end
-
-      it "returns the home page" do
-        expect(Page.find_by_id(@home.id)).to eq @home
-      end
-
-      it "returns the parent page" do
-        expect(Page.find_by_id(@parent.id)).to eq @parent
-      end
-    end
-
-    context "when pages do not exist" do
-      it "raises Page::NotFound" do
-        expect {
-          Page.find_by_id!('no-such-id')
-        }.to raise_error Page::NotFound
-      end
-
+    it "returns the home page" do
+      expect(Page.home).to eq @home
     end
   end
 
-  describe ".home" do
-
-    context "when pages exist" do
-      before do
-        @home, @parent = StandardTree.build_minimal
-      end
-
-      it "returns the home page" do
-        expect(Page.home).to eq @home
-      end
-    end
-
-    context "when pages do not exist" do
-      it "raises Page::NotFound" do
-        expect {
-          Page.home
-        }.to raise_error Page::NotFound
-      end
+  context "when pages do not exist" do
+    it "raises Page::NotFound" do
+      expect {
+        Page.home
+      }.to raise_error Page::NotFound
     end
   end
-
 end

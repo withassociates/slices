@@ -27,11 +27,11 @@ describe Asset, type: :model do
       end
 
       it "generates an admin thumbnail for the uploaded file" do
-        expect(asset.file.exists?(:admin)).to be_truthy
+        expect(asset.file).to be_exists(:admin)
       end
 
       it "does not generate the extended style for the uploaded file" do
-        expect(asset.file.exists?(:extended)).to be_falsey
+        expect(asset.file).to_not be_exists(:extended)
       end
 
       it "stores the admin dimensions" do
@@ -170,7 +170,7 @@ describe Asset, type: :model do
 
         it "processes the style" do
           asset = Asset.new(file_dimensions: {} )
-          asset.file.stub(exists?: true)
+          allow(asset.file).to receive_messages(exists?: true)
           expect(asset.file).to receive(:reprocess!)
           asset.reprocess_for(:extended)
         end

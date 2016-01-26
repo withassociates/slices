@@ -1,4 +1,4 @@
 module Slices
-  VERSION = '1.0.4'
+  VERSION = '3.0.0.beta'
 end
 

@@ -80,7 +80,7 @@ $(function () {
       contentType: 'application/json',
       dataType: 'json',
       success: function (data, statusText, xhr) {
-        // TODO:
+        location.reload();
       },
       error: function (xhr, textStatus, errorThrown) {
         // TODO:
@@ -146,5 +146,86 @@ $(function () {
     return false;
   });
 
+  function loadLocalStorage() {
+    var ids = JSON.parse(localStorage.getItem('sitemap.hidden'));
+
+    $('.toggle-children').filter(function() {
+      var id = $(this).attr('href').substring(1);
+      return $.inArray(id, ids) >= 0;
+    }).each(function() {
+      toggleChildren(this, false, true);
+    });
+  }
+
+  function updateLocalStorage() {
+    var ids = $('.page-children.hidden').map(function() {
+      return $(this).attr('id');
+    }).toArray();
+
+    localStorage['sitemap.hidden'] = JSON.stringify(ids);
+  }
+
+  function toggleChildren(target, value, instant) {
+    var toggle   = $(target),
+        selector = toggle.attr('href'),
+        element  = $(selector);
+
+    if (value) {
+      if (instant) {
+        element.show();
+      } else {
+        element.slideDown('fast');
+      }
+
+      element.removeClass('hidden');
+      toggle.removeClass('active');
+    } else {
+      if (instant) {
+        element.hide();
+      } else {
+        element.slideUp('fast');
+      }
+
+      element.addClass('hidden');
+      toggle.addClass('active');
+    }
+
+    updateLocalStorage();
+  }
+
+  function showChildren() {
+    toggleChildren(this, true);
+  }
+
+  function hideChildren() {
+    toggleChildren(this, false);
+  }
+
+  $('.hide-all-children').click(function() {
+    $('.toggle-children').each(hideChildren);
+  });
+
+  $('.show-all-children').click(function() {
+    $('.page-children:hidden .page-children').show();
+    $('.toggle-children').each(showChildren);
+  });
+
+  $('.toggle-children').click(function(event) {
+    event.preventDefault();
+
+    var toggle   = $(this),
+        selector = toggle.attr('href'),
+        element  = $(selector);
+
+    element.slideToggle('fast').toggleClass('hidden');
+    toggle.toggleClass('active');
+    updateLocalStorage();
+  });
+
+  if ($('.page-children .page-children').size() == 0) {
+    $('.toggle-actions').hide();
+  }
+
+  loadLocalStorage();
 });
 

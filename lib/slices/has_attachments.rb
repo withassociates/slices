@@ -5,32 +5,8 @@ module Slices
     module ClassMethods
 
       def has_attachments(embed_name = :attachments, options = {})
-        klass = if options.has_key?(:class_name)
-                  options[:class_name].constantize
-                else
-                  Attachment
-                end
-
-        default = options[:default] || options[:singular] ? nil : []
-        type = options[:singular] ? Hash : Array
-
-        if options[:singular]
-          define_method embed_name do
-            if embed = read_attribute(embed_name)
-              klass.new embed
-            end
-          end
-        else
-          define_method embed_name do
-            (read_attribute(embed_name) || []).collect do |embed|
-              klass.new embed
-            end
-          end
-        end
-
         attachment_fields << embed_name
-
-        field embed_name, type: type, default: default
+        embeds_many embed_name, {class_name: "Attachment", as: :object}.merge(options)
       end
 
       def attachment_fields
@@ -44,11 +20,10 @@ module Slices
     end
 
     module PageInstanceMethods
-
       def attachment_assets
         attachment_asset_ids.inject([]) do |memo, asset_id|
           begin
-            memo << ::Asset.find(asset_id)
+            memo << ::Asset.find(asset_id.to_s)
           rescue Mongoid::Errors::DocumentNotFound
           end
           memo
@@ -68,6 +43,17 @@ module Slices
       end
       alias :attachment_asset_ids :slice_attachment_asset_ids
 
+      def remove_asset(asset)
+        remove_asset_from_slices(asset)
+      end
+
+      def remove_asset_from_slices(asset)
+        slices.each { |slice|
+          if slice.respond_to?(:remove_asset)
+            slice.remove_asset(asset)
+          end
+        }
+      end
     end
 
     def as_json options = nil
@@ -76,14 +62,7 @@ module Slices
 
     def attachments_as_json
       self.class.attachment_fields.inject({}) do |hash, name|
-        value = send name
-
-        hash[name] = if value.respond_to?(:map)
-                       value.map &:as_json
-                     else
-                       value.as_json
-                     end
-
+        hash[name] = send(name).map(&:as_json)
         hash
       end
     end
@@ -105,7 +84,16 @@ module Slices
       end.flat_map {|i| i }
     end
 
+    def remove_asset(asset)
+      super if defined?(super)
+
+      asset_id = asset.id
+
+      self.class.attachment_fields.each do |field_name|
+        send(field_name).each do |attachment|
+          attachment.destroy if attachment.asset_id == asset_id
+        end
+      end
+    end
   end
-
 end
-

@@ -12,19 +12,22 @@ describe Slices::HasSlices do
       slice
     end
 
+    def localized_value(hash)
+      hash.fetch(I18n.default_locale.to_s)
+    end
+
     def has_no_slice_with_textile(slices, text)
       slices.each do |slice|
-        expect(slice['textile']).not_to include text
+        expect(localized_value(slice['textile'])).not_to equal(text)
       end
     end
 
     def has_slice_with_textile(slices, text)
       found = false
       slices.each do |slice|
-        found = true if slice['textile'] == text
+        found = true if localized_value(slice['textile']) == text
       end
       expect(found).to be_truthy
-      #assert_equal true, found, "Could not find a slice with '#{text}' in #{slices.inspect}"
     end
 
     def assert_all_slices_have_necessary_fields(slices)
@@ -199,9 +202,7 @@ describe Slices::HasSlices do
       end
 
       it "has slices with 2 to 6" do
-        (2..6).each do |num|
-          has_slice_with_textile(home.slices, '6')
-        end
+        (2..6).each { |num| has_slice_with_textile(home.slices, num.to_s) }
       end
 
     end

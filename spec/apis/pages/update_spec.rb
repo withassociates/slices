@@ -90,14 +90,14 @@ describe "PUT to pages#update" do
 
   def page_data(slices_data)
     {
-      'name'        => 'Updated parent',
-      'permalink'   => 'parent',
-      'active'      => 1,
-      'show_in_nav' => 0,
-      'layout'      => 'layout_three',
-      'meta_description' => 'This is an important page',
-      'title'       => 'Title',
-      'slices'      => slices_data
+      'name'              => 'Updated parent',
+      'permalink'         => 'parent',
+      'active'            => 1,
+      'show_in_nav'       => 0,
+      'layout'            => 'layout_three',
+      'meta_description'  => 'This is an important page',
+      'title'             => 'Title',
+      'slices'            => slices_data
     }
   end
 
@@ -117,9 +117,11 @@ describe "PUT to pages#update" do
 
     before do
       home, @page = StandardTree.build_minimal_with_slices
-      slices_data = content_slices_data(@page.slices)
-      put_json admin_page_path(@page, format: :json),
-        { page: page_data(slices_data) }
+      I18n.with_locale(:de) do
+        slices_data = content_slices_data(@page.slices)
+        put_json admin_page_path(@page, format: :json),
+          { page: page_data(slices_data) }
+      end
     end
 
     it "responds with success" do
@@ -128,7 +130,7 @@ describe "PUT to pages#update" do
 
     it_behaves_like "updates slices correctly"
 
-    it "updates page attributes" do
+    it "updates page attributes", i18n: true do
       expect(json_response).to include({'name' => 'Updated parent'})
       expect(json_response).to include({'active' => true})
       expect(json_response).to include({'show_in_nav' => false})
@@ -137,7 +139,7 @@ describe "PUT to pages#update" do
       expect(json_response).to include({'title' => 'Title'})
     end
 
-    it "updates slice attributes" do
+    it "updates slice attributes", i18n: true do
       updated_slice = json_slices.find { |slice| slice['id'] == @updated_slice_id }
       expect(updated_slice['title']).to eq 'Updated Title'
     end
@@ -149,6 +151,43 @@ describe "PUT to pages#update" do
       expect(new_slice['title']).to eq 'New content'
     end
 
+  end
+
+  context "i18n", i18n: true do
+    before do
+      home, @page = StandardTree.build_minimal_with_slices
+      @slice = @page.slices.first
+      @slice.title_translations = {
+        en: 'en Title',
+        de: 'de Title'
+      }
+      @page.save
+    end
+
+    let :page do
+      Page.find(@page.id)
+    end
+
+    it "has a title" do
+      expect(page.slices.first.attributes['title']).to eq({
+        'de' => 'de Title',
+        'en' => 'en Title',
+      })
+    end
+
+    it "does not alter other locales" do
+      slices_data = content_slices_data(@page.slices)
+      put_json admin_page_path(@page, locale: 'de', format: :json), { page: page_data(slices_data) }
+
+      updated_slice = json_slices.find { |slice| slice['id'] == @updated_slice_id }
+      expect(updated_slice['title']).to eq 'Updated Title'
+
+      slice = Page.find(page.id).slices.last
+      expect(slice.attributes['title']).to eq({
+        'en' => 'en Title',
+        'de' => 'Updated Title',
+      })
+    end
   end
 
   context "for a set's entries (with valid data)" do
@@ -217,7 +256,7 @@ describe "PUT to pages#update" do
     end
 
     it "does not remove the deleted slices" do
-      page = Page.find_by_id(@page.to_param)
+      page = Page.find(@page.to_param)
       deleted_slice = page.slices.detect { |slice| slice.id.to_s == @deleted_slice_id }
       expect(deleted_slice).to be_a Slice
     end
@@ -257,6 +296,42 @@ describe "PUT to pages#update" do
       expect(response.code).to eq '200'
     end
 
+  end
+
+  context "updating an asset slice" do
+    let(:slide) { SlideshowSlice::Slide.new(caption: "old") }
+    let(:slice) { SlideshowSlice.new(slides: [slide]) }
+    let(:page) do
+      page = StandardTree.build_minimal.last
+      page.slices = [slice]
+      page
+    end
+    let(:slices_data) do
+      [
+        slice.as_json.merge('slides' => [slide.as_json.merge('caption' => "new")])
+      ]
+    end
+
+    before do
+      put_json admin_page_path(page, format: :json),
+        { page: page_data(slices_data) }
+    end
+
+    it "responds with success" do
+      expect(response.code).to eq '200'
+    end
+
+    it "updates the slice" do
+      expect(page.reload.slices[0].slides[0].caption).to eq("new")
+    end
+
+    context "when the slice attachments have translations" do
+      let(:slide) { SlideshowSlice::Slide.new(caption_translations: {'tr' => "tr caption", 'en' => "old"}) }
+
+      it "keeps any other translations", i18n: true do
+        expect(page.reload.slices[0].slides[0].caption_translations).to eq({'tr' => "tr caption", 'en' => "new"})
+      end
+    end
   end
 
 end

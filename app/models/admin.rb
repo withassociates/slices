@@ -25,8 +25,7 @@ class Admin
 
   text_search_in :name, :email
 
-  validates_uniqueness_of :email, case_sensitive: false, scope: :site_id
-  validates_presence_of :email
+  validates_uniqueness_of :email, case_sensitive: false
   validates_presence_of :encrypted_password
 
   devise :database_authenticatable, :recoverable, :rememberable,
@@ -36,8 +35,10 @@ class Admin
     self.super_user == true
   end
 
-  def as_json(options)
+  def as_json(options = {})
     super(options).tap do |json|
+      json[:last_sign_in_at] = last_sign_in_at
+
       if current_admin = options[:current_admin]
         json[:current_admin] = current_admin.id == id
       end

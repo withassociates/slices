@@ -32,7 +32,7 @@ class Admin::AssetsController < Admin::AdminController
 
   def destroy
     asset = Asset.find(params[:id])
-    asset.soft_destroy!
+    asset.destroy
     respond_to do |format|
       format.html { redirect_to admin_assets_path }
       format.json { render json: true }

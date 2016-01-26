@@ -29,7 +29,7 @@ module MongoSearch
         self.search_fields = args
 
         field :_keywords, type: Array
-        index :_keywords
+        index({ _keywords: 1 }, { background: true })
 
         before_save :set_keywords
       end

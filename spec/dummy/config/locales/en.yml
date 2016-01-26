@@ -1,0 +1,8 @@
+en:
+  locales:
+    en: "English"
+  mongoid:
+    errors:
+      message:
+        blank_in_locale:
+          "can't be blank"

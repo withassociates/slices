@@ -43,7 +43,7 @@ $.extend(slices.Uploader.prototype, Backbone.Events, {
       type     : 'file',
       multiple : 'multiple',
       style    : 'position: absolute; visibility: hidden'
-    });
+    }).appendTo('body');
   },
 
   observeEvents: function() {

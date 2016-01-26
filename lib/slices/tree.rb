@@ -39,8 +39,8 @@ module Slices
       field :position, type: Integer
       field :show_in_nav, type: Boolean, default: false
 
-      scope :minimal, only: %w(page_id path external_url name has_content)
-      index :path
+      scope :minimal, ->{ only(%w(_type page_id path external_url name has_content)) }
+      index({ path: 1 }, { unique: true })
 
       belongs_to :page
 
@@ -66,7 +66,9 @@ module Slices
       # @return [Page]
       #
       def find_by_path(path)
-        first(conditions: { path: path }) || (raise Page::NotFound.new(path))
+        find_by(path: path)
+      rescue Mongoid::Errors::DocumentNotFound
+        raise Page::NotFound.new(path)
       end
       alias :f :find_by_path
 
@@ -277,6 +279,13 @@ module Slices
       else
         name.to_url
       end
+    end
+
+    # Don't store permalink
+    #
+    # @return nil
+    #
+    def permalink=(args)
     end
 
     private

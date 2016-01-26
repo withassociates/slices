@@ -3,29 +3,26 @@ ENV['RAILS_ENV'] ||= 'test'
 require 'bundler'
 Bundler.setup
 
-require File.expand_path('../../config/environment', __FILE__)
+require File.expand_path('../dummy/config/environment.rb',  __FILE__)
 require 'rspec/rails'
 require 'capybara/rails'
-require 'capybara/poltergeist'
-require 'rack_utf8_fix'
+require 'support/standard_tree'
 
 Paperclip.options[:logger] = Rails.logger
 Paperclip.options[:log] = true
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
-Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+SLICES_GEM_ROOT = Pathname.new File.expand_path('.')
+Dir[SLICES_GEM_ROOT.join('spec/support/**/*.rb')].each { |f| require f }
 
 # Setup slices to use view/slice/site fixtures
-SlicesController.prepend_view_path(Rails.root.join(*%w[spec fixtures views]))
-SlicesController.prepend_view_path(Rails.root.join(*%w[spec fixtures slices]))
 
 Slices::Config.use_snippets!
 
 Capybara.default_selector = :css
 Capybara.default_wait_time = ENV['CI'] ? 60 : 5
 Capybara.default_driver = :rack_test
-Capybara.javascript_driver = :poltergeist
 
 # Add spec to asset path to easily tear down after specs
 url = Asset.attachment_definitions[:file][:url]
@@ -36,12 +33,15 @@ RSpec.configure do |config|
   config.order = 'random'
 
   config.extend AssetMacros
-  config.include Mongoid::Matchers, type: :model
   config.include GeneratorHelpers
   config.include AssetHelpers
   config.include RequestHelpers, type: :request
   config.include ControllerHelpers, type: :controller
   config.include Capybara::DSL, type: :request
+
+  # Added for Rspec 3.0
+  config.infer_spec_type_from_file_location!
+  config.expose_current_running_example_as :example
 
   # Hook in database cleaner
   config.before do
@@ -63,21 +63,3 @@ RSpec.configure do |config|
 
 end
 
-Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, {
-    debug: false,
-    inspector: true
-  })
-end
-
-module Capybara::Node::Matchers
-
-  def enabled?
-    self[:disabled].nil?
-  end
-
-  def disabled?
-    !enabled?
-  end
-
-end

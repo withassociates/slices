@@ -60,4 +60,12 @@ module Admin::AdminHelper
     @page.try(:name) || "Slices CMS"
   end
 
+  # Create a link to view the current page on the live site
+  #
+  # @!visibility private
+  def link_to_view_page(page, options = {})
+    link_options = { class: 'view-page', target: '_blank' }.merge(options)
+    path = page_path(page.path, locale: I18n.locale).gsub('//', '/')
+    link_to 'View page on site', path, link_options
+  end
 end

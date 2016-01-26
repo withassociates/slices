@@ -31,7 +31,7 @@ describe Slices::GeneratorMacros do
   describe ".generate!" do
     it "runs all generators" do
       subject.generate!
-      expect(subject.test_generator_called?).to be_truthy
+      expect(subject).to be_test_generator_called
     end
   end
 end

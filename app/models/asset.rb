@@ -15,7 +15,6 @@ class Asset
   field :file_fingerprint, type: String
   field :file_dimensions, type: Hash, default: {}
 
-  field :destroyed_at, type: Time
   field :tags, type: String
   field :page_cache, type: Array, default: []
 
@@ -34,17 +33,12 @@ class Asset
   after_file_post_process :store_dimensions, if: :is_image?
   before_save :reset_file_dimensions!, if: :file_fingerprint_changed?
   before_save :rename_file
+  after_destroy :remove_asset_from_pages
 
   has_and_belongs_to_many :pages
 
-  index(
-    [
-      [ :destroyed_at, Mongo::ASCENDING ],
-      [ :created_at, Mongo::DESCENDING ]
-    ]
-  )
-  index :file_fingerprint
-  index :_keywords
+  index({ file_fingerprint: 1 })
+  index({ _keywords: 1 }, { background: true })
 
   def self.make(*args)
     Slices::Asset::Maker.run(*args)
@@ -59,7 +53,7 @@ class Asset
   end
 
   def self.ordered_active
-    where(destroyed_at: nil).desc(:created_at)
+    desc(:created_at)
   end
 
   def as_json(options = nil)
@@ -139,16 +133,11 @@ class Asset
     end
   end
 
-  def soft_destroy!
-    update_attributes!(destroyed_at: Time.now)
-  end
-
-  def soft_destroyed?
-    destroyed_at.present?
-  end
-
-  def soft_restore!
-    update_attributes!(destroyed_at: nil)
+  def remove_asset_from_pages
+    pages.each do |page|
+      page.remove_asset(self)
+      page.save if page.changed?
+    end
   end
 
   def name

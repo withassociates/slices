@@ -1,0 +1,22 @@
+<li>
+  <label for="meta-categories">Categories</label>
+  {{tokenField field="categories" options="available_categories"}}
+</li>
+
+<li>
+  <label for="meta-tag">Tag</label>
+  {{tokenField field="tag" options="available_tags" singular="true"}}
+</li>
+
+<li>
+  <label for="meta-published_at">Publication Date</label>
+  {{dateField field="published_at"}}
+</li>
+
+<li>
+  <label for="meta-images">Featured Image</label>
+  {{#attachmentComposer field="images"}}
+    <textarea name="caption" placeholder="Caption…" class="full-height">{{caption}}</textarea>
+  {{/attachmentComposer}}
+</li>
+

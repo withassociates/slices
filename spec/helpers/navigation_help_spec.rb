@@ -28,16 +28,16 @@ RSpec::Matchers.define :be_html_equivalent do |expected|
     stripped_html(actual) == stripped_html(expected)
   end
 
-  failure_message_for_should do |actual|
-    "expected that\n#{actual}\nwould be equlivent to\n#{expected}"
+  failure_message do |actual|
+    "expected that\n#{actual}\nwould be equivalent to\n#{expected}"
   end
 
-  failure_message_for_should_not do |actual|
-    "expected that\n#{actual} would not be equlivent to\n#{expected}"
+  failure_message_when_negated do |actual|
+    "expected that\n#{actual} would not be equivalent to\n#{expected}"
   end
 
   description do
-    "be HTML equlivent to #{expected}"
+    "be HTML equivalent to #{expected}"
   end
 end
 
@@ -428,6 +428,15 @@ describe NavigationHelper, type: :helper do
     before do
       StandardTree.build_minimal
       StandardTree.add_article_set(Page.home)
+    end
+
+    it_renders_for('/articles', :primary) do
+      <<-EOF
+        <ul id="primary_navigation"><li class="first nav-home"><a href="/">Home</a></li>
+          <li class="nav-parent"><a href="/parent">Parent</a></li>
+          <li class="active last nav-articles"><a href="/articles">Articles</a></li>
+        </ul>
+      EOF
     end
 
     it_renders_for('/articles', :secondary) { '' }

@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 require 'rails/generators'
 require 'thor'
 
@@ -24,8 +22,20 @@ module Slices
       copy_file "application.html.erb", "app/views/layouts/default.html.erb"
     end
 
+    def create_admin_nav_partials
+      create_file "app/views/admin/shared/_custom_navigation.html.erb", <<-END
+      <%# Place custom navbar controls here i.e. %>
+      <%#= admin_nav_link 'Example', example_path %>
+      END
+
+      create_file "app/views/admin/shared/_custom_links.html.erb", <<-END
+      <%# Place custom navbar links here i.e. %>
+      <%#= content_tag :li, link_to('Example', example_path) %>
+      END
+    end
+
     def optionally_create_mongoid_yaml
-      copy_file "mongoid.yml", "config/mongoid.yml"
+      generate 'mongoid:config'
     end
 
     def delete_superfluous_files

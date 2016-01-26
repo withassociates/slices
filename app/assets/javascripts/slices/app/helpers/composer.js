@@ -17,6 +17,8 @@ Handlebars.registerHelper('composer', function(options) {
   var view = new slices.ComposerView({
     id         : slices.fieldId(this, options.hash.field),
     value      : this[options.hash.field],
+    min        : options.hash.min,
+    max        : options.hash.max,
     fields     : options.fn,
     addLabel   : options.hash.addLabel,
     autoAttach : true

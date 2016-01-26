@@ -3,19 +3,6 @@ class PagePresenter < Presenter
     @source.id.to_s
   end
 
-  def available_slices
-    slices = {}
-    ObjectSpace.each_object do |object|
-      ActiveSupport::Deprecation.silence do
-        if object.class == Class && object.name =~ /\w+Slice$/
-          key = object.name.underscore.sub('_slice', '')
-          slices[key] = key.humanize
-        end
-      end
-    end
-    slices
-  end
-
   def name
     @source.name
   end
@@ -42,6 +29,14 @@ class PagePresenter < Presenter
 
   def meta_extra_template
     'page_meta_extra'
+  end
+
+  def main_extra_templates
+    [main_extra_template]
+  end
+
+  def meta_extra_templates
+    [meta_extra_template]
   end
 
   def breadcrumbs

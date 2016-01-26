@@ -1,5 +1,4 @@
 require 'spec_helper'
-require Rails.root.join 'spec/fixtures/slices/broken/broken_slice'
 
 describe "Page dispatching when things go wrong", type: :request do
   extend ErrorHandlingMacros

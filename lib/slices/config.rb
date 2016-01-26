@@ -35,6 +35,13 @@ module Slices
       @snippets || false
     end
 
+    def self.i18n?
+      !!(
+        I18n.available_locales.many? ||
+          Rails.application.config.i18n.available_locales.try(:many?)
+      )
+    end
+
     def self.s3_storage?
       Paperclip::Attachment.default_options[:storage].to_sym == :fog
     end
@@ -57,18 +64,52 @@ module Slices
       }
     end
 
-    # Google Apps domain for quick auth.
+    # Page fields template path.
     #
-    # @return [String] the domain
-    def self.google_apps_domain
-      @google_apps_domain
+    # @return [String] the path
+    def self.page_fields_template
+      @page_fields_template || 'admin/pages/fields'
     end
 
-    # Set Google Apps domain for quick auth.
+    # Set page fields template path.
     #
-    # @param [String] the domain
-    def self.google_apps_domain=(domain)
-      @google_apps_domain = domain
+    # @param [String] the path
+    def self.page_fields_template=(path)
+      @page_fields_template = path
+    end
+
+    # Page actions template path.
+    #
+    # @return [String] the path
+    def self.page_actions_template
+      @page_actions_template || 'admin/site_maps/page_actions'
+    end
+
+    # Set page actions template path.
+    #
+    # @param [String] the path
+    def self.page_actions_template=(path)
+      @page_actions_template = path
+    end
+
+    # Options for devise_for.
+    #
+    # @return [Hash] the options
+    def self.devise_for_options
+      @devise_options ||= {
+        path: 'admin',
+        controllers: {
+          passwords:  'admin/auth/passwords',
+          sessions:   'admin/auth/sessions',
+        }
+      }
+    end
+
+    # Set options for devise_for.
+    #
+    # @param [Hash] the options
+    def self.devise_for_options=(options = {})
+      @devise_options = options
     end
 
     private

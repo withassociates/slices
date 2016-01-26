@@ -1,20 +1,31 @@
-<li class="page <%= "home" if page.home? %>" rel="<%= page.id %>">
-  <div>
+<li class="<%= page_classes(page) %>" rel="<%= page.id %>">
+  <div class="page-item">
     <h2><%= link_to(page.name, admin_page_path(page)) %></h2>
 
     <% unless page.virtual? %>
       <span class="item-actions primary">
-        <%= link_to_add_child page %>
-        <%= link_to_view_page page %>
+        <%= render(
+          partial: Slices::Config.page_actions_template,
+          locals: { page: page }
+        ) %>
       </span>
 
       <%= link_to_delete page unless page.home? %>
     <% end %>
+
+    <% if page.home? %>
+      <div class="toggle-actions">
+        <a class="hide-all-children button">Minimise all</a>
+        <a class="show-all-children button">Expand all</a>
+      </div>
+    <% elsif children.any? %>
+      <a class="toggle-children" href="#page-<%= page.id %>-children"></a>
+    <% end %>
   </div>
 
-  <% if page.children.any? %>
-    <ol>
-      <%= list_pages(page.children) %>
+  <% if children.any? %>
+    <ol id="page-<%= page.id %>-children" class="page-children">
+      <%= list_pages(children) %>
     </ol>
   <% end %>
 </li>

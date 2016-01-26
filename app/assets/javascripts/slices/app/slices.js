@@ -51,17 +51,18 @@ var slices = {
 
       slices.availableContainers = settings.availableContainers;
       slices.availableSlices = settings.availableSlices;
+      slices.i18n = settings.i18n;
 
 
       addSliceOptions(slices.availableSlices);
 
-      templates = [
+      templates = _.flatten([
         'slice',
         settings.mainTemplate,
         settings.metaTemplate,
-        settings.mainExtraTemplate,
-        settings.metaExtraTemplate
-      ];
+        settings.mainExtraTemplates,
+        settings.metaExtraTemplates
+      ]);
 
       loadSliceTemplates(pageId);
       loadTemplates(templates, pageId, loadPageModel);
@@ -298,10 +299,12 @@ var slices = {
           $('#page-meta').slideDown('fast');
           $(this).html('<a href="#">hide advanced options</a>');
           $(this).addClass('open');
+          $(document).trigger('slices:didShowAdvancedOptions');
         }, function() {
           $('#page-meta').slideUp('fast');
           $(this).html('<a href="#">advanced options&hellip;</a>');
           $(this).removeClass('open');
+          $(document).trigger('slices:didHideAdvancedOptions');
         });
 
         if (slices.model.Page.seemsNew()) $('#show-meta').trigger('click');
@@ -312,16 +315,16 @@ var slices = {
 
     function initMeta() {
       $('#page-main').html(renderMetaFields(settings.mainTemplate));
-
       $('#page-meta').html(renderMetaFields(settings.metaTemplate));
+      $('#page-extra-main').empty();
 
-      if (settings.metaExtraTemplate) {
-        $('#page-meta').append(renderMetaFields(settings.metaExtraTemplate));
-      }
+      $.each(settings.metaExtraTemplates, function(i, template) {
+        $('#page-meta').append(renderMetaFields(template));
+      });
 
-      if (settings.mainExtraTemplate) {
-        $('#page-extra-main').html(renderMetaFields(settings.mainExtraTemplate));
-      }
+      $.each(settings.mainExtraTemplates, function(i, template) {
+        $('#page-extra-main').append(renderMetaFields(template));
+      });
 
       $('#page-meta-fields').applyDataValues().initDataPlugins();
 

@@ -86,10 +86,26 @@ slices.ComposerView = Backbone.View.extend({
   },
 
   update: function() {
+    this.ensureMinAndMax();
+
     var value = this.collection.toJSON();
     this.$el.data('computed-value', value);
     this.$el[this.collection.isEmpty() ? 'removeClass' : 'addClass']('not-empty');
     if (this.broadcastChanges) this.$el.trigger('change');
+  },
+
+  ensureMinAndMax: function() {
+    var actions = this.$('.composer-actions');
+
+    if (this.collection.length < this.options.min) {
+      this.collection.add({});
+    }
+
+    if (this.collection.length >= this.options.max) {
+      actions.hide();
+    } else {
+      actions.show();
+    }
   },
 
   addItem: function(item, collection, options) {

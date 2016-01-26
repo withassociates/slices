@@ -1,9 +1,8 @@
-require 'rails'
-require 'bson'
 require 'devise'
-require 'mongo'
+require 'devise/orm/mongoid'
 require 'mongoid'
 require 'mongoid_paperclip'
+require 'will_paginate_mongoid'
 require 'RedCloth'
 require 'redcarpet'
 require 'stringex'
@@ -12,8 +11,6 @@ require 'slices/paperclip'
 require 'slices/version'
 
 require 'mongo_search'
-require 'ext/file_store_cache'
-
 module Slices
   autoload :Config,                     'slices/config'
   autoload :CmsFormBuilder,             'slices/cms_form_builder'
@@ -22,6 +19,7 @@ module Slices
   autoload :GeneratorMacros,            'slices/generator_macros'
   autoload :HasSlices,                  'slices/has_slices'
   autoload :HasAttachments,             'slices/has_attachments'
+  autoload :LocalizedFields,            'slices/localized_fields'
   autoload :PageAsJSON,                 'slices/page_as_json'
   autoload :Renderer,                   'slices/renderer'
   autoload :PositionHelper,             'slices/position_helper'
@@ -44,23 +42,12 @@ module Slices
     end
   end
 
-  def self.test_environment?
-    Rails.env.test? && Rails.root.to_s == Slices.gem_path
-  end
-
 end
 
-require 'slices/slices_engine' if defined?(Rails)
-require 'slices/i18n'
-require 'slices/will_paginate_mongoid'
+require 'slices/engine' if defined?(Rails)
 require 'slices/will_paginate'
-require 'set_link_renderer'
 
 Slices::Config.use_snippets!
-
-if Rails.env.test? || Rails.env.development?
-  require 'standard_tree'
-end
 
 Mime::Type.register_alias 'text/plain', :hbs
 Time::DATE_FORMATS.merge!(

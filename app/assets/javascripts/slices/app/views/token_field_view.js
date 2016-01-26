@@ -13,7 +13,6 @@ var ESC       = 27,
     BACKSPACE = 8,
     UP        = 38,
     DOWN      = 40,
-    COMMA     = 188,
     TAB       = 9;
 
 slices.TokenFieldView = Backbone.View.extend({
@@ -22,25 +21,38 @@ slices.TokenFieldView = Backbone.View.extend({
 
   events: {
     'keydown'       : 'onKey',
-    'keypress'      : 'onKey',
+    'input'         : 'onInput',
     'click .del'    : 'onClickDel',
-    'click .option' : 'onClickOption'
+    'click .option' : 'onClickOption',
+    'click .toggle' : 'onClickToggle'
   },
 
   className: 'token-field',
 
   template: Handlebars.compile(
-    '<input type="text" class="input" name="{{id}}">' +
+    '<input type="text" class="input" name="{{id}}" list="datalist-{{id}}">' +
     '<span class="tokens">' +
       '{{#each values}}' +
         '<span class="token" data-value="{{this}}" unselectable="true">{{this}} <span class="del">&times;</span></span>' +
       '{{/each}}' +
     '</span>' +
     '<span class="options">' +
-      '{{#each valueOptions}}' +
-        '<a href="#" class="option">{{this}}</a>' +
+      '{{#if isShowingAll}}' +
+        '{{#each valueOptions}}' +
+          '<a href="#" class="option">{{this}}</a>' +
+        '{{/each}}' +
+      '{{else}}' +
+        '{{#each someOptions}}' +
+          '<a href="#" class="option">{{this}}</a>' +
+        '{{/each}}' +
+        '<a href="#" class="toggle">Show all…</a>' +
+      '{{/if}}' +
+    '</span>' +
+    '<datalist id="datalist-{{id}}">' +
+      '{{#each remainingOptions}}' +
+        '<option>{{this}}</option>' +
       '{{/each}}' +
-    '</span>'
+    '</datalist>'
   ),
 
   // -- Init --
@@ -51,8 +63,14 @@ slices.TokenFieldView = Backbone.View.extend({
     this.values = this.sanitizeValues(this.options.values);
     this.prevValues = [].concat(this.values || []);
     this.valueOptions = [].concat(this.options.options || []);
+    this.someOptions = this.valueOptions.slice(0, 5);
+
+    if (this.valueOptions.length <= this.someOptions.length) {
+      this.isShowingAll = true;
+    }
 
     $(document).on('slices:willSubmit', this.capture);
+    $(document).on('slices:didShowAdvancedOptions', this.render);
 
     if (this.options.autoAttach) _.defer(this.attach);
   },
@@ -77,6 +95,7 @@ slices.TokenFieldView = Backbone.View.extend({
     this.updateValueOptions();
     this.updateLayout();
     this.updateInput();
+    this.makeSortable();
 
     if (_.isEqual(this.values, this.prevValues)) return;
 
@@ -99,10 +118,6 @@ slices.TokenFieldView = Backbone.View.extend({
     this.focus();
   },
 
-  delayedCapture: _.debounce(function() {
-    this.capture();
-  }, 750),
-
   focusOrRemoveLastToken: function(e) {
     var focusedToken = this.$el.find('.token.focus');
 
@@ -117,16 +132,25 @@ slices.TokenFieldView = Backbone.View.extend({
 
   updateLayout: function() {
     var tokens = this.$el.find('.tokens'),
-        input = this.$el.find('input');
+        input = this.$el.find('input'),
+        lastToken = tokens.children().last();
+
 
     if (!this.hasOwnProperty('_paddingLeft')) {
-      this._paddingLeft = input.css('paddingLeft');
+      this._paddingLeft = parseInt(input.css('paddingLeft'));
     }
 
     if (this.values.length) {
-      input.css({ paddingLeft: tokens.outerWidth() + 'px' });
+      var left = lastToken.position().left + lastToken.outerWidth();
+      input.css({ paddingLeft: left + this._paddingLeft });
     } else {
       input.css({ paddingLeft: this._paddingLeft });
+    }
+
+    if (tokens.outerHeight() > input.outerHeight()) {
+      input.css({
+        paddingTop: tokens.outerHeight() - lastToken.outerHeight()
+      });
     }
   },
 
@@ -161,18 +185,45 @@ slices.TokenFieldView = Backbone.View.extend({
     this.$el.data('computed-value', computedValue || null);
   },
 
+  makeSortable: function() {
+    var self = this;
+
+    this.$el.find('.tokens').sortable({
+      stop: function(event, ui) {
+        var token = ui.item.data('value'),
+            index = ui.item.index();
+
+        self.moveTokenToIndex(token, index);
+      }
+    });
+  },
+
+  moveTokenToIndex: function(token, toIndex) {
+    var fromIndex = _.indexOf(this.values, token);
+    this.values.splice(toIndex, 0, this.values.splice(fromIndex, 1)[0]);
+
+    this.render();
+  },
+
   // -- Event Handlers --
 
   onKey: function(e) {
+    this.lastKey = Date.now();
+
     switch (e.which) {
     case ENTER:
-    case COMMA:
     case TAB:
       this.onTokenBreaker(e); break;
     case BACKSPACE:
       this.onBackspace(e); break;
     default:
-      this.delayedCapture();
+      return;
+    }
+  },
+
+  onInput: function() {
+    if (!this.lastKey || Date.now() - this.lastKey > 10) {
+      this.capture();
     }
   },
 
@@ -190,9 +241,7 @@ slices.TokenFieldView = Backbone.View.extend({
     var input = this.$el.find('input'),
         value = input.val();
 
-    if (value.length) {
-      this.delayedCapture();
-    } else {
+    if (!value.length) {
       e.preventDefault();
       this.focusOrRemoveLastToken();
     }
@@ -226,6 +275,14 @@ slices.TokenFieldView = Backbone.View.extend({
     }
 
     this.render();
+    this.focus();
+  },
+
+  onClickToggle: function(e) {
+    e.preventDefault();
+
+    this.isShowingAll = true;
+    this.render();
   },
 
   // -- Helpers --
@@ -245,7 +302,13 @@ slices.TokenFieldView = Backbone.View.extend({
   },
 
   prepareValueOptions: function() {
+    var self = this;
+
     this.valueOptions = _.uniq(this.valueOptions.concat(this.values)).sort();
+
+    this.remainingOptions = _.reject(this.valueOptions, function(value) {
+      return _.contains(self.values, value);
+    });
   }
 
 });

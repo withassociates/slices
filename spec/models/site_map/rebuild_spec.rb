@@ -38,7 +38,7 @@ describe SiteMap, type: :model do
     it "prevent you from moving the home page" do
       tree = site_map_tree
       tree.first['id'] = 'bad-id-for-home-page'
-      expect { SiteMap.rebuild(tree) }.to raise_error(RuntimeError)
+      expect { SiteMap.rebuild(tree) }.to raise_error(Mongoid::Errors::DocumentNotFound)
     end
 
     context "with entries" do
