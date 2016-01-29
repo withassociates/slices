@@ -141,7 +141,7 @@ class Page
     "pages/show"
   end
 
-  def update_attributes(attributes)
+  def update_attributes(attributes, options = {})
     attributes = attributes.symbolize_keys
 
     unless home?
@@ -159,7 +159,6 @@ class Page
       update_path_for_children if attributes.has_key?(:path)
     end
   end
-
 
   # Added in merge or page & content
   def set_keywords

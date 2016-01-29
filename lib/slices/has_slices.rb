@@ -28,7 +28,7 @@ module Slices
       end
     end
 
-    def update_attributes(attributes)
+    def update_attributes(attributes, options = {})
       [:slices, :set_slices].each do |embed_name|
         next if attributes[embed_name].nil?
 
