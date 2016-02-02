@@ -1,10 +1,17 @@
+### Bug fixes
+
+* [#157](https://github.com/withassociates/slices/pull/157): Fix issue where
+sitemap wasn't showing correct icons for page types and wasn't showing child
+pages in correct order (fixed in [#152](https://github.com/withassociates/slices/pull/152)
+on master)
+
 # 2.0.1 / 2016-02-02
 
 ### Bug fixes
 
 * [#154](https://github.com/withassociates/slices/pull/154): Fix issue where
 sitemap wasn't showing correct icons for page types and wasn't showing child
-pages in correct order (fixed in [#152](https://github.com/withassociates/slices/pull/154)
+pages in correct order (fixed in [#152](https://github.com/withassociates/slices/pull/152)
 on master)
 
 # 2.0.0 / 2016-01-15
