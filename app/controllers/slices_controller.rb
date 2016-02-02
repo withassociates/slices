@@ -35,6 +35,11 @@ class SlicesController < ActionController::Base
 
   private
 
+  def redirect_or_render_page(page, status = 200)
+    return redirect_to(page.external_url) if page.external_url?
+    render_page(page, status)
+  end
+
   def render_page(page, status = 200)
     @page = page
 

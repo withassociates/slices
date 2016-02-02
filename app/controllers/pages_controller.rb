@@ -29,7 +29,7 @@ class PagesController < SlicesController
       page = Page.find_by_path(request.path)
       raise Page::NotFound unless page.active?
     end
-    render_page(page)
+    redirect_or_render_page(page)
   end
 
   private
