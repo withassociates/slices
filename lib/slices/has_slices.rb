@@ -11,6 +11,8 @@ module Slices
         embeds_many embed_name, class_name: 'Slice', validate: false
         accepts_nested_attributes_for embed_name, allow_destroy: true
 
+        scope :"excluding_#{embed_name}", ->{ without(embed_name) }
+
         class_attribute :slice_embeds if self == Page
         if slice_embeds.nil?
           self.slice_embeds = [embed_name]
