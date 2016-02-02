@@ -25,6 +25,7 @@ module Slices
   autoload :PageAsJSON,                 'slices/page_as_json'
   autoload :Renderer,                   'slices/renderer'
   autoload :PositionHelper,             'slices/position_helper'
+  autoload :Serialization,              'slices/serialization'
   autoload :SplitDateTimeField,         'slices/split_date_time_field'
   autoload :Tree,                       'slices/tree'
 
