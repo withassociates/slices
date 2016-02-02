@@ -7,7 +7,7 @@ module Admin::SiteMapsHelper
   #
   # @!visibility private
   def sitemap_pages
-    @sitemap_pages ||= proper_pages.only(:id, :name, :page_id, :path).group_by(&:page_id)
+    @sitemap_pages ||= proper_pages.excluding_slices.group_by(&:page_id)
   end
 
   # Returns children for a given page

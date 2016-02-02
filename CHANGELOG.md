@@ -6,6 +6,9 @@
 - [#101](https://github.com/withassociates/slices/pull/101): Remove `PagesHelper#google_analytics_tracking_code` and `PagesHelper#add_tracking_code`
     * You should include the GA Javascript yourself.
 
+### Bug fixes
+- [#152](https://github.com/withassociates/slices/pull/152): Fix issue where sitemap wasn't showing correct icons for page types and wasn't showing child pages in correct order
+
 ## 2.0.0 / 2016-01-15
 
 * Rails I18n support
