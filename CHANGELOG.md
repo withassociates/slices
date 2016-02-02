@@ -1,3 +1,5 @@
+# 2.0.1 / 2016-02-02
+
 ### Bug fixes
 
 * [#154](https://github.com/withassociates/slices/pull/154): Fix issue where
