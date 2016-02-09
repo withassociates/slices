@@ -103,7 +103,7 @@ class Slice
   end
 
   def as_json(*args)
-    Slices::Serialization.for_json(self).tap do |result|
+    Slices::Serialization.for_json(self).except('embeddables').tap do |result|
       result.merge!('client_id' => client_id) if client_id? && new_record?
 
       localized_field_names.each do |name|
