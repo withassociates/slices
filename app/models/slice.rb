@@ -103,16 +103,11 @@ class Slice
   end
 
   def as_json(*args)
-    attributes.symbolize_keys.except(:_id, :_type).tap do |result|
-      result.merge!(id: id.to_s, type: type)
-      result.merge!(client_id: client_id) if client_id? && new_record?
-
-      self.embedded_relations.each do |field, metadata|
-        result.merge!(field.to_sym => send(field).map(&:as_json))
-      end
+    Slices::Serialization.for_json(self).tap do |result|
+      result.merge!('client_id' => client_id) if client_id? && new_record?
 
       localized_field_names.each do |name|
-        result.merge!(name => send(name))
+        result.merge!(name.to_s => send(name))
       end
     end
   end

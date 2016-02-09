@@ -14,3 +14,4 @@ http://www.rubydoc.info/gems/mongoid/4.0.0/Mongoid%2FContextual%2FMongo%3Atext_s
 `PagesHelper#google_analytics_tracking_code` has been removed, visit [google.com/analytics](http://www.google.com/analytics/)
 and use the upto date tracking code.
 
+Dynamically assigned fields will not be automatically serialized.

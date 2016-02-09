@@ -14,18 +14,18 @@ describe Article, type: :model do
     end
 
     it "has page attributes" do
-      expect(json_article[:id]).to eq article.id.to_s
-      expect(json_article[:name]).to eq article.name
-      expect(json_article[:permalink]).to eq article.permalink
+      expect(json_article['id']).to eq article.id.to_s
+      expect(json_article['name']).to eq article.name
+      expect(json_article['permalink']).to eq article.permalink
     end
 
     it "has slice attributes" do
       slice = article.slices.first
-      expect(json_article[:slices][0][:title]).to eq slice.title
+      expect(json_article['slices'][0]['title']).to eq slice.title
     end
 
     it "has article attributes" do
-      expect(json_article[:published_at]).to eq article.published_at
+      expect(json_article['published_at']).to eq article.published_at.as_json
     end
 
   end
