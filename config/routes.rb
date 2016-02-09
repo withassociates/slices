@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     resources :pages, :except => [:index, :edit] do
       resources :entries, :only => [:index]
     end
-    resources :assets
+    resources :assets, :except => [:show]
     resources :snippets
     resources :admins
   end

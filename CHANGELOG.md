@@ -8,6 +8,7 @@
 
 ### Bug fixes
 - [#152](https://github.com/withassociates/slices/pull/152): Fix issue where sitemap wasn't showing correct icons for page types and wasn't showing child pages in correct order
+- [#161](https://github.com/withassociates/slices/pull/161): Remove the Admin::Assets#show route
 
 ## 2.0.0 / 2016-01-15
 
