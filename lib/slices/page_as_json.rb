@@ -7,7 +7,7 @@ module Slices
       options ||= {}
 
       hash = Slices::Serialization.for_json(self).except('author_id', 'set_slices').merge(
-        'slices' => Slices::Serialization.for_json(ordered_slices_for(options[:slice_embed])),
+        'slices' => ordered_slices_for(options[:slice_embed]).map {|slice| slice.as_json },
         'permalink' => permalink,
         'available_layouts' => available_layouts
       )
