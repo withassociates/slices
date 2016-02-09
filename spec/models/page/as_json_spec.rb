@@ -5,13 +5,14 @@ describe Page, type: :model do
 
     let :admin do
       Admin.create!({
+        name: 'Hello',
         email: 'hello@withassociates.com',
         password: '123456'
       })
     end
 
     let :slice_json do
-      page_json[:slices].first
+      page_json['slices'].first
     end
 
     context "with no arguments" do
@@ -32,10 +33,10 @@ describe Page, type: :model do
 
       it "has page attributes" do
         expect(page_json).to include({
-          id: page.id.to_s,
-          name: page.name,
-          permalink: page.permalink,
-          author: { id: admin.id.to_s, name: admin.name }
+          'id' => page.id.to_s,
+          'name' => page.name,
+          'permalink' => page.permalink,
+          'author' => { 'id' => admin.id.to_s, 'name' => admin.name }
         })
       end
 
@@ -45,7 +46,7 @@ describe Page, type: :model do
 
       it "has slice attributes" do
         expect(slice_json).to include({
-          title: slice.title
+          'title' => slice.title
         })
       end
 
@@ -77,15 +78,15 @@ describe Page, type: :model do
 
       it "has page attributes" do
         expect(page_json).to include({
-          id: page.id.to_s,
-          name: page.name,
-          permalink: page.permalink
+          'id' => page.id.to_s,
+          'name' => page.name,
+          'permalink' => page.permalink
         })
       end
 
       it "has slice attributes" do
         expect(slice_json).to include({
-          textile: slice.textile
+          'textile' => slice.textile
         })
       end
     end
