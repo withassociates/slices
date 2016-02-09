@@ -47,7 +47,7 @@ describe Slices::Serialization, ".for_json" do
       "has_content" => false,
       "id" => page.id.to_s,
       "layout" => "default",
-      "meta_description" => nil,
+      "meta_description" => "",
       "name" => "Foo",
       "page_id" => nil,
       "path" => nil,
@@ -55,15 +55,15 @@ describe Slices::Serialization, ".for_json" do
       "role" => nil,
       "show_in_nav" => true,
       "slices" => [{
-        "container" => nil,
         "id" => slice.id.to_s,
+        "container" => nil,
         "position" => 0,
+        "type" => "test",
         "strict_embeds" => [{
           "id" => strict_embed.id.to_s,
           "text" => "Baz"
         }],
         "text" => "Bar",
-        "type" => "test",
       }],
       "title" => "Foo",
       "updated_at" => nil,
