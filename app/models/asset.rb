@@ -14,6 +14,7 @@ class Asset
   field :file_file_size, type: Integer
   field :file_fingerprint, type: String
   field :file_dimensions, type: Hash, default: {}
+  field :processing, type: Boolean, default: false
 
   field :tags, type: String
   field :page_cache, type: Array, default: []
@@ -94,9 +95,16 @@ class Asset
   end
 
   def reprocess_for(style)
+    return if processing?
+
     if file.styles.has_key?(style) && ! file_dimensions.has_key?(style.to_s)
-      file.reprocess!(style)
-      save
+      begin
+        set(:processing, true)
+        file.reprocess!(style)
+        save
+      ensure
+        set(:processing, false)
+      end
     end
   rescue Errors::NotIdentifiedByImageMagickError, Errno::ENOENT
   end
